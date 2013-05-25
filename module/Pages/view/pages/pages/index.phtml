@@ -1,0 +1,33 @@
+<?php
+// module/Album/view/album/album/index.phtml:
+
+$title = 'My pages';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+
+
+<table class="table">
+<tr>
+    <th>Id</th>
+    <th>Page Title</th>
+    <th>Page Text</th>
+    <th>Page Img</th>
+    <th>Page Carousel</th>
+    <th>Page Name</th>
+    <th>&nbsp;</th>
+</tr>
+<?php foreach ($pages as $page) : ?>
+<tr>
+    <td><?php echo $this->escapeHtml($page->page_id);?></td>
+    <td><?php echo $this->escapeHtml($page->page_title);?></td>
+    <th><?php echo $this->escapeHtml($page->page_text);?></th>
+    <th><?php echo $this->escapeHtml($page->page_img);?></th>
+    <th><?php echo $this->escapeHtml($page->page_carousel);?></th>
+    <th><?php echo $this->escapeHtml($page->page_name);?></th>
+    <td>
+        
+    </td>
+</tr>
+<?php endforeach; ?>
+</table>
