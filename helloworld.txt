@@ -1,0 +1,8 @@
+This is the first txt document pushed from my local pc
+
+Adding more to the file just to familiarize myself with git.
+
+Added and removed serveral branches. Created a branch called Colin in which I have put some files 
+such as page.html and index.html that I don't want in the main branch.
+
+Just learning, having fun.

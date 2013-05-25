@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ZendSkeletonApplication
 =======================
 
@@ -50,3 +51,9 @@ Virtual Host
 ------------
 Afterwards, set up a virtual host to point to the public/ directory of the
 project and you should be ready to go!
+=======
+medicuscorda
+============
+
+Repository for the development of a website.
+>>>>>>> 1ba6d1a666204df27989b46866b1fbf9c90c45a3
