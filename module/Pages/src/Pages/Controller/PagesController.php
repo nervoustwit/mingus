@@ -125,6 +125,16 @@ class PagesController extends AbstractActionController
         );
 		
     }
+	
+	public function getCarousel()
+	{
+		
+		$variable = "caca";
+		
+		return $variable;
+		
+		
+	}
 
 	
 }

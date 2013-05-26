@@ -8,7 +8,7 @@ return array(
     
     'router' => array(
         'routes' => array(
-            'album' => array(
+            'pages' => array(
                 'type'    => 'segment',
                 'options' => array(
                     'route'    => '/pages[/][:action][/:id]',
@@ -28,7 +28,7 @@ return array(
 	
     'view_manager' => array(
         'template_path_stack' => array(
-            'album' => __DIR__ . '/../view',
+            'pages' => __DIR__ . '/../view',
         ),
     ),
 );
