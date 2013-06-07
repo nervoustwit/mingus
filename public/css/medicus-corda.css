@@ -1,0 +1,36 @@
+/* 
+    Document   : medicus-corda
+    Created on : Jun 6, 2013, 9:13:24 PM
+    Author     : patrick
+    Description:
+        Purpose of the stylesheet follows.
+*/
+body {
+    padding-top: 10px;
+}
+body, p, div, td, a {
+    font-family: 'Raleway', Verdana, Arial, sans-serif;
+}
+
+div.container a.brand {
+    background: url("../img/rough-logo-logo.png") no-repeat scroll 0px 10px transparent;
+    min-height: 50px;
+    display: block;
+}
+
+ul.nav {
+    margin-bottom: 0;
+}
+
+ul.nav > li {
+    margin-left: 15px;
+}
+div.main-content-container {
+    border-width: 0 1px 1px 1px;
+    border-style: solid;
+    border-color: rgb(221, 221, 221);
+}
+
+div.main-content {
+    margin: 30px 10px;
+}
