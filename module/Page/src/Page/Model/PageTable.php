@@ -1,9 +1,9 @@
 <?php
-namespace Pages\Model;
+namespace Page\Model;
 
 use Zend\Db\TableGateway\TableGateway;
 
-class PagesTable
+class PageTable
 {
     protected $tableGateway;
 
@@ -18,7 +18,7 @@ class PagesTable
         return $resultSet;
     }
 
-    public function getAlbum($id)
+    public function getPage($id)
     {
         $id  = (int) $id;
         $rowset = $this->tableGateway->select(array('id' => $id));
@@ -28,18 +28,21 @@ class PagesTable
         }
         return $row;
     }
-    public function saveAlbum(Album $album)
+    public function savePage(Pages $page)
     {
         $data = array(
-            'artist' => $album->artist,
-            'title'  => $album->title,
+            'title' 	=> $page->title,
+            'text'  	=> $page->text,
+            'img'	  	=> $page->img,
+            'carousel'	=> $page->carousel,
+            'name'  	=> $page->name,
         );
 
-        $id = (int)$album->id;
+        $id = (int)$page->id;
         if ($id == 0) {
             $this->tableGateway->insert($data);
         } else {
-            if ($this->getAlbum($id)) {
+            if ($this->getPage($id)) {
                 $this->tableGateway->update($data, array('id' => $id));
             } else {
                 throw new \Exception('Form id does not exist');
@@ -47,7 +50,7 @@ class PagesTable
         }
     }
 
-    public function deleteAlbum($id)
+    public function deletePage($id)
     {
         $this->tableGateway->delete(array('id' => $id));
     }

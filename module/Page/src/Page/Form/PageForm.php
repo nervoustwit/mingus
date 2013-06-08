@@ -1,14 +1,14 @@
 <?php
-namespace Pages\Form;
+namespace Page\Form;
 
 use Zend\Form\Form;
 
-class PagesForm extends Form
+class PageForm extends Form
 {
     public function __construct($name = null)
     {
         // we want to ignore the name passed
-        parent::__construct('pages');
+        parent::__construct('page');
         $this->setAttribute('method', 'post');
         $this->add(array(
             'name' => 'id',
@@ -22,10 +22,30 @@ class PagesForm extends Form
             ),
         ));
         $this->add(array(
-            'name' => 'artist',
+            'name' => 'text',
             'type' => 'Text',
             'options' => array(
-                'label' => 'Artist : ',
+                'label' => 'Text : ',
+            ),
+        ));
+		$this->add(array(
+            'name' => 'img',
+            'type' => 'Text',
+            'options' => array(
+                'label' => 'Img : ',
+            ),
+        ));$this->add(array(
+            'name' => 'carousel',
+            'type' => 'Text',
+            'options' => array(
+                'label' => 'Carousel : ',
+            ),
+        ));
+		$this->add(array(
+            'name' => 'name',
+            'type' => 'Text',
+            'options' => array(
+                'label' => 'Name : ',
             ),
         ));
         $this->add(array(

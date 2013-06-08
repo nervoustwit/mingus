@@ -1,50 +1,50 @@
 <?php
 
 
-namespace Pages\Controller;
+namespace Page\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use Pages\Model\Pages;
-use Pages\Form\PagesForm;
+use Page\Model\Page;
+use Page\Form\PageForm;
 
 
-class PagesController extends AbstractActionController
+class PageController extends AbstractActionController
 {
-	protected $pagesTable;
+	protected $pageTable;
 	
-	public function getPagesTable()
+	public function getPageTable()
     {
-        if (!$this->pagesTable) {
+        if (!$this->pageTable) {
             $sm = $this->getServiceLocator();
-            $this->pagesTable = $sm->get('Pages\Model\PagesTable');
+            $this->pageTable = $sm->get('Page\Model\PageTable');
         }
-        return $this->pagesTable;
+        return $this->pageTable;
     }
 	
     public function indexAction()
     {
-    	return new ViewModel(array('pages' => $this->getPagesTable()->fetchAll(),
+    	return new ViewModel(array('pages' => $this->getPageTable()->fetchAll(),
         ));
     }
 
     public function addAction()
     {
-    	$form = new AlbumForm();
+    	$form = new PageForm();
         $form->get('submit')->setValue('Add');
 
         $request = $this->getRequest();
         if ($request->isPost()) {
-            $album = new Album();
-            $form->setInputFilter($album->getInputFilter());
+            $page = new Page();
+            $form->setInputFilter($page->getInputFilter());
             $form->setData($request->getPost());
 
             if ($form->isValid()) {
-                $album->exchangeArray($form->getData());
-                $this->getAlbumTable()->saveAlbum($album);
+                $page->exchangeArray($form->getData());
+                $this->getPageTable()->savePage($page);
 
                 // Redirect to list of albums
-                return $this->redirect()->toRoute('album');
+                return $this->redirect()->toRoute('page');
             }
         }
         return array('form' => $form);
@@ -56,7 +56,7 @@ class PagesController extends AbstractActionController
     	
 		$id = (int) $this->params()->fromRoute('id', 0);
         if (!$id) {
-            return $this->redirect()->toRoute('album', array(
+            return $this->redirect()->toRoute('page', array(
                 'action' => 'add'
             ));
         }
@@ -64,28 +64,29 @@ class PagesController extends AbstractActionController
         // Get the Album with the specified id.  An exception is thrown
         // if it cannot be found, in which case go to the index page.
         try {
-            $album = $this->getAlbumTable()->getAlbum($id);
+            $page = $this->getPageTable()->getPage($id);
         }
         catch (\Exception $ex) {
-            return $this->redirect()->toRoute('album', array(
+            return $this->redirect()->toRoute('page', array(
                 'action' => 'index'
             ));
+			
         }
 
-        $form  = new AlbumForm();
-        $form->bind($album);
+        $form  = new PageForm();
+        $form->bind($page);
         $form->get('submit')->setAttribute('value', 'Edit');
 
         $request = $this->getRequest();
         if ($request->isPost()) {
-            $form->setInputFilter($album->getInputFilter());
+            $form->setInputFilter($page->getInputFilter());
             $form->setData($request->getPost());
 
             if ($form->isValid()) {
-                $this->getAlbumTable()->saveAlbum($form->getData());
+                $this->getPageTable()->savePage($form->getData());
 
                 // Redirect to list of albums
-                return $this->redirect()->toRoute('album');
+                return $this->redirect()->toRoute('page');
             }
         }
 
@@ -102,7 +103,7 @@ class PagesController extends AbstractActionController
     {
         $id = (int) $this->params()->fromRoute('id', 0);
         if (!$id) {
-            return $this->redirect()->toRoute('album');
+            return $this->redirect()->toRoute('page');
         }
 	
 
@@ -112,16 +113,16 @@ class PagesController extends AbstractActionController
 
             if ($del == 'Yes') {
                 $id = (int) $request->getPost('id');
-                $this->getAlbumTable()->deleteAlbum($id);
+                $this->getPageTable()->deletePage($id);
             }
 
             // Redirect to list of albums
-            return $this->redirect()->toRoute('album');
+            return $this->redirect()->toRoute('page');
         }
 
         return array(
             'id'    => $id,
-            'album' => $this->getAlbumTable()->getAlbum($id)
+            'page' => $this->getPageTable()->getPage($id)
         );
 		
     }

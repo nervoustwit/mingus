@@ -1,8 +1,8 @@
 <?php
-namespace Pages;
+namespace Page;
 
-use Pages\Model\Pages;
-use Pages\Model\PagesTable;
+use Page\Model\Page;
+use Page\Model\PageTable;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
 
@@ -32,16 +32,16 @@ class Module
     {
         return array(
             'factories' => array(
-                'Pages\Model\PagesTable' =>  function($sm) {
-                    $tableGateway = $sm->get('PagesTableGateway');
-                    $table = new PagesTable($tableGateway);
+                'Page\Model\PageTable' =>  function($sm) {
+                    $tableGateway = $sm->get('PageTableGateway');
+                    $table = new PageTable($tableGateway);
                     return $table;
                 },
-                'PagesTableGateway' => function ($sm) {
+                'PageTableGateway' => function ($sm) {
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
                     $resultSetPrototype = new ResultSet();
-                    $resultSetPrototype->setArrayObjectPrototype(new Pages());
-                    return new TableGateway('pages', $dbAdapter, null, $resultSetPrototype);
+                    $resultSetPrototype->setArrayObjectPrototype(new Page());
+                    return new TableGateway('page', $dbAdapter, null, $resultSetPrototype);
                 },
             ),
         );

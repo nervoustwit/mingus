@@ -2,22 +2,22 @@
 return array(
     'controllers' => array(
         'invokables' => array(
-            'Pages\Controller\Pages' => 'Pages\Controller\PagesController',
+            'Page\Controller\Page' => 'Page\Controller\PageController',
         ),
     ),
     
     'router' => array(
         'routes' => array(
-            'pages' => array(
+            'page' => array(
                 'type'    => 'segment',
                 'options' => array(
-                    'route'    => '/pages[/][:action][/:id]',
+                    'route'    => '/page[/][:action][/:id]',
                     'constraints' => array(
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'id'     => '[0-9]+',
                     ),
                     'defaults' => array(
-                        'controller' => 'Pages\Controller\Pages',
+                        'controller' => 'Page\Controller\Page',
                         'action'     => 'index',
                     ),
                 ),
@@ -28,7 +28,7 @@ return array(
 	
     'view_manager' => array(
         'template_path_stack' => array(
-            'pages' => __DIR__ . '/../view',
+            'page' => __DIR__ . '/../view',
         ),
     ),
 );

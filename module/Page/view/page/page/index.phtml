@@ -1,0 +1,38 @@
+<?php
+
+$title = 'My pages';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<p>
+    <a href="<?php echo $this->url('page', array('action'=>'add'));?>">Add new page</a>
+</p>
+
+<table class="table">
+<tr>
+    <th>Id</th>
+    <th>Page Title</th>
+    <th>Page Text</th>
+    <th>Page Img</th>
+    <th>Page Carousel</th>
+    <th>Page Name</th>
+    <th>&nbsp;</th>
+</tr>
+<?php foreach ($pages as $page) : ?>
+<tr>
+    <td><?php echo $this->escapeHtml($page->id);?></td>
+    <td><?php echo $this->escapeHtml($page->title);?></td>
+    <td><?php echo $this->escapeHtml($page->text);?></td>
+    <td><?php echo $this->escapeHtml($page->img);?></td>
+    <td><?php echo $this->escapeHtml($page->carousel);?></td>
+    <td><?php echo $this->escapeHtml($page->name);?></td>
+    <td>
+        <a href="<?php echo $this->url('page',
+            array('action'=>'edit', 'id' => $page->id));?>">Edit</a>
+        <a href="<?php echo $this->url('page',
+            array('action'=>'delete', 'id' => $page->id));?>">Delete</a>
+    </td>
+
+</tr>
+<?php endforeach; ?>
+</table>

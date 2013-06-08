@@ -4,7 +4,7 @@ return array(
     'modules' => array(
         'Application',
         'Album',
-        'Pages',
+        'Page',
         'ZF2FileUploadExamples', 
     ),
 
