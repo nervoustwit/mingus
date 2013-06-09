@@ -46,6 +46,7 @@ div.main-content {
     z-index: 5;
     margin: 0px;
     list-style: none outside none;
+    
 }
 
 
@@ -58,6 +59,7 @@ div.main-content {
     text-indent: -999px;
     background-color: rgba(255, 255, 255, 0.25);
     border-radius: 5px 5px 5px 5px;
+    border: solid 1px #00b3ee;
 }
 
 .carousel-inner {
