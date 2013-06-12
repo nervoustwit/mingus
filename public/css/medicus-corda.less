@@ -1,0 +1,97 @@
+@import "../bootstrap/less/bootstrap.less";
+
+@sansFontFamily: 'Raleway', "Helvetica Neue", Helvetica, Arial, sans-serif;
+@baseLineHeight: 26px;
+@baseFontHeight: 16px; 
+
+
+body {
+    padding-top: 10px;
+}
+
+div.container a.brand {
+    background: url("../img/rough-logo-logo.png") no-repeat scroll 0px 10px transparent;
+    min-height: 50px;
+    display: block;
+    padding: 8px 20px 12px 40px;
+}
+
+ul.nav {
+    margin-bottom: 0;
+}
+
+ul.nav > li {
+    margin-left: 15px;
+}
+div.main-content-container {
+    border-width: 0 1px 1px 1px;
+    border-style: solid;
+    border-color: rgb(221, 221, 221);
+}
+
+div.main-content {
+    margin: 30px 10px;
+}
+
+.carousel {
+    padding: 40px 90px;
+    width: 800px;
+    line-height: @baseLineHeight;
+}
+
+.carousel-indicators {
+    position: absolute;
+    top: -15px;
+    right: 15px;
+    z-index: 5;
+    margin: 0px;
+    list-style: none outside none;
+    
+}
+
+.carousel-control-wrapper {
+    position: relative;
+}
+
+.carousel-control-wrapper-row.row-fluid [class*="span"]{
+    padding-top: 0;
+    padding-bottom: 0;
+    min-height: 1px;
+}
+
+.carousel-indicators {
+    li {
+        background-color: rgba(175, 175, 175, 0.5);
+        border: solid 1px #00b3ee;
+        cursor: pointer;
+    }
+    li.active {
+        background-color: rgba(175, 175, 175, 0.25);
+    }
+}
+ 
+.carousel-inner {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    min-height: 350px;
+}
+
+
+.carousel, .carousel .item{
+    width: 100%;
+    padding: 0;
+}
+
+.fake-image {
+    height: 450px;
+    width: 550px;
+    background-color: lightgray;
+    line-height: 450px;
+    text-align: center;
+}
+
+h1 {
+    color: rgb(0, 136, 204);
+    font-weight: normal
+}
