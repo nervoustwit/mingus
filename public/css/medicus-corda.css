@@ -5263,6 +5263,7 @@ a.badge:focus {
 }
 body {
   padding-top: 10px;
+  background-color: #e5ebef;
 }
 div.container a.brand {
   background: url("../img/rough-logo-logo.png") no-repeat scroll 0px 10px transparent;
@@ -5273,13 +5274,45 @@ div.container a.brand {
 ul.nav {
   margin-bottom: 0;
 }
-ul.nav > li {
-  margin-left: 15px;
+.nav-tabs {
+  border: solid 0px transparent;
+  margin-left: -2px;
+}
+.nav-tabs li {
+  margin-left: 2px;
+}
+.nav-tabs li a {
+  background: #f7ad7f;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  font-size: 24px;
+  color: #ffffff;
+  -webkit-border-radius: 2;
+  -moz-border-radius: 2;
+  border-radius: 2;
+  text-transform: uppercase;
+  width: 115px;
+  padding-left: 23px;
+  padding-right: 23px;
+  text-align: center;
+  line-height: 22px;
+  height: 46px;
+}
+.nav-tabs li a:hover {
+  background: #f5975d;
+}
+.nav-tabs .active a {
+  color: #f5975d;
 }
 div.main-content-container {
-  border-width: 0 1px 1px 1px;
+  margin: 5px auto;
+  border-color: #ffffff;
+  border-width: 1px;
   border-style: solid;
-  border-color: #dddddd;
+  -webkit-border-radius: 2;
+  -moz-border-radius: 2;
+  border-radius: 2;
+  background-color: #ffffff;
 }
 div.main-content {
   margin: 30px 10px;
@@ -5306,12 +5339,20 @@ div.main-content {
   min-height: 1px;
 }
 .carousel-indicators li {
-  background-color: rgba(175, 175, 175, 0.5);
-  border: solid 1px #00b3ee;
+  background-color: #f7ad7f;
+  color: #ffffff;
+  border: solid 1px #f5975d;
   cursor: pointer;
+  height: 15px;
+  width: 15px;
+  text-indent: 0;
+  -webkit-border-radius: 1;
+  -moz-border-radius: 1;
+  border-radius: 1;
 }
 .carousel-indicators li.active {
-  background-color: rgba(175, 175, 175, 0.25);
+  background-color: #ffffff;
+  color: #f7ad7f;
 }
 .carousel-inner {
   position: relative;
@@ -5334,4 +5375,5 @@ div.main-content {
 h1 {
   color: #0088cc;
   font-weight: normal;
+  text-transform: uppercase;
 }

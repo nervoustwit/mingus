@@ -3,10 +3,14 @@
 @sansFontFamily: 'Raleway', "Helvetica Neue", Helvetica, Arial, sans-serif;
 @baseLineHeight: 26px;
 @baseFontHeight: 16px; 
+@menuFontFamily: "Helvetica Neue", Helvetica, Arial, sans-serif;
 
-
+@medicusCordaLightGrey: #E5EBEF;
+@medicusCordaOrange: #F7AD7F;
+@medicusCordaDarkOrange: darken(@medicusCordaOrange, 7%);
 body {
     padding-top: 10px;
+    background-color: @medicusCordaLightGrey; 
 }
 
 div.container a.brand {
@@ -20,13 +24,47 @@ ul.nav {
     margin-bottom: 0;
 }
 
-ul.nav > li {
-    margin-left: 15px;
+.nav-tabs {
+    border: solid 0px transparent;
+    margin-left: -2px;
+
+    li {
+        margin-left: 2px;
+        a {
+            background: @medicusCordaOrange;
+            font-family: @menuFontFamily;
+            font-weight: normal;
+            font-size: 24px;
+            color: @white;
+            .border-radius(2);
+            text-transform: uppercase;
+            width: 115px;
+            padding-left: 23px;
+            padding-right: 23px;
+            text-align: center;
+            line-height: 22px;
+            height: 46px;
+
+            &:hover {
+                background: @medicusCordaDarkOrange;
+            }
+        }
+    }
+
+    .active {
+        a {
+            color: @medicusCordaDarkOrange;
+        }
+    }
 }
+
 div.main-content-container {
-    border-width: 0 1px 1px 1px;
-    border-style: solid;
-    border-color: rgb(221, 221, 221);
+    margin: 5px auto;
+    border-color: @white;
+    border-width: 1px;
+    border-style:solid;
+    .border-radius(2);
+    background-color: @white;
 }
 
 div.main-content {
@@ -61,12 +99,18 @@ div.main-content {
 
 .carousel-indicators {
     li {
-        background-color: rgba(175, 175, 175, 0.5);
-        border: solid 1px #00b3ee;
+        background-color: @medicusCordaOrange;
+        color: @white;
+        border: solid 1px @medicusCordaDarkOrange;
         cursor: pointer;
+        height: 15px;
+        width: 15px;
+        text-indent: 0;
+        .border-radius(1);
     }
     li.active {
-        background-color: rgba(175, 175, 175, 0.25);
+        background-color: @white;
+        color: @medicusCordaOrange;
     }
 }
  
@@ -93,5 +137,6 @@ div.main-content {
 
 h1 {
     color: rgb(0, 136, 204);
-    font-weight: normal
+    font-weight: normal;
+    text-transform:uppercase;
 }
