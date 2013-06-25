@@ -6,12 +6,15 @@ namespace Page\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Page\Model\Page;
+use Page\Model\TabNav;
 use Page\Form\PageForm;
 
 
 class PageController extends AbstractActionController
 {
 	protected $pageTable;
+	protected $tabNavTable;
+	protected $pageContentTable;
 	
 	public function getPageTable()
     {
@@ -21,6 +24,24 @@ class PageController extends AbstractActionController
         }
         return $this->pageTable;
     }
+	
+	public function getTabNavTable()
+    {
+        if (!$this->tabNavTable) {
+            $sm = $this->getServiceLocator();
+            $this->tabNavTable = $sm->get('Page\Model\TabNavTable');
+        }
+        return $this->tabNavTable;
+    }
+	public function getPageContentTable()
+    {
+        if (!$this->pageContentTable) {
+            $sm = $this->getServiceLocator();
+            $this->pageContentTable = $sm->get('Page\Model\PageContentTable');
+    }
+        return $this->pageContentTable;
+    }
+	
 	
     public function indexAction()
     {
@@ -127,14 +148,57 @@ class PageController extends AbstractActionController
 		
     }
 	
-	public function getCarousel()
+	public function stageExampleAction()
 	{
-		
-		$variable = "caca";
-		
-		return $variable;
+		//$resultSet = $this->getPageTable()->fetchAll();
 		
 		
+		
+	//	foreach($resultset){
+		//$rowsetArray = $resultSet->buffer();
+	//	$rowsetArray = $resultSet->next();
+//		}
+		
+//		$tabNav = new TabNav();
+//		$tabNav = $tabNav->testAllrows();
+//		$page = array();
+//		 foreach($resultSet as $row ){
+//		 	$page['title']	= $row->title;
+//			$page['text']	= $row->text;
+//			$page['img']	= $row->img;
+//			$page['name']	= $row->name; 
+//		 }
+	
+	//$page = $this->getTabNav()->testAllRows();
+		
+		//return new ViewModel(array('page' => $resultSet ,
+        	//));
+        
+//        $page = array();100,
+ //                       ),
+//                    ),
+//                ),
+//            )));
+
+			     //       $inputFilter->add($factory->createInput(array(
+               // 'name'     => 'text',
+                //'required' => true,
+                //'filte
+//		$page[]= 'cool';
+//		$page[]= 'awsome';
+		
+		//return new ViewModel(array('page' => $resultSet ,
+        //));
+        //return $page;
+        
+  $tabNav = $this->getTabNavTable()->fetchAll();
+  
+
+  $pageContent = $this->getPageContentTable()->fetchAll();
+        
+return new ViewModel(array('test' => $tabNav, 'contents' => $pageContent
+        ));
+        
 	}
 
 	

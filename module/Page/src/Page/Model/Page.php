@@ -24,7 +24,7 @@ class Page implements InputFilterAwareInterface
         $this->title		= (!empty($data['title']))			 ? $data['title']	 : null;
         $this->text			= (!empty($data['text']))			 ? $data['text']	 : null;
 		$this->img     		= (!empty($data['img']))			 ? $data['img']		 : null;
-		$this->carousel		= (!empty($data['carousel']))		 ? $data['id']		 : null;
+		$this->carousel		= (!empty($data['carousel']))		 ? $data['carousel'] : null;
 		$this->name			= (!empty($data['name']))			 ? $data['name']	 : null;
     }
 	

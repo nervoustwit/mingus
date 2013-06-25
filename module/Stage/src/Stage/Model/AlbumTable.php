@@ -1,10 +1,9 @@
 <?php
-namespace Page\Model;
+namespace Album\Model;
 
 use Zend\Db\TableGateway\TableGateway;
-use Zend\Db\ResultSet\Resultset;
 
-class PageTable
+class AlbumTable
 {
     protected $tableGateway;
 
@@ -16,11 +15,10 @@ class PageTable
     public function fetchAll()
     {
         $resultSet = $this->tableGateway->select();
-		
         return $resultSet;
     }
 
-    public function getPage($id)
+    public function getAlbum($id)
     {
         $id  = (int) $id;
         $rowset = $this->tableGateway->select(array('id' => $id));
@@ -30,21 +28,18 @@ class PageTable
         }
         return $row;
     }
-    public function savePage(Page $page)
+    public function saveAlbum(Album $album)
     {
         $data = array(
-            'title' 	=> $page->title,
-            'text'  	=> $page->text,
-            'img'	  	=> $page->img,
-            'carousel'	=> $page->carousel,
-            'name'  	=> $page->name,
+            'artist' => $album->artist,
+            'title'  => $album->title,
         );
 
-        $id = (int)$page->id;
+        $id = (int)$album->id;
         if ($id == 0) {
             $this->tableGateway->insert($data);
         } else {
-            if ($this->getPage($id)) {
+            if ($this->getAlbum($id)) {
                 $this->tableGateway->update($data, array('id' => $id));
             } else {
                 throw new \Exception('Form id does not exist');
@@ -52,23 +47,8 @@ class PageTable
         }
     }
 
-    public function deletePage($id)
+    public function deleteAlbum($id)
     {
         $this->tableGateway->delete(array('id' => $id));
     }
-	
-	public function getPageTabs()
-	{/*
-	$resultSet = $this-fetchAll() ;
-	
-	$tabArray = array();
-	
-	foreach($resultSet as $page){
-		$tabArray = $page->
-		
-	}
-	*/
-	}
-	
-	
 }

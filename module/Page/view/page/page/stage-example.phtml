@@ -1,0 +1,25 @@
+
+<ul id="myTab" class="nav nav-tabs">
+
+<?php foreach ($test as $tab) : ?>
+ <li><a href="#<?php echo $this->escapeHtml($tab->name);?>" data-toggle="tab"><?php echo $this->escapeHtml($tab->title);?></a></li>
+ 
+<?php endforeach; ?>
+</ul>
+
+<div class="tab-content">
+	
+<?php foreach ($contents as $content) : ?>
+	
+<div class="tab-pane" id="<?php echo $this->escapeHtml($content->name);?>">
+	<div class="content-text"><?php echo $this->escapeHtml($content->text);?></div>
+	<div class="content-img"><?php echo $this->escapeHtml($content->img);?></div>
+</div>
+<?php endforeach; ?>
+</div>
+
+<script>
+$(function () {
+$('#myTab a:last').tab('show');
+})
+</script>
