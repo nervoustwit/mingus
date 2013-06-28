@@ -1,21 +1,48 @@
 @import "../bootstrap/less/bootstrap.less";
 
-@sansFontFamily: 'Raleway', "Helvetica Neue", Helvetica, Arial, sans-serif;
+@sansFontFamily: 'Avenir LT W02 65 Medium', "Helvetica Neue", Helvetica, Arial, sans-serif;
 @baseLineHeight: 26px;
 @baseFontHeight: 16px; 
-@menuFontFamily: "Helvetica Neue", Helvetica, Arial, sans-serif;
+@menuFontFamily: "Avenir LT W02 65 Medium", Helvetica, Arial, sans-serif;
+@headingsFontFamily: "Avenir LT W02 65 Medium", Helvetica, Arial, sans-serif;
 
 @medicusCordaLightGrey: #E5EBEF;
-@medicusCordaOrange: #F7AD7F;
+@medicusCordaOrange: #FF4500;
 @medicusCordaDarkOrange: darken(@medicusCordaOrange, 7%);
+@medicusCordaLighterOrange: lighten(@medicusCordaOrange, 45%);
+@medicusCordaLightOrange: darken(@medicusCordaOrange, 85%);
+
+
+@medicusCordaBlue: #25A7AF;
+@medicusCordaDarkBlue: darken(@medicusCordaBlue, 7%);
+@medicusCordaLighterBlue: lighten(@medicusCordaBlue, 50%);
+@medicusCordaLightBlue: darken(@medicusCordaBlue, 85%);
+
+@font-face{
+    font-family:"Avenir LT W02 65 Medium";
+    src:url("/fonts/Avenir65Med.eot?#iefix");
+    src:url("/fonts/Avenir65Med.eot?#iefix") format("eot"),url("/fonts/Avenir65Med.woff") format("woff"),url("/fonts/Avenir65Med.ttf") format("truetype"),url("/fonts/Avenir65Med.svg#3cece34e-2cfb-4b8f-8a9c-04ec56d1e672") format("svg");
+}
+@font-face{
+    font-family:"Avenir LT W02 95 Black";
+    src:url("/fonts/Avenir95Black.eot?#iefix");
+    src:url("/fonts/Avenir95Black.eot?#iefix") format("eot"),url("/fonts/Avenir95Black.woff") format("woff"),url("/fonts/Avenir95Black.ttf") format("truetype"),url("/fonts/Avenir95Black.svg#1cda1791-25c1-48d3-9056-3b04b763b592") format("svg");
+}
+
+@font-face{
+    font-family:"Baskerville W02 Regular 743762";
+    src:url("/fonts/BaskervilleRegular.eot?#iefix");
+    src:url("/fonts/BaskervilleRegular.eot?#iefix") format("eot"),url("/fonts/BaskervilleRegular.woff") format("woff"),url("/fonts/BaskervilleRegular.ttf") format("truetype"),url("/fonts/BaskervilleRegular.svg#32916b5a-0670-4834-b7bc-a3b0e0b48e80") format("svg");
+}
+
 body {
     padding-top: 10px;
     background-color: @medicusCordaLightGrey; 
 }
 
 div.container a.brand {
-    background: url("../img/rough-logo-logo.png") no-repeat scroll 0px 10px transparent;
-    min-height: 50px;
+    background: url("../img/logo.png") no-repeat scroll 0px 10px transparent;
+    min-height: 93px;
     display: block;
     padding: 8px 20px 12px 40px;
 }
@@ -44,27 +71,32 @@ ul.nav {
             text-align: center;
             line-height: 22px;
             height: 46px;
-
+            margin-bottom: 5px;
             &:hover {
-                background: @medicusCordaDarkOrange;
+                background: @white;
+                color: @medicusCordaOrange;
             }
         }
     }
 
     .active {
         a {
-            color: @medicusCordaDarkOrange;
+            background: @white;
+            color: @medicusCordaOrange;
+            height: 53px;
+            margin-bottom: 0;
         }
     }
 }
 
 div.main-content-container {
-    margin: 5px auto;
+    margin: 0 auto;
     border-color: @white;
     border-width: 1px;
     border-style:solid;
     .border-radius(2);
     background-color: @white;
+    color: @medicusCordaBlue;
 }
 
 div.main-content {
@@ -136,7 +168,7 @@ div.main-content {
 }
 
 h1 {
-    color: rgb(0, 136, 204);
+    color: @medicusCordaBlue;
     font-weight: normal;
     text-transform:uppercase;
 }
