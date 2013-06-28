@@ -205,7 +205,7 @@ textarea {
 }
 body {
   margin: 0;
-  font-family: 'Raleway', "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: 'Avenir LT W02 65 Medium', "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 26px;
   color: #333333;
@@ -617,7 +617,7 @@ h4,
 h5,
 h6 {
   margin: 13px 0;
-  font-family: inherit;
+  font-family: "Avenir LT W02 65 Medium", Helvetica, Arial, sans-serif;
   font-weight: bold;
   line-height: 26px;
   color: inherit;
@@ -892,7 +892,7 @@ input,
 button,
 select,
 textarea {
-  font-family: 'Raleway', "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: 'Avenir LT W02 65 Medium', "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 label {
   display: block;
@@ -3830,7 +3830,7 @@ input[type="submit"].btn.btn-mini {
 .navbar-search .search-query {
   margin-bottom: 0;
   padding: 4px 14px;
-  font-family: 'Raleway', "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: 'Avenir LT W02 65 Medium', "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 13px;
   font-weight: normal;
   line-height: 1;
@@ -5261,13 +5261,28 @@ a.badge:focus {
 .affix {
   position: fixed;
 }
+@font-face {
+  font-family: "Avenir LT W02 65 Medium";
+  src: url("/fonts/Avenir65Med.eot?#iefix");
+  src: url("/fonts/Avenir65Med.eot?#iefix") format("eot"), url("/fonts/Avenir65Med.woff") format("woff"), url("/fonts/Avenir65Med.ttf") format("truetype"), url("/fonts/Avenir65Med.svg#3cece34e-2cfb-4b8f-8a9c-04ec56d1e672") format("svg");
+}
+@font-face {
+  font-family: "Avenir LT W02 95 Black";
+  src: url("/fonts/Avenir95Black.eot?#iefix");
+  src: url("/fonts/Avenir95Black.eot?#iefix") format("eot"), url("/fonts/Avenir95Black.woff") format("woff"), url("/fonts/Avenir95Black.ttf") format("truetype"), url("/fonts/Avenir95Black.svg#1cda1791-25c1-48d3-9056-3b04b763b592") format("svg");
+}
+@font-face {
+  font-family: "Baskerville W02 Regular 743762";
+  src: url("/fonts/BaskervilleRegular.eot?#iefix");
+  src: url("/fonts/BaskervilleRegular.eot?#iefix") format("eot"), url("/fonts/BaskervilleRegular.woff") format("woff"), url("/fonts/BaskervilleRegular.ttf") format("truetype"), url("/fonts/BaskervilleRegular.svg#32916b5a-0670-4834-b7bc-a3b0e0b48e80") format("svg");
+}
 body {
   padding-top: 10px;
   background-color: #e5ebef;
 }
 div.container a.brand {
-  background: url("../img/rough-logo-logo.png") no-repeat scroll 0px 10px transparent;
-  min-height: 50px;
+  background: url("../img/logo.png") no-repeat scroll 0px 10px transparent;
+  min-height: 93px;
   display: block;
   padding: 8px 20px 12px 40px;
 }
@@ -5282,8 +5297,8 @@ ul.nav {
   margin-left: 2px;
 }
 .nav-tabs li a {
-  background: #f7ad7f;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background: #ff4500;
+  font-family: "Avenir LT W02 65 Medium", Helvetica, Arial, sans-serif;
   font-weight: normal;
   font-size: 24px;
   color: #ffffff;
@@ -5297,15 +5312,20 @@ ul.nav {
   text-align: center;
   line-height: 22px;
   height: 46px;
+  margin-bottom: 5px;
 }
 .nav-tabs li a:hover {
-  background: #f5975d;
+  background: #ffffff;
+  color: #ff4500;
 }
 .nav-tabs .active a {
-  color: #f5975d;
+  background: #ffffff;
+  color: #ff4500;
+  height: 53px;
+  margin-bottom: 0;
 }
 div.main-content-container {
-  margin: 5px auto;
+  margin: 0 auto;
   border-color: #ffffff;
   border-width: 1px;
   border-style: solid;
@@ -5313,6 +5333,7 @@ div.main-content-container {
   -moz-border-radius: 2;
   border-radius: 2;
   background-color: #ffffff;
+  color: #25a7af;
 }
 div.main-content {
   margin: 30px 10px;
@@ -5339,9 +5360,9 @@ div.main-content {
   min-height: 1px;
 }
 .carousel-indicators li {
-  background-color: #f7ad7f;
+  background-color: #ff4500;
   color: #ffffff;
-  border: solid 1px #f5975d;
+  border: solid 1px #db3b00;
   cursor: pointer;
   height: 15px;
   width: 15px;
@@ -5352,7 +5373,7 @@ div.main-content {
 }
 .carousel-indicators li.active {
   background-color: #ffffff;
-  color: #f7ad7f;
+  color: #ff4500;
 }
 .carousel-inner {
   position: relative;
@@ -5373,7 +5394,7 @@ div.main-content {
   text-align: center;
 }
 h1 {
-  color: #0088cc;
+  color: #25a7af;
   font-weight: normal;
   text-transform: uppercase;
 }
