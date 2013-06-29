@@ -25,28 +25,28 @@
                 
                 <?php
                 	
-                	$carouselCount = 0;
+                	$contentCount = 0;
                 	
                 	 foreach ($carousels->contents as $content) { 
-            if($carouselCount == 0)
+            if($contentCount == 0)
 					 {
 			echo '<div class="active item">
-                  	<img src="'.$this->escapeHtml($content['img']).'" alt="">
+                  	<img src="http://site.jj/img/'.$this->escapeHtml($content['img']).'" alt="">
                     <div class="carousel-caption">
                       <h4>'.$this->escapeHtml($content['label']).'</h4>
                       <p>'.$this->escapeHtml($content['text']).'</p>
                     </div>
                   </div>';
-					 }else{
+					 }elseif($contentCount >= 1){
 			echo '<div class="item">
-                  	<img src="'.$this->escapeHtml($content['img']).'" alt="">
+                  	<img src="http://site.jj/img/'.$this->escapeHtml($content['img']).'" alt="">
                     <div class="carousel-caption">
                       <h4>'.$this->escapeHtml($content['label']).'</h4>
                       <p>'.$this->escapeHtml($content['text']).'</p>
                     </div>
                   </div>';
 				  	 }		 	
-					
+					$contentCount++;
 					 }	
 							?>
  
