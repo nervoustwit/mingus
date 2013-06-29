@@ -201,5 +201,25 @@ return new ViewModel(array('test' => $tabNav, 'contents' => $pageContent
         
 	}
 
+	public function carouselExampleAction()
+	{
+		
+		
+		//$carousels = array();
+ 
+		$carousels->name = "home";
+		$carousels->intCount = 3;
+		$carousels->contents = array();
+		$carousels->contents[] = array('label' => 'first', 'text' => 'welcome home', 'img' => 'first.png');
+		$carousels->contents[] = array('label' => 'second', 'text' => 'second welcome home', 'img' => 'second.png');
+		$carousels->contents[] = array('label' => 'third', 'text' => 'third welcome home', 'img' => 'third.png');
+		$carousels->contents[] = array('label' => 'four', 'text' => 'fourth welcome home', 'img' => 'four.png');
+			
+			
+			
+			
+		return new ViewModel(array('carousels' => $carousels
+        ));
+	}
 	
 }

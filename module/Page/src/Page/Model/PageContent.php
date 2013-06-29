@@ -26,4 +26,6 @@ class PageContent
         return get_object_vars($this);
     }
 	
+	
+	
 }

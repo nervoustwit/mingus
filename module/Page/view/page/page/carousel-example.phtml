@@ -1,0 +1,57 @@
+
+<script type="text/javascript">
+            $('.carousel').carousel()
+</script>
+
+<div id="<?php echo $this->escapeHtml($carousels->name);?>Carousel" class="carousel slide">
+                <ol class="carousel-indicators">
+                	
+                	<?php $carouselCount = 0;
+							while($carouselCount <= $carousels->intCount)
+					{
+						if($carouselCount == 0)
+						{
+					echo '<li data-target="#'.$this->escapeHtml($carousels->name).'Carousel" data-slide-to="'.$carouselCount.'" class="active"></li>' ;
+						}else{
+					echo '<li data-target="#'.$this->escapeHtml($carousels->name).'Carousel" data-slide-to="'.$carouselCount.'"></li>' ;					
+						}
+					$carouselCount++;
+					
+					};?>
+							
+
+                </ol>
+                <div class="carousel-inner">
+                
+                <?php
+                	
+                	$carouselCount = 0;
+                	
+                	 foreach ($carousels->contents as $content) { 
+            if($carouselCount == 0)
+					 {
+			echo '<div class="active item">
+                  	<img src="'.$this->escapeHtml($content['img']).'" alt="">
+                    <div class="carousel-caption">
+                      <h4>'.$this->escapeHtml($content['label']).'</h4>
+                      <p>'.$this->escapeHtml($content['text']).'</p>
+                    </div>
+                  </div>';
+					 }else{
+			echo '<div class="item">
+                  	<img src="'.$this->escapeHtml($content['img']).'" alt="">
+                    <div class="carousel-caption">
+                      <h4>'.$this->escapeHtml($content['label']).'</h4>
+                      <p>'.$this->escapeHtml($content['text']).'</p>
+                    </div>
+                  </div>';
+				  	 }		 	
+					
+					 }	
+							?>
+ 
+                </div>
+                <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+                <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
+</div>
+

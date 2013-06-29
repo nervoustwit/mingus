@@ -8,7 +8,7 @@ use Zend\Db\ResultSet\ResultSet;
 
 class PageContentTable extends AbstractTableGateway
 {
-    protected $table = 'page';
+    protected $table = 'content';
 
     public function __construct(Adapter $adapter)
     {
@@ -24,4 +24,10 @@ class PageContentTable extends AbstractTableGateway
         $resultSet = $this->select();
         return $resultSet;
     }
+	
+	public function getCarouselArray()
+	{
+		
+	}
+	
 }
