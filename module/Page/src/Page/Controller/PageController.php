@@ -207,18 +207,75 @@ return new ViewModel(array('test' => $tabNav, 'contents' => $pageContent
 		
 		//$carousels = array();
  
-		$carousels->name = "home";
-		$carousels->intCount = 3;
-		$carousels->contents = array();
-		$carousels->contents[] = array('label' => 'first', 'text' => 'welcome home', 'img' => 'first.png');
-		$carousels->contents[] = array('label' => 'second', 'text' => 'second welcome home', 'img' => 'second.png');
-		$carousels->contents[] = array('label' => 'third', 'text' => 'third welcome home', 'img' => 'third.png');
-		$carousels->contents[] = array('label' => 'four', 'text' => 'fourth welcome home', 'img' => 'four.png');
+		//$carousels->name = "home";
+		//$carousels->intCount = 3;
+		//$carousels->contents = array();
+		//$carousels->contents[] = array('label' => 'first', 'text' => 'welcome home', 'img' => 'page3.gif');
+		//$carousels->contents[] = array('label' => 'second', 'text' => 'second welcome home', 'img' => 'page4.gif');
+		//$carousels->contents[] = array('label' => 'third', 'text' => 'third welcome home', 'img' => 'page5.gif');
+		//$carousels->contents[] = array('label' => 'four', 'text' => 'fourth welcome home', 'img' => 'page6.gif');
+		
+		//$pageName = 'home';	
+		
+		//$pageContent = $this->getPageContentTable()->getPageCarousels($pageName);	
+			
+			
+		$pages = $this->getPageTable()->fetchAll();
+		//$pages->initialize();
+		$names = array();
+		
+		foreach($pages as $page){
+			$names[] = $page->name;
+		}
+		
+		//$names = $pages->name;
+		
+		//$resultObject = array();
+		
+		//foreach ($names as $pageName){
+			
+		//	$resultObject['name'] = $pageName;
+			
+		//	$contents = $this->getPageContentTable()->getPageCarousels($pageName);
+			
+		//	$resultObject['rowCount'] = $contents->count();
+		//	$resultObject['content'] = $contents;
+		//}
+		
+		//$pageName = 'home';
+		$pages = array();
+		
+		foreach ($names as $pageName){
+		$contents = $this->getPageContentTable()->getPageCarousels($pageName);
+		
+		//$carousels = ar$namesray();
+		$carousels['name'] = $pageName;
+		$carousels['carouselCount'] = $contents->count();
+		$carousels['content'] = array();
+			
+		
+			//$carousel = array();
+				
+			foreach($contents as $content){
+			
+			$carousels['content'][] = array('label' => $content->label, 'text' => $content->text, 'img' => $content->img);
+							 
+
 			
 			
 			
+			}
 			
-		return new ViewModel(array('carousels' => $carousels
+			
+			
+		$pages[] = $carousels;	
+			
+			
+		}
+		
+		
+		
+		return new ViewModel(array('names' => $names, 'result' => $pages
         ));
 	}
 	
