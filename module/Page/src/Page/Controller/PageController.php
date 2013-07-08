@@ -192,11 +192,34 @@ class PageController extends AbstractActionController
         //return $page;
         
   $tabNav = $this->getTabNavTable()->fetchAll();
-  
 
-  $pageContent = $this->getPageContentTable()->fetchAll();
+ 		$pages = $this->getPageTable()->fetchAll();
+		
+		$names = array();
+		
+		foreach($pages as $page){
+			$names[] = $page->name;
+		}
+		
+
+		$result = array();
+		
+		foreach ($names as $pageName){
+		$contents = $this->getPageContentTable()->getPageCarousels($pageName);
+		
+		$carousels['name'] = $pageName;
+		$carousels['carouselCount'] = $contents->count();
+		$carousels['contents'] = array();
+
+			foreach($contents as $content){
+			$carousels['contents'][] = array('label' => $content->label, 'text' => $content->text, 'img' => $content->img);
+			}
+		$result[] = $carousels;				
+		}
+		
+  
         
-return new ViewModel(array('test' => $tabNav, 'contents' => $pageContent
+return new ViewModel(array('test' => $tabNav, 'pages' => $result
         ));
         
 	}
@@ -221,61 +244,32 @@ return new ViewModel(array('test' => $tabNav, 'contents' => $pageContent
 			
 			
 		$pages = $this->getPageTable()->fetchAll();
-		//$pages->initialize();
+		
 		$names = array();
 		
 		foreach($pages as $page){
 			$names[] = $page->name;
 		}
 		
-		//$names = $pages->name;
-		
-		//$resultObject = array();
-		
-		//foreach ($names as $pageName){
-			
-		//	$resultObject['name'] = $pageName;
-			
-		//	$contents = $this->getPageContentTable()->getPageCarousels($pageName);
-			
-		//	$resultObject['rowCount'] = $contents->count();
-		//	$resultObject['content'] = $contents;
-		//}
-		
-		//$pageName = 'home';
-		$pages = array();
+
+		$result = array();
 		
 		foreach ($names as $pageName){
 		$contents = $this->getPageContentTable()->getPageCarousels($pageName);
 		
-		//$carousels = ar$namesray();
 		$carousels['name'] = $pageName;
 		$carousels['carouselCount'] = $contents->count();
-		$carousels['content'] = array();
-			
-		
-			//$carousel = array();
-				
-			foreach($contents as $content){
-			
-			$carousels['content'][] = array('label' => $content->label, 'text' => $content->text, 'img' => $content->img);
-							 
+		$carousels['contents'] = array();
 
-			
-			
-			
+			foreach($contents as $content){
+			$carousels['contents'][] = array('label' => $content->label, 'text' => $content->text, 'img' => $content->img);
 			}
-			
-			
-			
-		$pages[] = $carousels;	
-			
-			
+		$result[] = $carousels;				
 		}
 		
 		
 		
-		return new ViewModel(array('names' => $names, 'result' => $pages
+		return new ViewModel(array('names' => $names, 'carousels' => $result
         ));
 	}
 	
