@@ -1,25 +1,14 @@
 
+<<<<<<< HEAD
 <script type="text/javascript">
             $('#<?php echo $this->escapeHtml($carousels->name);?>Carousel').carousel()
 </script>
+=======
+>>>>>>> 358c80c0d9d53e2715e48351cb6a8395fedf4fd0
 
-<div id="<?php echo $this->escapeHtml($carousels->name);?>Carousel" class="carousel slide">
-                <ol class="carousel-indicators">
-                	
-                	<?php $carouselCount = 0;
-							while($carouselCount <= $carousels->intCount)
-					{
-						if($carouselCount == 0)
-						{
-					echo '<li data-target="#'.$this->escapeHtml($carousels->name).'Carousel" data-slide-to="'.$carouselCount.'" class="active"></li>' ;
-						}else{
-					echo '<li data-target="#'.$this->escapeHtml($carousels->name).'Carousel" data-slide-to="'.$carouselCount.'"></li>' ;					
-						}
-					$carouselCount++;
-					
-					};?>
-							
+<?php print_r($result); ?>
 
+<<<<<<< HEAD
                 </ol>
                 <div class="carousel-inner">
                 
@@ -54,4 +43,7 @@
                 <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
                 <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
 </div>
+=======
+	
+>>>>>>> 358c80c0d9d53e2715e48351cb6a8395fedf4fd0
 

@@ -5,6 +5,9 @@ namespace Page\Model;
 use Zend\Db\TableGateway\AbstractTableGateway;
 use Zend\Db\Adapter\Adapter;
 use Zend\Db\ResultSet\ResultSet;
+use Zend\Db\Sql\Where;
+use Zend\Db\Sql\Sql;
+use Zend\Db\Sql\Expression;
 
 class PageContentTable extends AbstractTableGateway
 {
@@ -25,8 +28,16 @@ class PageContentTable extends AbstractTableGateway
         return $resultSet;
     }
 	
-	public function getCarouselArray()
+	public function getPageCarousels($pageName)
 	{
+		
+		$carouselArray = $this->select(array('name' => $pageName));
+		
+		//$carouselArray->order('order_id ASC');
+		
+							//	->columns(array('text' => 'text', 'label' => 'label', 'img' =>'img'))
+								//->order('order_id ASC');
+		return $carouselArray;
 		
 	}
 	
