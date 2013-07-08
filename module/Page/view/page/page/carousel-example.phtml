@@ -1,6 +1,6 @@
 
 <script type="text/javascript">
-            $('.carousel').carousel()
+            $('#<?php echo $this->escapeHtml($carousels->name);?>Carousel').carousel()
 </script>
 
 <div id="<?php echo $this->escapeHtml($carousels->name);?>Carousel" class="carousel slide">
@@ -31,7 +31,7 @@
             if($contentCount == 0)
 					 {
 			echo '<div class="active item">
-                  	<img src="http://site.jj/img/'.$this->escapeHtml($content['img']).'" alt="">
+                  	<img src="/img/'.$this->escapeHtml($content['img']).'" alt="">
                     <div class="carousel-caption">
                       <h4>'.$this->escapeHtml($content['label']).'</h4>
                       <p>'.$this->escapeHtml($content['text']).'</p>

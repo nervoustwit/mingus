@@ -8,8 +8,7 @@
         <!-- ?php echo $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0') ? -->
         
         <!-- Le styles -->
-        <link href='http://fonts.googleapis.com/css?family=Raleway:300' rel='stylesheet' type='text/css'>
-        <!-- ?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+         <!-- ?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
                         ->prependStylesheet($this->basePath() . '/css/bootstrap-responsive.min.css')
                         ->prependStylesheet($this->basePath() . '/css/medicus-corda.css')
                         ->prependStylesheet($this->basePath() . '/css/style.css')
@@ -29,15 +28,21 @@
         <script type="text/javascript" src="/js/jquery.min.js"></script>
         <script type="text/javascript" src="/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="/bootstrap/js/bootstrap-carousel.js"></script>
+        <script type="text/javascript" src="/js/layout-adjustments.js"></script>
         <!--[if lt IE 9]><script type="text/javascript" src="/js/html5.js"></script><![endif]-->
         
         <script type="text/javascript">
-            $('.carousel').carousel()
+            $('.carousel').carousel();
+            $('.carousel').carousel('pause');
         </script>
     </head>
     <body>
-        <div class="container">
-            <a class="brand" href="#">&nbsp;</a>
+        <div class="container" id="header">
+            <a class="brand span8" href="/">&nbsp;</a>
+            <div class="header-info span4">
+                <div class="header-contact-info"><a href="mailto:info@medicuscorda.com">info@medicuscorda.com</a>1-865-MC1-2345</div>
+                <a href="/blog/" class="blog-link">UPDATES</a>
+            </div>
         </div>
         <div class="container">
             <ul  class="nav nav-tabs">
@@ -53,29 +58,32 @@
         <div class="container main-content-container">
             <div class="main-content">
             <!-- ?php echo $this->content; ? -->
-                <div class='row-fluid'>
+                <div id="systemCarousel" class='carousel slide row-fluid'>
                     <div class='span12'>
                     <div class="row-fluid carousel-control-wrapper-row">
                         <div class="span6 carousel-control-wrapper">
                             <ol class="carousel-indicators">
-                                <li data-target="#systemCarousel" data-slide-to="0" class="active"></li>
-                                <li data-target="#systemCarousel" data-slide-to="1"></li>
-                                <li data-target="#systemCarousel" data-slide-to="2"></li>
-                                <li data-target="#systemCarousel" data-slide-to="3"></li>
-                                <li data-target="#systemCarousel" data-slide-to="4"></li>
+                                <li data-target="#systemCarousel" data-slide-to="0" class="active">1</li>
+                                <li data-target="#systemCarousel" data-slide-to="1">2</li>
+                                <li data-target="#systemCarousel" data-slide-to="2">3</li>
+                                <li data-target="#systemCarousel" data-slide-to="3">4</li>
+                                <li data-target="#systemCarousel" data-slide-to="4">5</li>
                             </ol>
                         </div>
                         <div class="span6">
 
                         </div>
                     </div>
-                        <div id="systemCarousel" class="carousel slide">
+                        <div class="carousel slide">
                             <!-- Carousel items -->
                             <div class="carousel-inner">
                                 <div class="item active row-fluid">
                                     <div class="span6">
                                         <h1>Our System is a Team of 5 Computers Who Play Different Roles in Your Office</h1>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean egestas volutpat sagittis. Sed blandit nunc vitae velit imperdiet, eget suscipit neque pellentesque. Quisque consequat aliquam dolor, sed sodales neque sodales ac. Pellentesque porta justo et justo ultricies, a varius neque tristique. Fusce molestie massa quam. Phasellus non quam mollis, suscipit metus et, varius augue. Phasellus elementum dictum ultrices. Sed consequat sagittis tortor, at malesuada eros tempor eu. Ut vel velit vehicula dui pharetra rhoncus non eget libero. Aliquam mi dui, viverra ac libero non, lobortis tempus mauris. Duis a mollis metus. Vivamus convallis felis at ipsum commodo gravida auctor eget tortor. 
+                                        <h2>1) The Welcome</h2>
+                                        <p>Know how many patients come through your doors and if  they were on-time. </p>
+
+                                        <p>Every patient that comes will sign-in on this device. Instantly, your other computers will remind you to collect money, give documents, or the other things we sometimes forget to do while your patients are in the office.</p>
                                     </div>
                                     <div class="span6">
                                         <div class="thumbnail"><img src="img/page6.gif" alt="What we do"></div>
@@ -83,8 +91,8 @@
                                 </div>
                                 <div class="item row-fluid">
                                     <div class="span6">
-                                        <h1>Computer one does some stuff</h1>
-                                        Etiam a consectetur arcu. Duis faucibus eu sapien vitae sodales. Cras dignissim non quam volutpat placerat. In hac habitasse platea dictumst. Pellentesque felis risus, dapibus at tincidunt lobortis, malesuada tincidunt nibh. Aliquam pellentesque tempor vulputate. Etiam eu lorem fermentum, tincidunt elit id, varius nulla. Fusce ac massa sit amet odio posuere tincidunt ac sed velit. Nam sit amet malesuada libero. Integer ultricies purus vitae justo auctor aliquet. Cras eget pulvinar tortor. Suspendisse velit lorem, porta et pellentesque eget, elementum ac mi. Quisque vel eleifend nunc.
+                                        <h2>2) The Wait</h2>
+                                        <p>Let your patients help you too. While your patients wait in the waiting room, they can use that time to enter their demographic data, update their phone numbers, scan their Health cards, and even enter symptoms.</p>
                                     </div>
                                     <div class="span6">
                                         <div class="thumbnail"><img src="img/page7.gif" alt="What we do"></div>
@@ -92,8 +100,8 @@
                                 </div>
                                 <div class="item row-fluid">
                                     <div class="span6">
-                                        <h1>Computer Two does more things.</h1>
-                                        Praesent placerat vitae enim ac varius. Nam ullamcorper bibendum neque sed tincidunt. Aenean faucibus, eros et interdum adipiscing, arcu orci commodo nulla, eu suscipit risus eros sed sem. Curabitur convallis lorem id eros venenatis, nec tincidunt elit sagittis. Ut lacus tellus, rutrum vel ipsum in, feugiat pellentesque ante. Suspendisse id urna non nisl aliquet rhoncus. Integer mollis non magna ut vestibulum. Sed ultricies et sem vel mattis. Ut quis sagittis lacus. Sed rhoncus ac massa nec vehicula. Sed fringilla eros ac imperdiet hendrerit. Ut non tellus eget velit pharetra sagittis id ut nisi. Donec sem nisi, elementum ut nisi ut, porta ultrices nisi. Sed ullamcorper vitae lorem a tristique. Maecenas convallis pellentesque cursus. Aliquam in porttitor neque.
+                                        <h2>3) The Tracker</h2>
+                                        <p>Always know where your patients are. This computer keeps track of  all your patients in the office and how many more are coming today. It will also tell your other computers too.</p>
                                     </div>
                                     <div class="span6">
                                         <div class="thumbnail"><img src="img/page8.gif" alt="What we do"></div>
@@ -101,8 +109,9 @@
                                 </div>
                                 <div class="item row-fluid">
                                     <div class="span6">
-                                        <h1>Computer Three takes care of business.</h1>
-                                        Praesent placerat vitae enim ac varius. Nam ullamcorper bibendum neque sed tincidunt. Aenean faucibus, eros et interdum adipiscing, arcu orci commodo nulla, eu suscipit risus eros sed sem. Curabitur convallis lorem id eros venenatis, nec tincidunt elit sagittis. Ut lacus tellus, rutrum vel ipsum in, feugiat pellentesque ante. Suspendisse id urna non nisl aliquet rhoncus. Integer mollis non magna ut vestibulum. Sed ultricies et sem vel mattis. Ut quis sagittis lacus. Sed rhoncus ac massa nec vehicula. Sed fringilla eros ac imperdiet hendrerit. Ut non tellus eget velit pharetra sagittis id ut nisi. Donec sem nisi, elementum ut nisi ut, porta ultrices nisi. Sed ullamcorper vitae lorem a tristique. Maecenas convallis pellentesque cursus. Aliquam in porttitor neque.
+                                        <h2>4) The Assistant</h2>
+                                        <p>The computer by your side. Document your patient encounter without any typing or writing! Nuance’s revolutionary technology does the typing, and gets even better as it learns. Just like a real assistant should.</p>
+                                        
                                     </div>
                                     <div class="span6">
                                         <div class="thumbnail"><img src="img/page9.gif" alt="What we do"></div>
@@ -110,8 +119,8 @@
                                 </div>
                                 <div class="item row-fluid">
                                     <div class="span6">
-                                        <h1>Computer Four Gets into it.</h1>
-                                        Praesent placerat vitae enim ac varius. Nam ullamcorper bibendum neque sed tincidunt. Aenean faucibus, eros et interdum adipiscing, arcu orci commodo nulla, eu suscipit risus eros sed sem. Curabitur convallis lorem id eros venenatis, nec tincidunt elit sagittis. Ut lacus tellus, rutrum vel ipsum in, feugiat pellentesque ante. Suspendisse id urna non nisl aliquet rhoncus. Integer mollis non magna ut vestibulum. Sed ultricies et sem vel mattis. Ut quis sagittis lacus. Sed rhoncus ac massa nec vehicula. Sed fringilla eros ac imperdiet hendrerit. Ut non tellus eget velit pharetra sagittis id ut nisi. Donec sem nisi, elementum ut nisi ut, porta ultrices nisi. Sed ullamcorper vitae lorem a tristique. Maecenas convallis pellentesque cursus. Aliquam in porttitor neque.
+                                        <h2>5) Mission Control</h2>
+                                        <p>The heart of  the system. Labs come in, bills go out, and nothing is lost in the traffic. It even monitors your chronic care and complex care bonuses so that all your work will not be forgotten.</p>
                                     </div>
                                     <div class="span6">
                                         <div class="thumbnail"><img src="img/page10.gif" alt="What we do"></div>

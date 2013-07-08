@@ -210,10 +210,10 @@ return new ViewModel(array('test' => $tabNav, 'contents' => $pageContent
 		$carousels->name = "home";
 		$carousels->intCount = 3;
 		$carousels->contents = array();
-		$carousels->contents[] = array('label' => 'first', 'text' => 'welcome home', 'img' => 'first.png');
-		$carousels->contents[] = array('label' => 'second', 'text' => 'second welcome home', 'img' => 'second.png');
-		$carousels->contents[] = array('label' => 'third', 'text' => 'third welcome home', 'img' => 'third.png');
-		$carousels->contents[] = array('label' => 'four', 'text' => 'fourth welcome home', 'img' => 'four.png');
+		$carousels->contents[] = array('label' => 'first', 'text' => 'welcome home', 'img' => 'page3.gif');
+		$carousels->contents[] = array('label' => 'second', 'text' => 'second welcome home', 'img' => 'page4.gif');
+		$carousels->contents[] = array('label' => 'third', 'text' => 'third welcome home', 'img' => 'page5.gif');
+		$carousels->contents[] = array('label' => 'four', 'text' => 'fourth welcome home', 'img' => 'page6.gif');
 			
 			
 			

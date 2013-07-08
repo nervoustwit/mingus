@@ -7,9 +7,10 @@
 @headingsFontFamily: "Avenir LT W02 65 Medium", Helvetica, Arial, sans-serif;
 
 @medicusCordaLightGrey: #E5EBEF;
+
 @medicusCordaOrange: #FF4500;
 @medicusCordaDarkOrange: darken(@medicusCordaOrange, 7%);
-@medicusCordaLighterOrange: lighten(@medicusCordaOrange, 45%);
+@medicusCordaLighterOrange: lighten(@medicusCordaOrange, 30%);
 @medicusCordaLightOrange: darken(@medicusCordaOrange, 85%);
 
 
@@ -40,11 +41,64 @@ body {
     background-color: @medicusCordaLightGrey; 
 }
 
-div.container a.brand {
-    background: url("../img/logo.png") no-repeat scroll 0px 10px transparent;
-    min-height: 93px;
-    display: block;
-    padding: 8px 20px 12px 40px;
+a {
+    outline : none;
+
+    &:hover, &:active, &:focus {
+        outline: none; 
+        -moz-outline-style: none;
+    }
+}
+
+div#header{
+    position: relative;
+
+    a.brand {
+       background: url("../img/logo.png") no-repeat scroll 0px 10px transparent;
+       min-height: 93px;
+       display: block;
+       padding-left: 0;
+       padding-right: 0;
+       text-decoration: none;
+    }
+
+    .header-info {
+        .clearfix;
+        float: left;
+        padding: 22px 0 0 0;
+        min-height: 93px;
+        color: @white;
+        .header-contact-info {
+            font-size: 16px;
+            width: 50%;
+            .clearfix;
+            float: left;
+            a {
+                font-size: 16px;
+                font-weight: bold;
+                display: block;
+                color: @white;
+            }
+
+        }
+
+        .blog-link {
+            float: right;
+            display: inline-block;
+            padding: 5px 30px;
+            margin-right: 5px;
+            max-width: 90px;
+            font-size: 16px;
+            font-weight: bold;
+            color: @medicusCordaLightGrey;
+            background-color: @white;
+            .border-radius(6px);
+            &:hover{
+                text-decoration: none;
+                color: darken(@medicusCordaLightGrey, 10);
+            }
+        }
+    }
 }
 
 ul.nav {
@@ -58,12 +112,12 @@ ul.nav {
     li {
         margin-left: 2px;
         a {
-            background: @medicusCordaOrange;
+            background: @medicusCordaLighterOrange;
             font-family: @menuFontFamily;
             font-weight: normal;
             font-size: 24px;
             color: @white;
-            .border-radius(2);
+            .border-radius(2px);
             text-transform: uppercase;
             width: 115px;
             padding-left: 23px;
@@ -72,6 +126,7 @@ ul.nav {
             line-height: 22px;
             height: 46px;
             margin-bottom: 5px;
+ 
             &:hover {
                 background: @white;
                 color: @medicusCordaOrange;
@@ -80,11 +135,12 @@ ul.nav {
     }
 
     .active {
-        a {
+        a, a:hover {
             background: @white;
-            color: @medicusCordaOrange;
-            height: 53px;
+            color: @medicusCordaLighterOrange;
+            height: 50px;
             margin-bottom: 0;
+            border-bottom: solid 5px @medicusCordaLighterOrange;
         }
     }
 }
@@ -129,20 +185,45 @@ div.main-content {
     min-height: 1px;
 }
 
+.carousel-control {
+    height: 400px;
+    width: 150px;
+    top: 0;
+    margin-top: 0;
+    line-height: 400px;
+    border-width: 0;
+    background: transparent;
+    color: @medicusCordaBlue;
+    .opacity(10);
+    &.right {
+        text-align: right;
+    }
+    &.left {
+        text-align: left;
+    }
+    &:hover {
+        color: @medicusCordaBlue;
+    }
+}
+
+
+
 .carousel-indicators {
     li {
-        background-color: @medicusCordaOrange;
+        background-color: @medicusCordaLighterOrange;
         color: @white;
-        border: solid 1px @medicusCordaDarkOrange;
+        border: solid 1px @medicusCordaLighterOrange;
         cursor: pointer;
         height: 15px;
         width: 15px;
+        line-height: 15px;
+        text-align: center;
         text-indent: 0;
         .border-radius(1);
     }
     li.active {
         background-color: @white;
-        color: @medicusCordaOrange;
+        color: @medicusCordaLighterOrange;
     }
 }
  
@@ -171,4 +252,18 @@ h1 {
     color: @medicusCordaBlue;
     font-weight: normal;
     text-transform:uppercase;
+    border-bottom: solid 1px @medicusCordaLightGrey;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+h2 {
+    color: @medicusCordaBlue;
+    font-weight: normal;
+    text-transform:uppercase;
+}
+
+.question {
+    margin-top: 16px;
+    font-weight: bold;
 }
