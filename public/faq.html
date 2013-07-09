@@ -8,14 +8,14 @@
         <!-- ?php echo $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0') ? -->
         
         <!-- Le styles -->
-        <link href='http://fonts.googleapis.com/css?family=Raleway:300' rel='stylesheet' type='text/css'>
-        <!-- ?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+         <!-- ?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
                         ->prependStylesheet($this->basePath() . '/css/bootstrap-responsive.min.css')
                         ->prependStylesheet($this->basePath() . '/css/medicus-corda.css')
                         ->prependStylesheet($this->basePath() . '/css/style.css')
                         ->prependStylesheet($this->basePath() . '/css/bootstrap.min.css')? -->
+            <link href="/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+            <link href="/css/style.css" media="screen" rel="stylesheet" type="text/css">
             <link href="/css/medicus-corda.css" media="screen" rel="stylesheet" type="text/css">
-            
             <link href="/css/bootstrap-responsive.min.css" media="screen" rel="stylesheet" type="text/css">
             <link href="/img/favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon">
         
@@ -28,15 +28,21 @@
         <script type="text/javascript" src="/js/jquery.min.js"></script>
         <script type="text/javascript" src="/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="/bootstrap/js/bootstrap-carousel.js"></script>
+        <script type="text/javascript" src="/js/layout-adjustments.js"></script>
         <!--[if lt IE 9]><script type="text/javascript" src="/js/html5.js"></script><![endif]-->
-        
+     
         <script type="text/javascript">
-            $('.carousel').carousel()
+            $('.carousel').carousel();
+            $('.carousel').carousel('pause');
         </script>
     </head>
     <body>
-        <div class="container">
-            <a class="brand" href="#">&nbsp;</a>
+        <div class="container" id="header">
+            <a class="brand span8" href="/">&nbsp;</a>
+            <div class="header-info span4">
+                <div class="header-contact-info"><a href="mailto:info@medicuscorda.com">info@medicuscorda.com</a>1-865-MC1-2345</div>
+                <a href="/blog/" class="blog-link">UPDATES</a>
+            </div>
         </div>
         <div class="container">
             <ul  class="nav nav-tabs">
@@ -52,26 +58,40 @@
         <div class="container main-content-container">
             <div class="main-content">
             <!-- ?php echo $this->content; ? -->
-                <div class='row-fluid'>
+                <div id="faqCarousel" class='carousel slide row-fluid'>
                     <div class='span12'>
                     <div class="row-fluid carousel-control-wrapper-row">
                         <div class="span6 carousel-control-wrapper">
                             <ol class="carousel-indicators">
-                                <li data-target="#faqCarousel" data-slide-to="0" class="active"></li>
-                                <li data-target="#faqCarousel" data-slide-to="1"></li>
+                                <li data-target="#faqCarousel" data-slide-to="0" class="active">1</li>
+                                <li data-target="#faqCarousel" data-slide-to="1">2</li>
                             </ol>
                         </div>
                         <div class="span6">
 
                         </div>
                     </div>
-                        <div id="faqCarousel" class="carousel slide">
+                        <div class="carousel slide">
                             <!-- Carousel items -->
                             <div class="carousel-inner">
                                 <div class="active item row-fluid">
                                     <div class="span6">
                                         <h1>Frequently Asked Questions</h1>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean egestas volutpat sagittis. Sed blandit nunc vitae velit imperdiet, eget suscipit neque pellentesque. Quisque consequat aliquam dolor, sed sodales neque sodales ac. Pellentesque porta justo et justo ultricies, a varius neque tristique. Fusce molestie massa quam. Phasellus non quam mollis, suscipit metus et, varius augue. Phasellus elementum dictum ultrices. Sed consequat sagittis tortor, at malesuada eros tempor eu. Ut vel velit vehicula dui pharetra rhoncus non eget libero. Aliquam mi dui, viverra ac libero non, lobortis tempus mauris. Duis a mollis metus. Vivamus convallis felis at ipsum commodo gravida auctor eget tortor. 
+
+                                        <p class='question'>Do we have to scan all our records?</p>
+
+                                        <p>No. We recommend a gradual adoption of  EMR. That means using paper and EMR together until enough of  the patient history is in electronic format.</p>
+
+
+                                        <p class='question'>Do our patients have to agree to have their medical records in electronic format?</p>
+
+                                        <p>Yes. Our lawyers drafted that document for you.</p>
+
+
+
+                                        <p class='question'>Is the Internet secure?</p>
+
+                                        <p>No. Like our city roadways, Internet traffic is not secure. What makes the Internet secure are the protections we implement.</p>
                                     </div>
                                     <div class="span6">
                                         <div class="thumbnail"><img src="img/page15.gif" alt="What we do"></div>
@@ -80,7 +100,22 @@
                                 <div class="item row-fluid">
                                     <div class="span6">
                                         <h1>Frequently Asked Questions</h1>
-                                        Etiam a consectetur arcu. Duis faucibus eu sapien vitae sodales. Cras dignissim non quam volutpat placerat. In hac habitasse platea dictumst. Pellentesque felis risus, dapibus at tincidunt lobortis, malesuada tincidunt nibh. Aliquam pellentesque tempor vulputate. Etiam eu lorem fermentum, tincidunt elit id, varius nulla. Fusce ac massa sit amet odio posuere tincidunt ac sed velit. Nam sit amet malesuada libero. Integer ultricies purus vitae justo auctor aliquet. Cras eget pulvinar tortor. Suspendisse velit lorem, porta et pellentesque eget, elementum ac mi. Quisque vel eleifend nunc.
+                                        <p class='question'>What if the Internet fails?</p>
+                                        <p>It is always good to prepare for the worst situations. That is why you can still treat scheduled patients without Internet for a limited time so that you can repair the situation without skipping a beat.</p>
+
+
+                                        <p class='question'>Is my data secure?</p>
+                                        <p>Yes. Your data is stored on servers that reside in a guarded maximum security Canadian datacenter that requires keys, keycards, and fingerprints to access. </p>
+                                        <p>The data is simultaneously stored on many hard drives including a remote backup.</p>
+
+                                        
+                                        <p class='question'>What does this system require to start?</p>
+                                        <p>This system is designed to be inexpensive and easy to setup. It requires equipment that is likely to already be in your office: a computer, wireless router, a printer, and Internet. An iPad is on us!</p>
+
+
+                                        <p class='question'>What is the most gradual way I can adopt EMR?</p>
+                                        <p>You can use the complete version of  our office software for a flat monthly fee. </p>
+                                        <p>After your staff  is comfortable with our office software, you can begin to use the treatment room software on the iPad for an additional monthly fee.</p>
                                     </div>
                                     <div class="span6">
                                         <div class="thumbnail"><img src="img/page16.gif" alt="What we do"></div>

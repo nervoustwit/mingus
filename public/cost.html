@@ -8,7 +8,6 @@
         <!-- ?php echo $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0') ? -->
         
         <!-- Le styles -->
-        <link href='http://fonts.googleapis.com/css?family=Raleway:300' rel='stylesheet' type='text/css'>
         <!-- ?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
                         ->prependStylesheet($this->basePath() . '/css/bootstrap-responsive.min.css')
                         ->prependStylesheet($this->basePath() . '/css/medicus-corda.css')
@@ -26,18 +25,24 @@
         <!-- ?php echo $this->headScript()->prependFile($this->basePath() . '/js/html5.js', 'text/javascript', array('conditional' => 'lt IE 9',))
                                       ->prependFile($this->basePath() . '/js/bootstrap.min.js')
                                       ->prependFile($this->basePath() . '/js/jquery.min.js') ? -->
-        <script type="text/javascript" src="/js/jquery.min.js"></script>
+         <script type="text/javascript" src="/js/jquery.min.js"></script>
         <script type="text/javascript" src="/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="/bootstrap/js/bootstrap-carousel.js"></script>
+        <script type="text/javascript" src="/js/layout-adjustments.js"></script>
         <!--[if lt IE 9]><script type="text/javascript" src="/js/html5.js"></script><![endif]-->
         
         <script type="text/javascript">
-            $('.carousel').carousel()
+            $('.carousel').carousel();
+            $('.carousel').carousel('pause');
         </script>
     </head>
     <body>
-        <div class="container">
-            <a class="brand" href="#">&nbsp;</a>
+        <div class="container" id="header">
+            <a class="brand span8" href="/">&nbsp;</a>
+            <div class="header-info span4">
+                <div class="header-contact-info"><a href="mailto:info@medicuscorda.com">info@medicuscorda.com</a>1-865-MC1-2345</div>
+                <a href="/blog/" class="blog-link">UPDATES</a>
+            </div>
         </div>
         <div class="container">
             <ul  class="nav nav-tabs">
@@ -57,7 +62,7 @@
                     <div class='span6'>
                         <div id="costContent" class="">
                             <h1>Let's Talk Cost</h1>
-                            Vivamus faucibus erat quis erat interdum egestas. Aliquam aliquet iaculis velit. Phasellus semper leo vel tortor porta dapibus. Vivamus aliquam consequat massa, quis sagittis neque elementum ac. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam hendrerit sem nunc, in volutpat arcu malesuada sed. Quisque auctor rhoncus nunc iaculis ultricies. Integer tristique nulla ac auctor eleifend. Praesent et feugiat est, nec gravida diam. Sed ac tortor viverra, gravida odio nec, sollicitudin nunc. In nec leo adipiscing, rhoncus magna eget, scelerisque arcu. Fusce blandit arcu ut ultricies dignissim. Donec facilisis quis leo at rutrum. Sed pharetra leo vel libero varius vestibulum. Ut tincidunt leo sit amet massa commodo luctus. Etiam tristique purus purus, non ornare nunc consectetur id. 
+                            
                         </div>
                     </div>
                     <div class="span6">

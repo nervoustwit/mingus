@@ -230,6 +230,15 @@ return new ViewModel(array('test' => $tabNav, 'pages' => $result
 		
 		//$carousels = array();
  
+<<<<<<< HEAD
+		$carousels->name = "home";
+		$carousels->intCount = 3;
+		$carousels->contents = array();
+		$carousels->contents[] = array('label' => 'first', 'text' => 'welcome home', 'img' => 'page3.gif');
+		$carousels->contents[] = array('label' => 'second', 'text' => 'second welcome home', 'img' => 'page4.gif');
+		$carousels->contents[] = array('label' => 'third', 'text' => 'third welcome home', 'img' => 'page5.gif');
+		$carousels->contents[] = array('label' => 'four', 'text' => 'fourth welcome home', 'img' => 'page6.gif');
+=======
 		//$carousels->name = "home";
 		//$carousels->intCount = 3;
 		//$carousels->contents = array();
@@ -241,6 +250,7 @@ return new ViewModel(array('test' => $tabNav, 'pages' => $result
 		//$pageName = 'home';	
 		
 		//$pageContent = $this->getPageContentTable()->getPageCarousels($pageName);	
+>>>>>>> 358c80c0d9d53e2715e48351cb6a8395fedf4fd0
 			
 			
 		$pages = $this->getPageTable()->fetchAll();

@@ -5280,11 +5280,80 @@ body {
   padding-top: 10px;
   background-color: #e5ebef;
 }
-div.container a.brand {
+a {
+  outline: none;
+}
+a:hover,
+a:active,
+a:focus {
+  outline: none;
+  -moz-outline-style: none;
+}
+div#header {
+  position: relative;
+}
+div#header a.brand {
   background: url("../img/logo.png") no-repeat scroll 0px 10px transparent;
   min-height: 93px;
   display: block;
-  padding: 8px 20px 12px 40px;
+  padding-left: 0;
+  padding-right: 0;
+  text-decoration: none;
+}
+div#header .header-info {
+  *zoom: 1;
+  float: left;
+  padding: 22px 0 0 0;
+  min-height: 93px;
+  color: #ffffff;
+}
+div#header .header-info:before,
+div#header .header-info:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+div#header .header-info:after {
+  clear: both;
+}
+div#header .header-info .header-contact-info {
+  font-size: 16px;
+  width: 50%;
+  *zoom: 1;
+  float: left;
+}
+div#header .header-info .header-contact-info:before,
+div#header .header-info .header-contact-info:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+div#header .header-info .header-contact-info:after {
+  clear: both;
+}
+div#header .header-info .header-contact-info a {
+  font-size: 16px;
+  font-weight: bold;
+  display: block;
+  color: #ffffff;
+}
+div#header .header-info .blog-link {
+  float: right;
+  display: inline-block;
+  padding: 5px 30px;
+  margin-right: 5px;
+  max-width: 90px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #e5ebef;
+  background-color: #ffffff;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+}
+div#header .header-info .blog-link:hover {
+  text-decoration: none;
+  color: #c5d3dc;
 }
 ul.nav {
   margin-bottom: 0;
@@ -5297,14 +5366,14 @@ ul.nav {
   margin-left: 2px;
 }
 .nav-tabs li a {
-  background: #ff4500;
+  background: #ffb599;
   font-family: "Avenir LT W02 65 Medium", Helvetica, Arial, sans-serif;
   font-weight: normal;
   font-size: 24px;
   color: #ffffff;
-  -webkit-border-radius: 2;
-  -moz-border-radius: 2;
-  border-radius: 2;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
   text-transform: uppercase;
   width: 115px;
   padding-left: 23px;
@@ -5318,11 +5387,13 @@ ul.nav {
   background: #ffffff;
   color: #ff4500;
 }
-.nav-tabs .active a {
+.nav-tabs .active a,
+.nav-tabs .active a:hover {
   background: #ffffff;
-  color: #ff4500;
-  height: 53px;
+  color: #ffb599;
+  height: 50px;
   margin-bottom: 0;
+  border-bottom: solid 5px #ffb599;
 }
 div.main-content-container {
   margin: 0 auto;
@@ -5359,13 +5430,36 @@ div.main-content {
   padding-bottom: 0;
   min-height: 1px;
 }
+.carousel-control {
+  height: 400px;
+  width: 150px;
+  top: 0;
+  margin-top: 0;
+  line-height: 400px;
+  border-width: 0;
+  background: transparent;
+  color: #25a7af;
+  opacity: 0.1;
+  filter: alpha(opacity=10);
+}
+.carousel-control.right {
+  text-align: right;
+}
+.carousel-control.left {
+  text-align: left;
+}
+.carousel-control:hover {
+  color: #25a7af;
+}
 .carousel-indicators li {
-  background-color: #ff4500;
+  background-color: #ffb599;
   color: #ffffff;
-  border: solid 1px #db3b00;
+  border: solid 1px #ffb599;
   cursor: pointer;
   height: 15px;
   width: 15px;
+  line-height: 15px;
+  text-align: center;
   text-indent: 0;
   -webkit-border-radius: 1;
   -moz-border-radius: 1;
@@ -5373,7 +5467,7 @@ div.main-content {
 }
 .carousel-indicators li.active {
   background-color: #ffffff;
-  color: #ff4500;
+  color: #ffb599;
 }
 .carousel-inner {
   position: relative;
@@ -5397,4 +5491,16 @@ h1 {
   color: #25a7af;
   font-weight: normal;
   text-transform: uppercase;
+  border-bottom: solid 1px #e5ebef;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+h2 {
+  color: #25a7af;
+  font-weight: normal;
+  text-transform: uppercase;
+}
+.question {
+  margin-top: 16px;
+  font-weight: bold;
 }
