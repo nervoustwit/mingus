@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 09, 2013 at 12:19 AM
+-- Generation Time: Jul 15, 2013 at 11:48 AM
 -- Server version: 5.5.31
 -- PHP Version: 5.3.10-1ubuntu3.6
 
@@ -47,30 +47,6 @@ INSERT INTO `album` (`id`, `artist`, `title`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `carousels`
---
-
-CREATE TABLE IF NOT EXISTS `carousels` (
-  `carousel_id` int(11) NOT NULL AUTO_INCREMENT,
-  `carousel_order` int(11) NOT NULL,
-  `carousel_page` varchar(40) NOT NULL,
-  `carousel_subtitle` varchar(40) NOT NULL,
-  PRIMARY KEY (`carousel_id`),
-  UNIQUE KEY `carousel_id` (`carousel_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
-
---
--- Dumping data for table `carousels`
---
-
-INSERT INTO `carousels` (`carousel_id`, `carousel_order`, `carousel_page`, `carousel_subtitle`) VALUES
-(1, 1, 'what', 'Lets get started'),
-(2, 2, 'what', 'Then lets do this'),
-(3, 3, 'what', 'And tadaw!!');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `content`
 --
 
@@ -78,25 +54,32 @@ CREATE TABLE IF NOT EXISTS `content` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(40) NOT NULL,
   `order_id` int(20) NOT NULL,
+  `title` varchar(100) NOT NULL,
   `label` varchar(100) NOT NULL,
   `text` text NOT NULL,
   `img` varchar(40) NOT NULL,
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
 
 --
 -- Dumping data for table `content`
 --
 
-INSERT INTO `content` (`id`, `name`, `order_id`, `label`, `text`, `img`) VALUES
-(1, 'home', 0, 'first label', 'this is home', 'home.png'),
-(2, 'why', 0, '', 'blbalblalblblablablblablablalblablablablablablablablablablablablabvalblbalablalbdfjlfdj  blbalblalblblablablblablablalblablablablablablablablablablablablabvalblbalablalbdfjlfdj  blbalblalblblablablblablablalblablablablablablablablablablablablabvalblbalablalbdfjlfdjvvvv \r\n', 'why.png'),
-(3, 'how', 0, '', 'How to blalbalbk;adfsjldjHow to blalbalbk;adfsjldjHow to blalbalbk;adfsjldjHow to blalbalbk;adfsjldjHow to blalbalbk;adfsjldjHow to blalbalbk;adfsjldjHow to blalbalbk;adfsjldj How to blalbalbk;adfsjldjv How to blalbalbk;adfsjldj How to blalbalbk;adfsjldjHow to blalbalbk;adfsjldj', 'how.png'),
-(4, 'system', 0, '', 'ipsum caca', 'system.png'),
-(5, 'what', 0, '', 'This is what we do for you.\r\n\r\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam et sapien massa. Phasellus vel ante eget sapien lobortis fermentum at non mauris. Suspendisse mi urna, volutpat sed consequat eu, dignissim ac elit. Nullam ligula lacus, scelerisque semper cursus at, egestas ac ante. Quisque vel ipsum mi. Maecenas eu elit rutrum urna porta venenatis sit amet in nisi. Mauris vel mi dui. Suspendisse ac neque lorem. Ut aliquet pretium erat at feugiat. Etiam vel nulla a turpis fringilla volutpat.\r\n\r\nPellentesque ut lectus a libero adipiscing convallis. Etiam ac orci ac tortor interdum blandit in sit amet eros. Nunc quis diam augue. Mauris id eros et magna placerat porttitor. Nulla ut ligula odio, vitae tristique metus. Aliquam erat volutpat. Integer ac suscipit urna. Maecenas scelerisque accumsan justo, in blandit diam viverra accumsan. Maecenas tincidunt augue id nisl dignissim tristique adipiscing magna accumsan. Curabitur vehicula quam quis leo gravida quis varius neque viverra. Vivamus rutrum, ligula ultrices porta consequat, velit mi faucibus risus, sit amet scelerisque velit magna ut arcu. Mauris ut lorem a ante ullamcorper sollicitudin. Suspendisse semper commodo lobortis. Praesent in odio est. ', 'what.png'),
-(6, 'gg', 0, '', 'I LOVE U CAMILLE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', 'csca,gshj'),
-(7, 'home', 1, 'the secon label', 'the second carousel', 'second.png'),
-(8, 'home', 2, 'the third label', 'the third carousel', 'third.png');
+INSERT INTO `content` (`id`, `name`, `order_id`, `title`, `label`, `text`, `img`) VALUES
+(1, 'what', 0, 'Electronic Medical Records.', '', 'Our treatment room software helps you view patient histories, transcribe your SOAP notes, create prescriptions, and the other things you need to do in the treatment room.\r\n\r\nOur office software helps medical office assistants with all their tasks from booking to billing and everything in between.', 'page3.gif'),
+(2, 'why', 0, 'We Believe in the Doctor-Patient Relationship.', '', 'This relationship gives patients the courage to endure painful treatments and it adds meaning to the doctor''s work. We make Electronic Medical Records (EMR) software that gets out of your way so that you can focus on your patients. It lets doctors be doctors.', 'page4.gif'),
+(3, 'how', 0, 'You Are Now Free to do What You do Best: Patient Care', '', 'Imagine more eye contact with your patient and less with the screen. Imagine never having to write or type your SOAP notes.', 'page5.gif'),
+(4, 'system', 0, 'Our System is a Team of 5 Computers Who Play Different Roles in Your Office', '1) The Welcome', 'Know how many patients come through your doors and if they were on-time.\r\n\r\nEvery patient that comes will sign-in on this device. Instantly, your other computers will remind you to collect money, give documents, or the other things we sometimes forget to do while your patients are in the office.', 'page6.gif'),
+(5, 'system', 1, '0', '2) The Wait', 'Let your patients help you too. While your patients wait in the waiting room, they can use that time to enter their demographic data, update their phone numbers, scan their Health cards, and even enter symptoms.', 'page7.gif'),
+(6, 'system', 2, '0', '3) The Tracker', 'Always know where your patients are. This computer keeps track of  all your patients in the office and how many more are coming today. It will also tell your other computers too.', 'page8.gif'),
+(7, 'system', 3, '0', '4) The Assistant', 'The computer by your side. Document your patient encounter without any typing or writing! Nuance’s revolutionary technology does the typing, and gets even better as it learns. Just like a real assistant should.', 'page9.gif'),
+(8, 'system', 4, '0', '5) Mission Control', 'the third carousel', 'page10.gif'),
+(9, 'start', 0, 'To install our system is as easy as 1-2-3! And it’s completely FREE! And you can stop at any time!', 'Step 1', 'Let’s connect. Give us a call toll free (1-855-621-2345) or email us at info@medicuscorda.com.', 'page11.gif'),
+(10, 'start', 1, '', 'Step 2', 'Let’s meet. A friendly person from Medicus Corda will volunteer to work with your Medical Office Assistants to understand the workflow of your office. We’ll modify our system to fit. ', 'page12.gif'),
+(11, 'start', 2, '', 'Step 3', 'Let’s test. That friendly volunteer will be with you as you test our system in your office.\r\n\r\nIf you decide to continue, there will be some equipment purchases (e.g. iPads, iPad Stands) and a flat monthly fee.\r\n\r\nNo Installation Fee!\r\n\r\nNo Training Fees!\r\n\r\nCancel at Anytime!\r\n\r\nWe make it easy. We’re with you at every step: from installation, to training, to go-live, and beyond.\r\n', 'page13.gif'),
+(12, 'faq', 0, 'Frequently Asked Questions', '', '<p class=''question''>Do we have to scan all our records?</p>\r\n                                        <p>No. We recommend a gradual adoption of  EMR. That means using paper and EMR together until enough of  the patient history is in electronic format.</p>\r\n                                        <p class=''question''>Do our patients have to agree to have their medical records in electronic format?</p>\r\n                                        <p>Yes. Our lawyers drafted that document for you.</p>\r\n                                        <p class=''question''>Is the Internet secure?</p>\r\n\r\n<p>No. Like our city roadways, Internet traffic is not secure. What makes the Internet secure are the protections we implement.</p>', 'page15.gif'),
+(13, 'faq', 1, '', '', '<p class=''question''>What if the Internet fails?</p>\r\n                                        <p>It is always good to prepare for the worst situations. That is why you can still treat scheduled patients without Internet for a limited time so that you can repair the situation without skipping a beat.</p>\r\n                                        <p class=''question''>Is my data secure?</p>\r\n                                        <p>Yes. Your data is stored on servers that reside in a guarded maximum security Canadian datacenter that requires keys, keycards, and fingerprints to access. </p>\r\n                                        <p>The data is simultaneously stored on many hard drives including a remote backup.</p>\r\n                                       <p class=''question''>What does this system require to start?</p>\r\n                                        <p>This system is designed to be inexpensive and easy to setup. It requires equipment that is likely to already be in your office: a computer, wireless router, a printer, and Internet. An iPad is on us!</p>\r\n                                        <p class=''question''>What is the most gradual way I can adopt EMR?</p>\r\n                                        <p>You can use the complete version of  our office software for a flat monthly fee. </p>\r\n                                        <p>After your staff  is comfortable with our office software, you can begin to use the treatment room software on the iPad for an additional monthly fee.</p>', 'page15.gif'),
+(14, 'cost', 0, 'The Cost', '', 'the cost section', 'page14.gif');
 
 -- --------------------------------------------------------
 
@@ -126,10 +109,8 @@ INSERT INTO `images` (`id`, `name`, `page`) VALUES
 
 CREATE TABLE IF NOT EXISTS `page` (
   `id` int(4) NOT NULL AUTO_INCREMENT,
+  `order_id` int(11) NOT NULL,
   `title` varchar(20) NOT NULL,
-  `text` text NOT NULL,
-  `img` varchar(30) NOT NULL,
-  `carousel` tinyint(1) NOT NULL,
   `name` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
@@ -138,13 +119,14 @@ CREATE TABLE IF NOT EXISTS `page` (
 -- Dumping data for table `page`
 --
 
-INSERT INTO `page` (`id`, `title`, `text`, `img`, `carousel`, `name`) VALUES
-(1, 'Home', 'this is home', 'home.png', 1, 'home'),
-(2, 'Why?', 'blbalblalblblablablblablablalblablablablablablablablablablablablabvalblbalablalbdfjlfdj  blbalblalblblablablblablablalblablablablablablablablablablablablabvalblbalablalbdfjlfdj  blbalblalblblablablblablablalblablablablablablablablablablablablabvalblbalablalbdfjlfdjvvvv \r\n', 'why.png', 0, 'why'),
-(3, 'How?', 'How to blalbalbk;adfsjldjHow to blalbalbk;adfsjldjHow to blalbalbk;adfsjldjHow to blalbalbk;adfsjldjHow to blalbalbk;adfsjldjHow to blalbalbk;adfsjldjHow to blalbalbk;adfsjldj How to blalbalbk;adfsjldjv How to blalbalbk;adfsjldj How to blalbalbk;adfsjldjHow to blalbalbk;adfsjldj', 'how.png', 1, 'how'),
-(4, 'the system', 'ipsum caca', 'system.png', 1, 'system'),
-(6, 'WHAT WE DO?', 'This is what we do for you.\r\n\r\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam et sapien massa. Phasellus vel ante eget sapien lobortis fermentum at non mauris. Suspendisse mi urna, volutpat sed consequat eu, dignissim ac elit. Nullam ligula lacus, scelerisque semper cursus at, egestas ac ante. Quisque vel ipsum mi. Maecenas eu elit rutrum urna porta venenatis sit amet in nisi. Mauris vel mi dui. Suspendisse ac neque lorem. Ut aliquet pretium erat at feugiat. Etiam vel nulla a turpis fringilla volutpat.\r\n\r\nPellentesque ut lectus a libero adipiscing convallis. Etiam ac orci ac tortor interdum blandit in sit amet eros. Nunc quis diam augue. Mauris id eros et magna placerat porttitor. Nulla ut ligula odio, vitae tristique metus. Aliquam erat volutpat. Integer ac suscipit urna. Maecenas scelerisque accumsan justo, in blandit diam viverra accumsan. Maecenas tincidunt augue id nisl dignissim tristique adipiscing magna accumsan. Curabitur vehicula quam quis leo gravida quis varius neque viverra. Vivamus rutrum, ligula ultrices porta consequat, velit mi faucibus risus, sit amet scelerisque velit magna ut arcu. Mauris ut lorem a ante ullamcorper sollicitudin. Suspendisse semper commodo lobortis. Praesent in odio est. ', 'what.png', 1, 'what'),
-(7, 'caca', 'love killian', 'csca,gshj', 0, 'gg');
+INSERT INTO `page` (`id`, `order_id`, `title`, `name`) VALUES
+(1, 1, 'WHAT WE DO', 'what'),
+(2, 2, 'WHY', 'why'),
+(3, 3, 'HOW', 'how'),
+(4, 4, 'THE SYSTEM', 'system'),
+(5, 5, 'GET STARTED', 'start'),
+(6, 6, 'COST', 'cost'),
+(7, 7, 'F.A.Q.', 'faq');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
