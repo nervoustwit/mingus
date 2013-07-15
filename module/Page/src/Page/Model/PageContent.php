@@ -10,6 +10,7 @@ class PageContent
     public $text;
 	public $img;
 	public $label;
+	public $title;
 
 
     /**
@@ -21,6 +22,8 @@ class PageContent
         $this->text = (isset($data['text'])) ? $data['text'] : null;
 		$this->img = (isset($data['img'])) ? $data['img'] : null;
 		$this->label = (isset($data['label'])) ? $data['label'] : null;
+		$this->title = (isset($data['title'])) ? $data['title'] : null;
+		
     }
 
     public function getArrayCopy()

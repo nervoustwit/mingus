@@ -207,12 +207,14 @@ class PageController extends AbstractActionController
 		foreach ($names as $pageName){
 		$contents = $this->getPageContentTable()->getPageCarousels($pageName);
 		
+		
+		
 		$carousels['name'] = $pageName;
 		$carousels['carouselCount'] = $contents->count();
 		$carousels['contents'] = array();
 
 			foreach($contents as $content){
-			$carousels['contents'][] = array('label' => $content->label, 'text' => $content->text, 'img' => $content->img);
+			$carousels['contents'][] = array('title' =>$content->title, 'label' => $content->label, 'text' => $content->text, 'img' => $content->img);
 			}
 		$result[] = $carousels;				
 		}
@@ -230,15 +232,7 @@ return new ViewModel(array('test' => $tabNav, 'pages' => $result
 		
 		//$carousels = array();
  
-<<<<<<< HEAD
-		$carousels->name = "home";
-		$carousels->intCount = 3;
-		$carousels->contents = array();
-		$carousels->contents[] = array('label' => 'first', 'text' => 'welcome home', 'img' => 'page3.gif');
-		$carousels->contents[] = array('label' => 'second', 'text' => 'second welcome home', 'img' => 'page4.gif');
-		$carousels->contents[] = array('label' => 'third', 'text' => 'third welcome home', 'img' => 'page5.gif');
-		$carousels->contents[] = array('label' => 'four', 'text' => 'fourth welcome home', 'img' => 'page6.gif');
-=======
+
 		//$carousels->name = "home";
 		//$carousels->intCount = 3;
 		//$carousels->contents = array();
@@ -250,7 +244,7 @@ return new ViewModel(array('test' => $tabNav, 'pages' => $result
 		//$pageName = 'home';	
 		
 		//$pageContent = $this->getPageContentTable()->getPageCarousels($pageName);	
->>>>>>> 358c80c0d9d53e2715e48351cb6a8395fedf4fd0
+
 			
 			
 		$pages = $this->getPageTable()->fetchAll();
@@ -272,7 +266,7 @@ return new ViewModel(array('test' => $tabNav, 'pages' => $result
 		$carousels['contents'] = array();
 
 			foreach($contents as $content){
-			$carousels['contents'][] = array('label' => $content->label, 'text' => $content->text, 'img' => $content->img);
+			$carousels['contents'][] = array('title' => $content->title, 'label' => $content->label, 'text' => $content->text, 'img' => $content->img);
 			}
 		$result[] = $carousels;				
 		}

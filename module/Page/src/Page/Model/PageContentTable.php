@@ -28,7 +28,7 @@ class PageContentTable extends AbstractTableGateway
         return $resultSet;
     }
 	
-	public function getPageCarousels($pageName)
+	public function getPageContents($pageName)
 	{
 		
 		$carouselArray = $this->select(array('name' => $pageName));

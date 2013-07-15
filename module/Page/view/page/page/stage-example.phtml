@@ -20,7 +20,7 @@ echo'<div class="tab-pane" id="'.$page['name'].'">' ;
 				echo '<div class="singleContent">
 				          <img src="http://site.jj/img/'.$page['contents'][0]['img'].'" alt="" />
 				          <div class="text-caption">
-                		      <h4>'.$page['contents'][0]['label'].'</h4>
+                		      <h4>'.$page['contents'][0]['title'].'</h4>
                       			<p>'.$page['contents'][0]['text'].'</p>
         		          </div>
         		      </div>
@@ -35,6 +35,9 @@ echo'<div class="tab-pane" id="'.$page['name'].'">' ;
 						if($carouselCount == 0)
 						{
 					echo '<li data-target="#'.$this->escapeHtml($page['name']).'Carousel" data-slide-to="'.$carouselCount.'" class="active"></li>'.PHP_EOL ;
+					
+					
+					
 						}else{
 					echo '<li data-target="#'.$this->escapeHtml($page['name']).'Carousel" data-slide-to="'.$carouselCount.'"></li>'.PHP_EOL ;					
 						}
@@ -59,7 +62,8 @@ echo'<div class="tab-pane" id="'.$page['name'].'">' ;
 			echo '<div class="item active">
                   	<img src="http://site.jj/img/'.$this->escapeHtml($content['img']).'" alt="">
                     <div class="carousel-caption">
-                      <h4>'.$this->escapeHtml($content['label']).'</h4>
+                      <h1>'.$this->escapeHtml($content['title']).'</h1>
+                      <h2>'.$this->escapeHtml($content['label']).'</h2>
                       <p>'.$this->escapeHtml($content['text']).'</p>
                     </div>
                   </div>';

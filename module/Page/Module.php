@@ -7,6 +7,7 @@ use Page\Model\TabNav;
 use Page\Model\TabNavTable;
 use Page\Model\PageContent;
 use Page\Model\PageContentTable;
+use Application\Model\Production;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
 
