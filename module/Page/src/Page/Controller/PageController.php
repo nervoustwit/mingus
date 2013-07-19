@@ -193,36 +193,10 @@ class PageController extends AbstractActionController
         
   $tabNav = $this->getTabNavTable()->fetchAll();
 
- 		$pages = $this->getPageTable()->fetchAll();
-		
-		$names = array();
-		
-		foreach($pages as $page){
-			$names[] = $page->name;
-		}
-		
-
-		$result = array();
-		
-		foreach ($names as $pageName){
-		$contents = $this->getPageContentTable()->getPageCarousels($pageName);
-		
-		
-		
-		$carousels['name'] = $pageName;
-		$carousels['carouselCount'] = $contents->count();
-		$carousels['contents'] = array();
-
-			foreach($contents as $content){
-			$carousels['contents'][] = array('title' =>$content->title, 'label' => $content->label, 'text' => $content->text, 'img' => $content->img);
-			}
-		$result[] = $carousels;				
-		}
 		
   
         
-return new ViewModel(array('test' => $tabNav, 'pages' => $result
-        ));
+return new ViewModel(array('test' => $tabNav));
         
 	}
 

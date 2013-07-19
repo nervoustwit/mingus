@@ -1,1 +1,6 @@
-<?php print $result;?>
+<?php $title = 'My app';
+$this->headTitle($title);?>
+<?php print_r($resultArray);?>
+<div class="tab-content">
+<?php echo $this->escapeHtml($result);?>
+</div>

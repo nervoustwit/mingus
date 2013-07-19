@@ -83,7 +83,7 @@ class IndexController extends AbstractActionController
     		//$production = new Production();
 			//$result = $production->getPagesArray();
 			
-			return new ViewModel(array('result' => $result));
+			return new ViewModel(array('result' => $result, 'resultArray' => $pagesContents));
     	}					
 
 }

@@ -71,8 +71,8 @@ class Production
 		
 	public function printCarouselInsideTab($pages)
 	{
-		echo '<div class="tab-content">
-		';
+		//echo '<div class="tab-content">
+		//';
 		
 		foreach($pages as $page)
 		{
@@ -101,8 +101,8 @@ class Production
 		   {
 		   		if($carouselCount == 0)
 				{
-				//	echo '<li data-target="#'.$page['name'].'Carousel" data-slide-to="'.$carouselCount.'" class=""></li>'.PHP_EOL ;
-					//	}else{
+					echo '<li data-target="#'.$page['name'].'Carousel" data-slide-to="'.$carouselCount.'"></li>'.PHP_EOL ;
+						}else{
 					echo '<li data-target="#'.$page['name'].'Carousel" data-slide-to="'.$carouselCount.'"></li>'.PHP_EOL ;					
 						}
 					$carouselCount++;
@@ -149,13 +149,12 @@ class Production
 					
 		   }
 
-		 echo '</div>
-		 ';
+		 echo '</div>';
+		
 
 		 } 
 		
-	echo'</div>
-	';
+	//echo'</div>';
 
 	}
 
