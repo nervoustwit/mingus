@@ -18,22 +18,15 @@
         <!-- Scripts -->
         <?php echo $this->headScript()->prependFile($this->basePath() . '/js/html5.js', 'text/javascript', array('conditional' => 'lt IE 9',))
                                       ->prependFile($this->basePath() . '/bootstrap/js/bootstrap-carousel.js')
-                                      ->prependFile($this->basePath() . '/js/jquery.min.js') ?>
+                                      ->prependFile($this->basePath() . '/js/jquery.min.js')
+									  ->prependFile($this->basePath() . '/js/bootstrap.min.js') ?>
 
     </head>
     <body>
         <div class="container">
             <a class="brand" href="<?php echo $this->url('home') ?>">&nbsp;</a>
         </div>
-        <div class="container">
-            <ul  class="nav nav-tabs">
-                <li class="active"><a href="<?php echo $this->url('home') ?>"><?php echo $this->translate('Home') ?></a></li>
-                <li class=""><a href="<?php echo $this->url('home') ?>"><?php echo $this->translate('Home') ?></a></li>
-                <li class=""><a href="<?php echo $this->url('home') ?>"><?php echo $this->translate('Home') ?></a></li>
-                <li class=""><a href="<?php echo $this->url('home') ?>"><?php echo $this->translate('Home') ?></a></li>
-                <li class=""><a href="<?php echo $this->url('home') ?>"><?php echo $this->translate('Home') ?></a></li>
-            </ul>
-        </div>
+
         <div class="container main-content-container">
             <div class="main-content">
             <?php echo $this->content; ?>

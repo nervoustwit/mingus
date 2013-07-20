@@ -74,16 +74,18 @@ class IndexController extends AbstractActionController
 		$pagesContents[] = $pageContents;				
 		}
 		
-		$htmlizer = new Production();
-		$result = $htmlizer->printCarouselInsideTab($pagesContents);
+		//$htmlizer = new Production();
+		//$result = $htmlizer->printCarouselInsideTab($pagesContents);
 		
 				
-		
+		$tabNav = $this->getTabNavTable()->fetchAll();
 					
     		//$production = new Production();
 			//$result = $production->getPagesArray();
-			
-			return new ViewModel(array('result' => $result, 'resultArray' => $pagesContents));
-    	}					
-
+		 
+        
+			return new ViewModel(array('pages' => $pagesContents, 'tabs' => $tabNav));
+    	}
+		
+		
 }
