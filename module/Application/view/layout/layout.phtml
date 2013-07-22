@@ -3,7 +3,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <?php echo $this->headTitle('ZF2 '. $this->translate('Skeleton Application'))->setSeparator(' - ')->setAutoEscape(false) ?>
+        <?php echo $this->headTitle('MedicusCorda '. $this->translate('Lets Doctors Be Doctors'))->setSeparator(' - ')->setAutoEscape(false) ?>
 
         <?php echo $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0') ?>
         
@@ -15,19 +15,24 @@
                         ->prependStylesheet($this->basePath() . '/css/style.css')
                         ->prependStylesheet($this->basePath() . '/css/bootstrap.min.css')?>
 
-
+                <!-- Scripts -->
+        <?php echo $this->headScript()->prependFile($this->basePath() . '/js/html5.js', 'text/javascript', array('conditional' => 'lt IE 9',))
+                                      //->prependFile($this->basePath() . '/bootstrap/js/bootstrap-carousel.js')
+                                      ->prependFile($this->basePath() . '/js/bootstrap.min.js')
+                                      ->prependFile($this->basePath() . '/js/jquery.min.js');?>
 
     </head>
     <body>
-        <div class="container">
-            <a class="brand" href="<?php echo $this->url('home') ?>">&nbsp;</a>
-        </div>
-
-        <div class="container main-content-container">
-            <div class="main-content">
-            <?php echo $this->content; ?>
+        <div class="container" id="header">
+            <a class="brand span8" href="<?php echo $this->url('home') ?>">&nbsp;</a>
+            <div class="header-info span4">
+                <div class="header-contact-info"><a href="mailto:info@medicuscorda.com">info@medicuscorda.com</a>1-865-MC1-2345</div>
+                <a href="/blog/" class="blog-link">UPDATES</a>
             </div>
-        </div>
+        </div> 
+
+            <?php echo $this->content; ?>
+
         <div class="container">
             <hr>
             
@@ -35,11 +40,7 @@
                 <p>&copy; <?php echo date('Y') ?> by medicuscorda.com <?php echo $this->translate('All rights reserved.') ?></p>
             </footer>
         </div> <!-- /container -->
-                <!-- Scripts -->
-        <?php echo $this->headScript()->prependFile($this->basePath() . '/js/html5.js', 'text/javascript', array('conditional' => 'lt IE 9',))
-                                      //->prependFile($this->basePath() . '/bootstrap/js/bootstrap-carousel.js')
-                                      ->prependFile($this->basePath() . '/js/bootstrap.min.js')
-                                      ->prependFile($this->basePath() . '/js/jquery.min.js');?>
+
 									   
         <?php echo $this->inlineScript() ;?>
     </body>

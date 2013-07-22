@@ -1,69 +1,96 @@
-<div class="tabbable">
-<ul id="MedicusCordaTab" class="nav nav-tabs">
-<?php $count = 0;?>
-<?php foreach ($tabs as $tab) : ?>
-<?php if($count == 0) : ?>
- <li class="active"><a href="#<?php echo $this->escapeHtml($tab->name);?>Tab" data-toggle="tab"><?php echo $this->escapeHtml($tab->title);?></a></li>
- <?php else : ?>
- <li><a href="#<?php echo $this->escapeHtml($tab->name);?>Tab" data-toggle="tab"><?php echo $this->escapeHtml($tab->title);?></a></li>
- <?php endif; ?>
- <?php $count++;?>
-<?php endforeach;?>
 
-</ul>
+<div class="tabbable container">
+    <ul id="MedicusCordaTab" class="nav nav-tabs">
+        <?php $count = 0; ?>
+        <?php foreach ($tabs as $tab) : ?>
+            <?php if ($count == 0) : ?>
+                <li class="active"><a href="#<?php echo $this->escapeHtml($tab->name); ?>Tab" data-toggle="tab"><?php echo $this->escapeHtml($tab->title); ?></a></li>
+            <?php else : ?>
+                <li><a href="#<?php echo $this->escapeHtml($tab->name); ?>Tab" data-toggle="tab"><?php echo $this->escapeHtml($tab->title); ?></a></li>
+            <?php endif; ?>
+            <?php $count++; ?>
+        <?php endforeach; ?>
 
-<div class="tab-content">
-	<?php $pageCount = 0;?>
-	<?php foreach($pages as $page) : ?>
-		<?php if($pageCount == 0) :?>
-		<div class="tab-pane active" id="<?php echo $this->escapeHtml($page['name']);?>Tab">
-		<?php else : ?>
-		<div class="tab-pane" id="<?php echo $this->escapeHtml($page['name']);?>Tab">
-		<?php endif;?>
-		<?php $pageCount++;?>
-		<?php if($page['contentCount'] == 1) : ?>
-			<div class="singleContent" id="<?php echo $this->escapeHtml($page['name']);?>'Content">
-				<h1><?php echo $this->escapeHtml($page['contents'][0]['title']);?></h1>
-				<p><?php echo $this->escapeHtml($page['contents'][0]['text']);?></p>
-					<div class="thumbnail">
-					<img src="img/<?php echo $this->escapeHtml($page['contents'][0]['img']);?>">
-					</div>
-         	</div>
-         <?php else : ?>
-        <div class="carousel slide" id="<?php echo $this->escapeHtml($page['name']);?>Carousel">
-           <ol class="carousel-indicators">
-           	<?php $count = 0;?>
-           	 <?php while($count <= $page['contentCount']) : ?>
-           	 	<li data-target="#<?php echo $this->escapeHtml($page['name']);?>Carousel" data-slide-to="<?php  echo $this->escapeHtml($count)?>"></li>
-           	 <?php $count++;?>
-           	 <?php endwhile;?>
-           	</ol>
-                <div class="carousel-inner">
-                	
-                	<?php foreach($page['contents'] as $content) : ?>
-                		<div class="item">
- 	 		     	          	<img src="http://site.jj/img/<?php echo $this->escapeHtml($content['img'])?>" alt="">
-             		 		    <div class="carousel-caption">
-                    			  <h4><?php echo $this->escapeHtml($content['label'])?></h4>
-                   				   <div><?php echo $this->escapeHtml($content['text'])?></div>
-                   				</div>
-                 		</div>
-                 
-                 	<?php endforeach;?>
-                </div>
-                <a class="left carousel-control" href="#<?php echo $this->escapeHtml($page['name']);?>Carousel" data-slide="prev">&lsaquo;</a>
-                <a class="right carousel-control" href="#'<?php echo $this->escapeHtml($page['name']);?>Carousel" data-slide="next">&rsaquo;</a>
-				</div>
-			 <?php endif;?>           	 		
-		</div>
-	<?php endforeach;?>
-			
-</div>	
+    </ul>
 
-</div>
+    <div class="tab-content container">
+        <?php $pageCount = 0; ?>
+        <?php foreach ($pages as $page) : ?>
+            <?php if ($pageCount == 0) : ?>
+                <div class="tab-pane active" id="<?php echo $this->escapeHtml($page['name']); ?>Tab">
+                <?php else : ?>
+                    <div class="tab-pane" id="<?php echo $this->escapeHtml($page['name']); ?>Tab">
+                    <?php endif; ?>
+                    <?php $pageCount++; ?>
+                    <div class="container main-content-container">
+                        <div class="main-content">
+                            <?php if ($page['contentCount'] == 1) : ?>
+                                <div class="single-content row-fluid" id="<?php echo $this->escapeHtml($page['name']); ?>Content">
+                                    <div class="span12">
+                                        <div class="span6">
+                                            <h1><?php echo $this->escapeHtml($page['contents'][0]['title']); ?></h1>
+                                            <p><?php echo $this->escapeHtml($page['contents'][0]['text']); ?></p>
+                                        </div>
+                                        <div class="span6">
+                                            <div class="thumbnail">
+                                                <img src="img/<?php echo $this->escapeHtml($page['contents'][0]['img']); ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php else : ?>
+                                <div class="carousel slide row-fluid" id="<?php echo $this->escapeHtml($page['name']); ?>Carousel">
+                                    <div class='span12'>
+                                        <div class="row-fluid carousel-control-wrapper-row">
+                                            <div class="span6 carousel-control-wrapper">
+                                                <ol class="carousel-indicators">
+                                                    <?php $count = 0; ?>
+                                                    <?php while ($count <= $page['contentCount']) : ?>
+                                                        <li data-target="#<?php echo $this->escapeHtml($page['name']); ?>Carousel" data-slide-to="<?php echo $this->escapeHtml($count) ?>"></li>
+                                                        <?php $count++; ?>
+                                                    <?php endwhile; ?>
+                                                </ol>
+                                            </div>
+                                            <div class="span6">
 
-<script>
-$(function () {
-$('#MedicusCordaTab a:first').tab('show');
-})
-</script>
+                                            </div>
+                                        </div>
+                                        <div class="carousel-inner row-fluid">
+
+                                                <?php foreach ($page['contents'] as $content) : ?>
+                                            
+                                                    <div class="item row-fluid">
+                                                        <div class="span6">
+                                                            <div class="carousel-caption">
+                                                                <h4><?php echo $this->escapeHtml($content['label']) ?></h4>
+                                                                <div><?php echo $this->escapeHtml($content['text']) ?></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="span6">
+                                                            <div class="thumbnail">	
+                                                                <img src="<?php $this->url(); ?>/img/<?php echo $this->escapeHtml($content['img']) ?>" alt="">
+                                                            </div>
+                                                        </div>                                           
+                                                    </div>
+
+                                                <?php endforeach; ?>
+                                            </div>
+                                            <a class="left carousel-control" href="#<?php echo $this->escapeHtml($page['name']); ?>Carousel" data-slide="prev">&lsaquo;</a>
+                                            <a class="right carousel-control" href="#<?php echo $this->escapeHtml($page['name']); ?>Carousel" data-slide="next">&rsaquo;</a>
+                                        </div>
+
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+
+            </div>	
+
+        </div>
+
+        <script>
+            $(function() {
+                $('#MedicusCordaTab a:first').tab('show');
+            })
+        </script>
