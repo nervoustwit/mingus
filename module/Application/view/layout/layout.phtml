@@ -15,11 +15,7 @@
                         ->prependStylesheet($this->basePath() . '/css/style.css')
                         ->prependStylesheet($this->basePath() . '/css/bootstrap.min.css')?>
 
-        <!-- Scripts -->
-        <?php echo $this->headScript()->prependFile($this->basePath() . '/js/html5.js', 'text/javascript', array('conditional' => 'lt IE 9',))
-                                      ->prependFile($this->basePath() . '/bootstrap/js/bootstrap-carousel.js')
-                                      ->prependFile($this->basePath() . '/js/jquery.min.js')
-									  ->prependFile($this->basePath() . '/js/bootstrap.min.js') ?>
+
 
     </head>
     <body>
@@ -34,11 +30,18 @@
         </div>
         <div class="container">
             <hr>
+            
             <footer>
                 <p>&copy; <?php echo date('Y') ?> by medicuscorda.com <?php echo $this->translate('All rights reserved.') ?></p>
             </footer>
         </div> <!-- /container -->
-        <?php echo $this->inlineScript() ?>
+                <!-- Scripts -->
+        <?php echo $this->headScript()->prependFile($this->basePath() . '/js/html5.js', 'text/javascript', array('conditional' => 'lt IE 9',))
+                                      //->prependFile($this->basePath() . '/bootstrap/js/bootstrap-carousel.js')
+                                      ->prependFile($this->basePath() . '/js/bootstrap.min.js')
+                                      ->prependFile($this->basePath() . '/js/jquery.min.js');?>
+									   
+        <?php echo $this->inlineScript() ;?>
     </body>
 </html>
 
