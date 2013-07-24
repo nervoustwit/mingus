@@ -5398,7 +5398,7 @@ ul.nav {
 div.main-content-container {
   margin: 0 auto;
   border-color: #ffffff;
-  border-width: 1px;
+  border-width: 0;
   border-style: solid;
   -webkit-border-radius: 2;
   -moz-border-radius: 2;
