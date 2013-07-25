@@ -41,12 +41,16 @@
                             <?php else : ?>
                                 <div class="carousel slide row-fluid" id="<?php echo $this->escapeHtml($page['name']); ?>Carousel">
                                     <div class='span12'>
-                                        <div class="row-fluid carousel-control-wrapper-row">
+                                    
                                             <div class="span6 carousel-control-wrapper">
                                                 <ol class="carousel-indicators">
-                                                    <?php $count = 0; ?>
+                                                    <?php $count = 1; ?>
                                                     <?php while ($count <= $page['contentCount']) : ?>
-                                                        <li data-target="#<?php echo $this->escapeHtml($page['name']); ?>Carousel" data-slide-to="<?php echo $this->escapeHtml($count) ?>"><?php echo $this->escapeHtml($count + 1) ?></li>
+                                                    	<?php if($count == 1) : ?>
+                                                    		<li data-target="#<?php echo $this->escapeHtml($page['name']); ?>Carousel" data-slide-to="<?php echo $this->escapeHtml($count - 1); ?>" class="active"></li>
+                                                    	<?php else : ?>	
+                                                        	<li data-target="#<?php echo $this->escapeHtml($page['name']); ?>Carousel" data-slide-to="<?php echo $this->escapeHtml($count - 1 ); ?>"></li>
+                                                        <?php endif;?>
                                                         <?php $count++; ?>
                                                     <?php endwhile; ?>
                                                 </ol>
@@ -55,6 +59,7 @@
 
                                             </div>
                                         </div>
+                                       
                                         <div class="carousel-inner row-fluid">
                                                 <?php $count = 0; ?>
                                                 <?php foreach ($page['contents'] as $content) : ?>
@@ -78,15 +83,13 @@
                                             </div>
                                             <a class="left carousel-control" href="#<?php echo $this->escapeHtml($page['name']); ?>Carousel" data-slide="prev">&lsaquo;</a>
                                             <a class="right carousel-control" href="#<?php echo $this->escapeHtml($page['name']); ?>Carousel" data-slide="next">&rsaquo;</a>
-                                        </div>
+                                        
                                     </div>
                                 <?php endif; ?>
                         </div>
+                   	 </div>
                     </div>
-                    </div>
-                <?php endforeach; ?>
-  
-            </div>	
+                <?php endforeach; ?>	
 
         </div>
         <script>
