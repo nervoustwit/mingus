@@ -5277,8 +5277,16 @@ a.badge:focus {
   src: url("/fonts/BaskervilleRegular.eot?#iefix") format("eot"), url("/fonts/BaskervilleRegular.woff") format("woff"), url("/fonts/BaskervilleRegular.ttf") format("truetype"), url("/fonts/BaskervilleRegular.svg#32916b5a-0670-4834-b7bc-a3b0e0b48e80") format("svg");
 }
 body {
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: #25a7af;
+}
+.content-wrapper {
   padding-top: 10px;
   background-color: #e5ebef;
+}
+.inner-container {
+  margin: 0;
 }
 a {
   outline: none;
@@ -5364,6 +5372,7 @@ ul.nav {
 }
 .nav-tabs li {
   margin-left: 2px;
+  width: 14%;
 }
 .nav-tabs li a {
   background: #ffb599;
@@ -5375,13 +5384,23 @@ ul.nav {
   -moz-border-radius: 2px;
   border-radius: 2px;
   text-transform: uppercase;
-  width: 115px;
-  padding-left: 23px;
-  padding-right: 23px;
+  padding-left: 0px;
+  padding-right: 0px;
   text-align: center;
   line-height: 22px;
   height: 46px;
   margin-bottom: 5px;
+  display: block;
+  *zoom: 1;
+}
+.nav-tabs li a:before,
+.nav-tabs li a:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.nav-tabs li a:after {
+  clear: both;
 }
 .nav-tabs li a:hover {
   background: #ffffff;
