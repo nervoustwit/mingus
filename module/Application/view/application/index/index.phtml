@@ -6,9 +6,9 @@
         <?php $count = 0; ?>        
         <?php foreach ($tabs as $tab) : ?>
             <?php if ($count == 0) : ?>
-                <li class="active"><a href="#<?php echo $this->escapeHtml($tab->name); ?>Tab" data-toggle="tab"><?php echo $this->escapeHtml($tab->title); ?></a></li>
+                <li class="active"><a href="#<?php echo $this->escapeHtml($tab->name); ?>Tab" data-toggle="tab"><span><?php echo $this->escapeHtml($tab->title); ?></span></a></li>
             <?php else : ?>
-                <li><a href="#<?php echo $this->escapeHtml($tab->name); ?>Tab" data-toggle="tab"><?php echo $this->escapeHtml($tab->title); ?></a></li>
+                <li><a href="#<?php echo $this->escapeHtml($tab->name); ?>Tab" data-toggle="tab"><span><?php echo $this->escapeHtml($tab->title); ?></span></a></li>
             <?php endif; ?>
             <?php $count++; ?>
         <?php endforeach; ?>
@@ -22,6 +22,8 @@
         <?php foreach ($pages as $page) : ?>
             <?php if ($pageCount == 0) {
                 $paneAddClass = ' active';
+            } else {
+                $paneAddClass = '';
             }
             ?>
                 <div class="tab-pane<?php echo $paneAddClass; ?>" id="<?php echo $this->escapeHtml($page['name']); ?>Tab">
