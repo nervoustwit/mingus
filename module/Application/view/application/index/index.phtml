@@ -1,7 +1,9 @@
-
-<div class="tabbable container">
+<div class='container-fluid'>
+<div class="tabbable">
+    <div class='row-fluid'>
+        <div class='span12'>
     <ul id="MedicusCordaTab" class="nav nav-tabs">
-        <?php $count = 0; ?>
+        <?php $count = 0; ?>        
         <?php foreach ($tabs as $tab) : ?>
             <?php if ($count == 0) : ?>
                 <li class="active"><a href="#<?php echo $this->escapeHtml($tab->name); ?>Tab" data-toggle="tab"><?php echo $this->escapeHtml($tab->title); ?></a></li>
@@ -12,8 +14,10 @@
         <?php endforeach; ?>
 
     </ul>
-
-    <div class="tab-content container">
+            </div>
+    </div>
+    
+    <div class="tab-content">
         <?php $pageCount = 0; ?>
         <?php foreach ($pages as $page) : ?>
             <?php if ($pageCount == 0) {
@@ -22,7 +26,7 @@
             ?>
                 <div class="tab-pane<?php echo $paneAddClass; ?>" id="<?php echo $this->escapeHtml($page['name']); ?>Tab">
                     <?php $pageCount++; ?>
-                    <div class="container main-content-container">
+                    <div class="main-content-container">
                         <div class="main-content">
                             <?php if ($page['contentCount'] == 1) : ?>
                                 <div class="single-content row-fluid" id="<?php echo $this->escapeHtml($page['name']); ?>Content">
@@ -92,6 +96,7 @@
                 <?php endforeach; ?>	
 
         </div>
+</div>
         <script>
             $(function() {
                 $('#MedicusCordaTab a:first').tab('show');
