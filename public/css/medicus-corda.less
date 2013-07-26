@@ -37,8 +37,18 @@
 }
 
 body {
+    padding-top: 0;
+    padding-bottom:0;
+    background-color: @medicusCordaBlue;
+}
+
+.content-wrapper {
     padding-top: 10px;
     background-color: @medicusCordaLightGrey; 
+}
+
+.inner-container {
+    margin: 0;
 }
 
 a {
@@ -111,6 +121,7 @@ ul.nav {
 
     li {
         margin-left: 2px;
+        width: 14%;
         a {
             background: @medicusCordaLighterOrange;
             font-family: @menuFontFamily;
@@ -119,13 +130,14 @@ ul.nav {
             color: @white;
             .border-radius(2px);
             text-transform: uppercase;
-            width: 115px;
-            padding-left: 23px;
-            padding-right: 23px;
+            padding-left: 0px;
+            padding-right: 0px;
             text-align: center;
             line-height: 22px;
             height: 46px;
             margin-bottom: 5px;
+            display: block;
+            .clearfix;
  
             &:hover {
                 background: @white;
