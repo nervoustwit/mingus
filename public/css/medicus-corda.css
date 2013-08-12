@@ -5368,7 +5368,7 @@ ul.nav {
 .nav-tabs {
   min-width: 1132px;
   border: solid 0px transparent;
-  margin-left: -3px;
+  margin-left: -1px;
 }
 .nav-tabs li {
   margin-left: 3px;
