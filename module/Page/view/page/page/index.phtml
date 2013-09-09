@@ -1,38 +1,203 @@
+<html>
+<head>
 <?php
 
 $title = 'My pages';
 $this->headTitle($title);
+//print_r($pages);
 ?>
+
+
+<link href="http://site.jj/bootstrap/bootstrap-3.0.0/dist/css/bootstrap.css" media="screen" rel="stylesheet" type="text/css">
+
+<link href="http://site.jj/bootstrap/bootstrap-3.0.0/dist/css/bootstrap-theme.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="/img/favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon">
+                <!-- Scripts -->
+<script type="text/javascript" src="/js/jquery.min.js"></script>
+<!--<script type="text/javascript" src="http://johnny.github.io/jquery-sortable/js/jquery-sortable.js"></script>-->
+<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/bootstrap/js/bootstrap-carousel.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<!--[if lt IE 9]><script type="text/javascript" src="/js/html5.js"></script><![endif]-->
+
+        <script type="text/javascript">
+            $('.carousel').carousel();
+            $('.carousel').carousel('pause');
+        </script>
+        
+        <style>
+.input-xlg {  
+  height: 60px;
+  width: 100%;
+  padding: 10px 16px;
+  font-size: 30px;
+  line-height: 1.33;
+  border-radius: 6px;
+}
+        </style>
+
+</head>
+<body>
+	
+	<input class="form-control" id="focusedInput" type="text" value="This is focused...">
+
+	
+<div class="col-lg-12">
 <h1><?php echo $this->escapeHtml($title); ?></h1>
 <p>
-    <a href="<?php echo $this->url('page', array('action'=>'add'));?>">Add new page</a>
+	<button type="button" class="btn btn-default btn-lg">
+  <span class="glyphicon glyphicon-plus"></span> <a class="span 12" href="<?php// echo $this->url('page', array('action'=>'add'));?>">Add new page</a>
+</button>
+
+    
 </p>
 
-<table class="table">
-<tr>
-    <th>Id</th>
-    <th>Page Title</th>
-    <th>Page Text</th>
-    <th>Page Img</th>
-    <th>Page Carousel</th>
-    <th>Page Name</th>
-    <th>&nbsp;</th>
-</tr>
-<?php foreach ($pages as $page) : ?>
-<tr>
-    <td><?php echo $this->escapeHtml($page->id);?></td>
-    <td><?php echo $this->escapeHtml($page->title);?></td>
-    <td><?php echo $this->escapeHtml($page->text);?></td>
-    <td><?php echo $this->escapeHtml($page->img);?></td>
-    <td><?php echo $this->escapeHtml($page->carousel);?></td>
-    <td><?php echo $this->escapeHtml($page->name);?></td>
-    <td>
-        <a href="<?php echo $this->url('page',
-            array('action'=>'edit', 'id' => $page->id));?>">Edit</a>
-        <a href="<?php echo $this->url('page',
-            array('action'=>'delete', 'id' => $page->id));?>">Delete</a>
-    </td>
+<div class="tabbable">
+<div class='span12'>
+    <ul id="navigation" class="nav nav-pills">
+        <?php $count = 0; ?>        
+        <?php foreach ($tabs as $tab) : ?>
+            <?php if ($count == 0) : ?>
+                <li class="active"><a href="#<?php echo $this->escapeHtml($tab->name); ?>Tab" data-toggle="pill"><span><?php echo $this->escapeHtml($tab->title); ?></span></a></li>
+            <?php else : ?>
+                <li><a href="#<?php echo $this->escapeHtml($tab->name); ?>Tab" data-toggle="pill"><span><?php echo $this->escapeHtml($tab->title); ?></span></a></li>
+            <?php endif; ?>
+            <?php $count++; ?>
+        <?php endforeach; ?>
 
-</tr>
-<?php endforeach; ?>
-</table>
+    </ul>
+</div>
+</br>
+<div class="tab-content">
+        <?php $pageCount = 0; ?>
+        <?php foreach ($pages as $page) : ?>
+            <?php if ($pageCount == 0) {
+                $paneAddClass = ' active';
+            } else {
+                $paneAddClass = '';
+            }
+            ?>
+                <div class="tab-pane<?php echo $paneAddClass; ?>" id="<?php echo $this->escapeHtml($page['name']); ?>Tab">
+                    <?php $pageCount++; ?>
+                    <div class="main-content-container">
+                        <div class="main-content">
+                            <?php if ($page['contentCount'] == 1) : ?>
+                                <div class="single-content row-fluid" id="<?php echo $this->escapeHtml($page['name']); ?>Content">
+                                    <div class="row">
+                                    <div class="col-md-6">
+                                    	<div id="#Title-panel" class="panel panel-info">
+                                    		<div class="panel-heading" style="position : relative; overflow:hidden;">
+                                    			Title
+                                    			<a class="edit" href="/page/edit-title/<?php echo $this->escapeHtml($page['contents'][0]['id']);?>">
+                                    			<span style="position : absolute; right : 20; top :-20px;" class="glyphicon glyphicon-pencil">	
+                                    			</span>
+                                    			</a>
+                                    		</div>
+                                    		<div class="panel-body">                                        
+                                            <h1><?php echo $this->escapeHtml($page['contents'][0]['title']); ?></h1>
+                                        	</div>
+                                        </div>
+                                        <div class="panel panel-info">
+                                        	<div class="panel-heading" style="position : relative; overflow:hidden;">Text <span style="position : absolute ; right: 20; top:-20px" class="glyphicon glyphicon-pencil"></span></div>
+                                    		<div class="panel-body">
+                                            <p><?php echo $this->escapeHtml($page['contents'][0]['text']); ?></p>
+   											</div>
+   										</div>
+                                     </div>
+                                        <div class="col-md-6">
+                                            <div class="panel panel-info">
+                                            	<div class="panel-heading" style="position : relative; overflow:hidden;">
+                                            		Image
+                                            		<span style="position : absolute ; right: 20; top:-20px" class="glyphicon glyphicon-pencil">
+													</span>
+												</div>
+                                            	<div class="panel-body">
+                                                <img class="col-md-12" src="../img/<?php echo $this->escapeHtml($page['contents'][0]['img']); ?>">
+												</div>
+                                            </div>
+                                        </div>
+                                    
+                                    </div>
+                                </div>
+                            <?php else : ?>
+                                <div class="carousel slide row-fluid" id="<?php echo $this->escapeHtml($page['name']); ?>Carousel">
+                                    <div class='span12'>
+                                    
+                                            <div class="span6 carousel-control-wrapper">
+                                                <ol class="carousel-indicators">
+                                                    <?php $count = 1; ?>
+                                                    <?php while ($count <= $page['contentCount']) : ?>
+                                                    	<?php if($count == 1) : ?>
+                                                    		<li data-target="#<?php echo $this->escapeHtml($page['name']); ?>Carousel" data-slide-to="<?php echo $this->escapeHtml($count - 1); ?>" class="active"><?php echo $this->escapeHtml($count); ?></li>
+                                                    	<?php else : ?>	
+                                                        	<li data-target="#<?php echo $this->escapeHtml($page['name']); ?>Carousel" data-slide-to="<?php echo $this->escapeHtml($count - 1 ); ?>"><?php echo $this->escapeHtml($count); ?></li>
+                                                        <?php endif;?>
+                                                        <?php $count++; ?>
+                                                    <?php endwhile; ?>
+                                                </ol>
+                                            </div>
+                                            <div class="span6">
+
+                                            </div>
+                                        </div>
+                                       
+                                        <div class="carousel-inner row-fluid">
+                                                <?php $count = 0; ?>
+                                                <?php foreach ($page['contents'] as $content) : ?>
+                                                <?php $defaultItemClass = ($count == 0) ? " active" : ""; ?>
+                                                    <div class="item row-fluid<?php echo $defaultItemClass; ?>">
+                                                     <?php $count ++; ?>
+                                                        <div class="span6">
+                                                            
+                                                                <h4><?php echo $this->escapeHtml($content['label']) ?></h4>
+                                                                <div><?php echo $this->escapeHtml($content['text']) ?></div>
+
+                                                        </div>
+                                                        <div class="span6">
+                                                            <div class="thumbnail">	
+  Title                                                               <img src="<?php $this->url(); ?>/img/<?php echo $this->escapeHtml($content['img']) ?>" alt="">
+                                                            </div>
+                                                        </div>                                           
+                                                    </div>
+
+                                                <?php endforeach; ?>
+                                            </div>
+                                            <a class="left carousel-control" href="#<?php echo $this->escapeHtml($page['name']); ?>Carousel" data-slide="prev">&lsaquo;</a>
+                                            <a class="right carousel-control" href="#<?php echo $this->escapeHtml($page['name']); ?>Carousel" data-slide="next">&rsaquo;</a>
+                                        
+                                    </div>
+                                <?php endif; ?>
+                        </div>
+                   	 </div>
+                    </div>
+                <?php endforeach; ?>	
+
+        </div>
+</div>
+</div>
+<script>
+$(function() {
+    $('#control-panel a:first').tab('show');
+
+	$(".panel-info").hover(function(){
+		$("span", this).stop().animate({top:"30%"},{queue:false,duration:100});
+	}, function() {
+		$("span", this).stop().animate({top:"-20px"},{queue:false,duration:200});
+	});
+	
+	$(".edit"). click(function(){
+		 
+		$(this).parent().next('.panel-body').empty().load($(this).attr('href'));
+		
+        return false;
+	});
+	$("ul.nav").sortable();
+
+})
+</script>
+
+
+</body>
+
+</html>
+

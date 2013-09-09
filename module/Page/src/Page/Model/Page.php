@@ -10,6 +10,7 @@ use Zend\InputFilter\InputFilterInterface;
 class Page implements InputFilterAwareInterface
 {
     public $id;
+	public $order_id;
     public $title;
     public $text;
 	public $img;
@@ -21,6 +22,7 @@ class Page implements InputFilterAwareInterface
     public function exchangeArray($data)
     {
         $this->id			= (!empty($data['id']))				 ? $data['id']		 : null;
+		$this->order_id		= (!empty($data['order_id']))		 ? $data['order_id'] : null;
         $this->title		= (!empty($data['title']))			 ? $data['title']	 : null;
         $this->text			= (!empty($data['text']))			 ? $data['text']	 : null;
 		$this->img     		= (!empty($data['img']))			 ? $data['img']		 : null;

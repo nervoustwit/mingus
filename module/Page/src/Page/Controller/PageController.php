@@ -6,8 +6,10 @@ namespace Page\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Page\Model\Page;
+use Page\Model\PageContent;
 use Page\Model\TabNav;
 use Page\Form\PageForm;
+use Page\Form\EditTitleForm;
 
 
 class PageController extends AbstractActionController
@@ -45,9 +47,45 @@ class PageController extends AbstractActionController
 	
     public function indexAction()
     {
-    	return new ViewModel(array('pages' => $this->getPageTable()->fetchAll(),
-        ));
+		$pages = $this->getPageTable()->fetchAll();	
+		$pagesNames = array();
+
+		foreach($pages as $page){
+			$pageNames[] = $page->name;
+		}
+
+		foreach ($pageNames as $pageName){
+		$contents = $this->getPageContentTable()->getPageContents($pageName);
+
+		$pageContents['name'] = $pageName;
+		$pageContents['contentCount'] = $contents->count();
+		$pageContents['contents'] = array();
+
+			foreach($contents as $content){
+			$pageContents['contents'][] = array('id' => $content->id, 'title' => $content->title, 'label' => $content->label, 'text' => $content->text, 'img' => $content->img);
+			}
+		
+
+		$pagesContents[] = $pageContents;				
+		}
+		
+		//$htmlizer = new Production();
+		//$result = $htmlizer->printCarouselInsideTab($pagesContents);
+		
+				
+		$currentPages = $this->getTabNavTable()->fetchAll();
+					
+    		//$production = new Production();
+			//$result = $production->getPagesArray();
+		 
+        
+		$viewModel = new ViewModel(array('pages' => $pagesContents, 'tabs' => $currentPages));
+		
+
+        $viewModel->setTerminal(true);
+        return $viewModel;
     }
+		
 
     public function addAction()
     {
@@ -74,8 +112,15 @@ class PageController extends AbstractActionController
 
     public function editAction()
     {
-    	
-		$id = (int) $this->params()->fromRoute('id', 0);
+    	$id =3;
+    	$page = $this->getPageContentTable()->getContent($id);
+		
+		$title = $page->title;
+		
+		$viewModel = new ViewModel(array('page' => $title));
+
+        return $viewModel;
+		/*$id = (int) $this->params()->fromRoute('id', 0);
         if (!$id) {
             return $this->redirect()->toRoute('page', array(
                 'action' => 'add'
@@ -115,10 +160,60 @@ class PageController extends AbstractActionController
             'id' => $id,
             'form' => $form,
         );
+		*/
+		
+		
 		
     }
 
+	public function editTitleAction()
+    {
 
+    	
+		$id = (int) $this->params()->fromRoute('id', 0);
+        if (!$id) {
+            return $this->redirect()->toRoute('page', array(
+                'action' => 'index'
+            ));
+        }
+
+        // Get the Album with the specified id.  An exception is thrown
+        // if it cannot be found, in which case go to the index page.
+        try {
+            $page = $this->getPageContentTable()->getContent($id);
+        }
+        catch (\Exception $ex) {
+            return $this->redirect()->toRoute('page', array(
+                'action' => 'index'
+            ));
+			
+        }
+
+        $form  = new EditTitleForm();
+        $form->bind($page);
+        $form->get('submit');//->setAttribute('value', 'Edit');
+		$form->get('title');//->setAttribute('class', 'input-xlg form-control');
+		
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+          //  $form->setInputFilter($page->getInputFilter());
+            $form->setData($request->getPost());
+
+            if ($form->isValid()) {
+                	print_r($form->getData()->title);
+					
+                //$this->getPageContentTable()->saveTitle($form->getData()->id, $form->getData()->title);
+
+                // Redirect to list of albums
+                //return $this->redirect()->toRoute('page');
+            }
+        }
+
+
+		$viewModel = new ViewModel(array('id' => $id, 'form' => $form));
+    	$viewModel->setTerminal(true);
+        return $viewModel;
+    }
     	
 	public function deleteAction()
     {

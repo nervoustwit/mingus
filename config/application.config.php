@@ -5,7 +5,8 @@ return array(
         'Application',
         'Album',
         'Page',
-        'ZF2FileUploadExamples', 
+        'ZF2FileUploadExamples',
+		'TestAjax'
     ),
 
     // These are various options for the listeners attached to the ModuleManager
