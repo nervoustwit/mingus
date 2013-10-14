@@ -52,6 +52,17 @@ class PageContentTable extends AbstractTableGateway
         return $row;
     }
 	
+	public function getTitle($id)
+    {
+        $id  = (int) $id;
+        $rowset = $this->select(array('id' => $id)); 
+        $row = $rowset->current()->title;
+        if (!$row) {
+            throw new \Exception("Could not find row $id");
+        }
+        return $row;
+    }
+	
 	public function saveContent(Page $page)
     {
         $data = array(
@@ -75,12 +86,46 @@ class PageContentTable extends AbstractTableGateway
         }
     }
 
-	public function saveTitle($id, $title)
+	public function saveTitle($page)
 	{
+		$data = array(
+            'title' 	=> $page->title
+        );
+		$id = (int)$page->id;
 		if ($this->getContent($id)) {
-                $this->tableGateway->update(array('title' => $title), array('id' => $id));
+                $this->update($data, array('id' => $id));
             } else {
                 throw new \Exception('Form id does not exist');
             }
+	}
+	
+	public function saveText($page)
+	{
+		$data = array('text' => $page->text);
+		$id = (int)$page->id;
+		if ($this->getContent($id)) {
+                $this->update($data, array('id' => $id));
+            } else {
+                throw new \Exception('Form id does not exist');
+            }
+		
+	}
+	
+	public function updateContent($content)
+	{
+		$id = (int)$content->id;
+		$data = array($content->name => $content->value);
+		if ($this->getContent($id)) {
+                $this->update($data, array('id' => $id));
+            } else {
+                throw new \Exception('Form id does not exist');
+            }
+	}
+	
+	public function addContentRow($name)
+	{
+		
+         $this->insert(array('name' => $name));
+		
 	}
 }

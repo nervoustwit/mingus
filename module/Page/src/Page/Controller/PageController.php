@@ -10,6 +10,7 @@ use Page\Model\PageContent;
 use Page\Model\TabNav;
 use Page\Form\PageForm;
 use Page\Form\EditTitleForm;
+use Page\Form\EditTextForm;
 
 
 class PageController extends AbstractActionController
@@ -87,29 +88,6 @@ class PageController extends AbstractActionController
     }
 		
 
-    public function addAction()
-    {
-    	$form = new PageForm();
-        $form->get('submit')->setValue('Add');
-
-        $request = $this->getRequest();
-        if ($request->isPost()) {
-            $page = new Page();
-            $form->setInputFilter($page->getInputFilter());
-            $form->setData($request->getPost());
-
-            if ($form->isValid()) {
-                $page->exchangeArray($form->getData());
-                $this->getPageTable()->savePage($page);
-
-                // Redirect to list of albums
-                return $this->redirect()->toRoute('page');
-            }
-        }
-        return array('form' => $form);
-		
-    }
-
     public function editAction()
     {
     	$id =3;
@@ -130,7 +108,7 @@ class PageController extends AbstractActionController
         // Get the Album with the specified id.  An exception is thrown
         // if it cannot be found, in which case go to the index page.
         try {
-            $page = $this->getPageTable()->getPage($id);
+            $page = $this->getPageTable()->getPage($id); Notice: Undefined property: stdClass::$id in /var/www/site.jj/module/Page/src/Page/Model/PageTable.php on line 40
         }
         catch (\Exception $ex) {
             return $this->redirect()->toRoute('page', array(
@@ -191,8 +169,8 @@ class PageController extends AbstractActionController
 
         $form  = new EditTitleForm();
         $form->bind($page);
-        $form->get('submit');//->setAttribute('value', 'Edit');
-		$form->get('title');//->setAttribute('class', 'input-xlg form-control');
+        //$form->get('submit');//->setAttribute('value', 'Edit');
+		//$form->get('title');//->setAttribute('class', 'input-xlg form-control');
 		
         $request = $this->getRequest();
         if ($request->isPost()) {
@@ -200,9 +178,58 @@ class PageController extends AbstractActionController
             $form->setData($request->getPost());
 
             if ($form->isValid()) {
-                	print_r($form->getData()->title);
+               //print_r($form->getData());
 					
-                //$this->getPageContentTable()->saveTitle($form->getData()->id, $form->getData()->title);
+                $this->getPageContentTable()->saveTitle($form->getData());
+
+                // Redirect to list of albums
+                
+            }
+        }
+
+
+		$viewModel = new ViewModel(array('id' => $id, 'form' => $form));
+    	$viewModel->setTerminal(true);
+        return $viewModel;
+    }
+
+	public function editTextAction()
+    {
+
+    	
+		$id = (int) $this->params()->fromRoute('id', 0);
+        if (!$id) {
+            return $this->redirect()->toRoute('page', array(
+                'action' => 'index'
+            ));
+        }
+
+        // Get the Album with the specified id.  An exception is thrown
+        // if it cannot be found, in which case go to the index page.
+        try {
+            $page = $this->getPageContentTable()->getContent($id);
+        }
+        catch (\Exception $ex) {
+            return $this->redirect()->toRoute('page', array(
+                'action' => 'index'
+            ));
+			
+        }
+
+        $form  = new EditTextForm();
+        $form->bind($page);
+        //$form->get('submit');//->setAttribute('value', 'Edit');
+		//$form->get('title');//->setAttribute('class', 'input-xlg form-control');
+		
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+          //  $form->setInputFilter($page->getInputFilter());
+            $form->setData($request->getPost());
+
+            if ($form->isValid()) {
+               //print_r($form->getData());
+					
+                $this->getPageContentTable()->saveText($form->getData());
 
                 // Redirect to list of albums
                 //return $this->redirect()->toRoute('page');
@@ -245,56 +272,23 @@ class PageController extends AbstractActionController
 	
 	public function stageExampleAction()
 	{
-		//$resultSet = $this->getPageTable()->fetchAll();
-		
-		
-		
-	//	foreach($resultset){
-		//$rowsetArray = $resultSet->buffer();
-	//	$rowsetArray = $resultSet->next();
-//		}
-		
-//		$tabNav = new TabNav();
-//		$tabNav = $tabNav->testAllrows();
-//		$page = array();
-//		 foreach($resultSet as $row ){
-//		 	$page['title']	= $row->title;
-//			$page['text']	= $row->text;
-//			$page['img']	= $row->img;
-//			$page['name']	= $row->name; 
-//		 }
+		$request = $this->getRequest();
 	
-	//$page = $this->getTabNav()->testAllRows();
-		
-		//return new ViewModel(array('page' => $resultSet ,
-        	//));
-        
-//        $page = array();100,
- //                       ),
-//                    ),
-//                ),
-//            )));
-
-			     //       $inputFilter->add($factory->createInput(array(
-               // 'name'     => 'text',
-                //'required' => true,
-                //'filte
-//		$page[]= 'cool';
-//		$page[]= 'awsome';
-		
-		//return new ViewModel(array('page' => $resultSet ,
-        //));
-        //return $page;
-        
-  $tabNav = $this->getTabNavTable()->fetchAll();
-
-		
+		 if ($request->isPost()) {
+        // Make certain to merge the files info!
+       $post = array_merge_recursive(
+      $request->getPost()->toArray(),
+      $request->getFiles()->toArray()
+       );
   
-        
-return new ViewModel(array('test' => $tabNav));
-        
+  	//$post = 'merci!';
+		  }
+		$viewModel = new ViewModel(array('response' => $post));
+    	$viewModel->setTerminal(true);
+        return $viewModel;
+		
 	}
-
+	
 	public function carouselExampleAction()
 	{
 		
@@ -345,5 +339,67 @@ return new ViewModel(array('test' => $tabNav));
 		return new ViewModel(array('names' => $names, 'carousels' => $result
         ));
 	}
+
+	public function	editableAction()
+	{
+		$request = $this->getRequest();
+
+        if ($request->isPost()) {
+            $content->id = $request->getPost('pk');
+			$content->name = $request->getPost('name');
+			$content->value = $request->getPost('value');
+			$this->getPageContentTable()->updateContent($content);
+			
+        }
+		$viewModel = new ViewModel(array('response' => $content));
+    	$viewModel->setTerminal(true);
+        return $viewModel;
+	}
+	 
+	public function uploadImgAction()
+	{
+		
+		
+		$viewModel = new ViewModel();
+    	$viewModel->setTerminal(true);
+        return $viewModel;
+		
+	}
 	
+	public function addAction()
+    {
+
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+            
+            //$page = $request->getPost();
+
+            /*$page->title = 'sans $page->id';
+			$page->name = 'testing';	
+            $page->id = '';*/
+            
+            
+             
+  
+			$page->name = $request->getPost('name');
+			$page->title = $request->getPost('title');
+            $page->template = $request->getPost('template');
+			$page->id = 0;
+			
+			
+			$this->getPageContentTable()->addContentRow($page->name);
+			//if($page->name == 0){
+				//$response->errors->name = "where is it?";
+			//}else{
+					    
+            $save = $this->getPageTable()->savePage($page);
+						
+               // $response = $page;
+            $response->id = $save;//$request->getPost();
+			//}
+        }
+        $viewModel = new ViewModel(array('response' => $response));
+    	$viewModel->setTerminal(true);
+        return $viewModel;
+    }
 }

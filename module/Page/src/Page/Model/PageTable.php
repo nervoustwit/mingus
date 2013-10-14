@@ -30,19 +30,22 @@ class PageTable
         }
         return $row;
     }
-    public function savePage(Page $page)
+    public function savePage($page)
     {
         $data = array(
             'title' 	=> $page->title,
-            'text'  	=> $page->text,
-            'img'	  	=> $page->img,
-            'carousel'	=> $page->carousel,
             'name'  	=> $page->name,
         );
+		
+
+		
+		
 
         $id = (int)$page->id;
         if ($id == 0) {
             $this->tableGateway->insert($data);
+			$id = $this->tableGateway->lastInsertValue;
+			return $id;
         } else {
             if ($this->getPage($id)) {
                 $this->tableGateway->update($data, array('id' => $id));

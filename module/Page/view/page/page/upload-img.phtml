@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>img upload</title>
+
+<link href="http://site.jj/bootstrap/bootstrap-3.0.0/dist/css/bootstrap.css" media="screen" rel="stylesheet" type="text/css"/>
+
+<link href="http://site.jj/bootstrap/bootstrap-3.0.0/dist/css/bootstrap-theme.min.css" media="screen" rel="stylesheet" type="text/css"/>
+
+
+
+<link rel="stylesheet" type="text/css" href="http://site.jj/bootstrap-editable/css/bootstrap-editable.css"/>
+
+<link rel="stylesheet" type="text/css" href="http://site.jj/css/bootstrap-fileupload.css"/>
+
+</head>
+<body>
+<div class="container">
+
+<div class="fileupload fileupload-new" data-provides="fileupload">
+  <div class="fileupload-new thumbnail" style="width: 200px; height: 150px;">
+	<img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=no+image" />
+  </div>
+  <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;">
+  </div>
+  <div>
+
+<form enctype="multipart/form-data" method="post">
+   <span class="btn btn-primary btn-file">
+    <span class="fileupload-new">Select image</span>
+    <span class="fileupload-exists">Change</span>
+<input id="imageupload" name="files" type="file" />
+   </span>
+</form>
+    <a href="#" class="btn btn-primary fileupload-exists" data-dismiss="fileupload">Remove</a>
+
+	<a href="#" class="btn btn-primary save fileupload-exists">Save</a>
+  </div>
+</div>
+
+<div class="msg"></div>
+
+</div>
+
+
+<script src="http://code.jquery.com/jquery-2.0.3.js"></script>
+<script src="http://site.jj/js/bootstrap.min.js"></script>
+
+<script src="http://site.jj/bootstrap/bootstrap-3.0.0/js/modal.js"></script>
+<script src="http://site.jj/bootstrap-editable/js/bootstrap-editable.js"></script>
+
+<script src="http://blueimp.github.io/jQuery-File-Upload/js/vendor/jquery.ui.widget.js"></script>
+<script src="http://blueimp.github.io/jQuery-File-Upload/js/jquery.iframe-transport.js"></script>
+<script src="http://blueimp.github.io/jQuery-File-Upload/js/jquery.fileupload.js"></script>
+<script src="http://site.jj/js/bootstrap-fileupload.js"></script>
+<script>
+$(document).ready(function() {
+
+$('.save').click(function(){
+
+	
+    var file_data = $("#imageupload").prop("files")[0];   // Getting the properties of file from file field
+    var form_data = new FormData();                  // Creating object of FormData class
+    form_data.append("file", file_data)              // Appending parameter named file with properties of file_field to form_data
+    form_data.append("user_id", 123)                 // Adding extra parameters to form_data
+    $.ajax({
+                url: "http://site.jj/page/stage-example",
+                dataType: 'json',
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: form_data,                         // Setting the data attribute of ajax with file_data
+                type: 'post'
+       });
+
+
+
+
+});
+
+});
+
+</script>
+
+</body>
+</html>

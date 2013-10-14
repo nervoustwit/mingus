@@ -1,20 +1,3 @@
 <?php
 
-$title = 'Add new page';
-$this->headTitle($title);
-?>
-<h1><?php echo $this->escapeHtml($title); ?></h1>
-<?php
-$form = $this->form;
-$form->setAttribute('action', $this->url('page', array('action' => 'add')));
-$form->prepare();
-
-echo $this->form()->openTag($form);
-echo $this->formHidden($form->get('id'));
-echo $this->formRow($form->get('title'));
-echo $this->formRow($form->get('text'));
-echo $this->formRow($form->get('img'));
-echo $this->formRow($form->get('carousel'));
-echo $this->formRow($form->get('name'));
-echo $this->formSubmit($form->get('submit'));
-echo $this->form()->closeTag();
+print Zend\Json\Json::encode($response);

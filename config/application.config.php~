@@ -6,6 +6,7 @@ return array(
         'Album',
         'Page',
         'ZF2FileUploadExamples',
+	'ajax' 
     ),
 
     // These are various options for the listeners attached to the ModuleManager
