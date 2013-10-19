@@ -35,6 +35,7 @@ class PageTable
         $data = array(
             'title' 	=> $page->title,
             'name'  	=> $page->name,
+            'template'	=> $page->template,
         );
 		
 

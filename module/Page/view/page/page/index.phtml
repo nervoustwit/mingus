@@ -30,7 +30,7 @@ $this->headTitle($title);
             $('.carousel').carousel('pause');
         </script>
         
-        <style>
+<style>
 .input-xlg {  
   height: 60px;
   width: 100%;
@@ -39,7 +39,8 @@ $this->headTitle($title);
   line-height: 1.33;
   border-radius: 6px;
 }
-        </style>
+
+</style>
 
 </head>
 <body>
@@ -86,6 +87,10 @@ $this->headTitle($title);
                     <?php $pageCount++; ?>
                     <div class="main-content-container">
                         <div class="main-content">
+                        	<p>
+                        	<a data-toggle="modal" class="btn btn-warning" href="#config-<?php echo $page['name'];?>"><span class="glyphicon glyphicon-cog"></span> Config page</a>
+							<a class="btn btn-danger" href="#"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+							</p>
                             <?php if ($page['contentCount'] == 1) : ?>
                                 <div class="single-content row-fluid" id="<?php echo $this->escapeHtml($page['name']); ?>Content">
                                     <div class="row">
@@ -96,7 +101,7 @@ $this->headTitle($title);
 		    									<a href="#" class="edit-pencil"><span class="glyphicon glyphicon-pencil" style="position : absolute; right : 20; top :-20px;"></span></a>
                                     		</div>
                                     		<div class="panel-body">
-                                    			<div class="changeable" data-toggle="manual" data-name="title" data-type="text" data-pk="<?php echo $this->escapeHtml($page['contents'][0]['id']);?>" data-url="/page/editable" data-title="Enter title">
+                                    			<div class="changeable" data-toggle="manual" data-name="title" data-type="text" data-pk="<?php echo $this->escapeHtml($page['contents'][0]['id']);?>" data-url="/page/editable">
                                     			<?php echo $this->escapeHtml($page['contents'][0]['title']); ?>
                                     			</div>
                                         	</div>
@@ -108,9 +113,9 @@ $this->headTitle($title);
                                         		
                                         	</div>
                                     		<div class="panel-body">
-                                       			<div class="changeable" data-toggle="manual" data-name="text" data-type="textarea" data-pk="<?php echo $this->escapeHtml($page['contents'][0]['id']);?>" data-url="/page/editable" data-title="Enter text">
-                                      			<?php echo $this->escapeHtml($page['contents'][0]['text']); ?>
-                                       			</div>
+                                       			<div class="changeable" data-toggle="manual" data-name="text" data-type="textarea" data-pk="<?php echo $this->escapeHtml($page['contents'][0]['id']);?>" data-url="/page/editable">
+												<?php echo $this->escapeHtml($page['contents'][0]['text']); ?>
+												</div>
    											</div>
    										</div>
                                      </div>
@@ -166,7 +171,7 @@ $this->headTitle($title);
                                                         <div class="span6">
                                                             <div class="thumbnail">	
   Title                                                               <img src="<?php $this->url(); ?>/img/<?php echo $this->escapeHtml($content['img']) ?>" alt="">
-                                                            </div>
+                                                            Title</div>
                                                         </div>                                           
                                                     </div>
 
@@ -185,31 +190,30 @@ $this->headTitle($title);
         </div>
 </div>
 </div>
-
-
-
-<div class="modal fade" id="addPage" tabindex="-1" role="dialog" aria-labelledby="addPageLabel" aria-hidden="true">
+<?php foreach ($editPages as $editPage) : ?>
+	
+	<div class="modal fade" id="config-<?php echo $editPage->name;?>" tabindex="-1" role="dialog"  aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h4 class="modal-title">Modal title</h4>
+          <h4 class="modal-title">Config page</h4>
         </div>
         <div class="modal-body">
-         This is where x-editable will be placed...
+         
 <table  class="table table-bordered table-striped">
         <tbody> 
             <tr>         
-                <td width="40%">Enter page Title (Title in the Tabs)</td>
-                <td><a href="#" class="changeable-page editable editable-click editable-empty" data-type="text" data-name="title">Empty</a></td>
+                <td width="40%">Page Title (Title in the Tabs)</td>
+                <td><a href="#" class="changeable-page editable editable-click" data-pk="<?php echo $editPage->id;?>" data-type="text" data-name="title"><?php echo $editPage->title;?></a></td>
             </tr>
             <tr>         
-                <td>Enter page Name (in one word)</td>
-                <td><a href="#" class="changeable-page editable editable-click editable-empty" data-type="text" data-name="name">Empty</a></td>
+                <td>Page Name (in one word)</td>
+                <td><a href="#" class="changeable-page editable editable-click" data-pk="<?php echo $editPage->id;?>" data-type="text" data-name="name"><?php echo $editPage->name;?></a></td>
             </tr>
 			<tr>
 				<td>Choose page Template</td>
-				<td><a href="#" class="template changeable-page editable editable-click" data-type="select" data-name="template" data-value="1"></a></td>
+				<td><a href="#" class="template changeable-page editable editable-click" data-pk="<?php echo $editPage->id;?>" data-type="select" data-name="template" data-value="<?php echo $editPage->template;?>"></a></td>
 			</tr>
 	</tbody>
 </table>
@@ -217,7 +221,46 @@ $this->headTitle($title);
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" id="save-page">Add Page</button>
+          <button type="button" class="btn btn-primary" id="save-page">Save Page</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+	
+	
+<?php endforeach; ?>
+
+
+<div class="modal fade" id="addPage" tabindex="-1" role="dialog" aria-labelledby="addPageLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Add a new page</h4>
+        </div>
+        <div class="modal-body">
+         This is where x-editable will be placed...
+<table  class="table table-bordered table-striped">
+        <tbody> 
+            <tr>         
+                <td width="40%">Enter page Title (Title in the Tabs)</td>
+                <td><a href="#" class="add-page editable editable-click editable-empty" data-type="text" data-name="title">Empty</a></td>
+            </tr>
+            <tr>         
+                <td>Enter page Name (in one word)</td>
+                <td><a href="#" class="add-page editable editable-click editable-empty" data-type="text" data-name="name">Empty</a></td>
+            </tr>
+			<tr>
+				<td>Choose page Template</td>
+				<td><a href="#" class="template add-page editable editable-click" data-type="select" data-name="template"></a></td>
+			</tr>
+	</tbody>
+</table>
+	
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="add-page">Add Page</button>
         </div>
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -226,45 +269,26 @@ $this->headTitle($title);
 	
 
 
-<script>
+<script type="text/javascript">
 $(document).ready(function() {
     $('#control-panel a:first').tab('show');
 
-	$(".panel-info").hover(function(){
-		$(".glyphicon-pencil", this).stop().animate({top:"30%"},{queue:false,duration:100});
-	}, function() {
-		$(".glyphicon-pencil", this).stop().animate({top:"-20px"},{queue:false,duration:200});
-	});
-		
-		$.fn.editable.defaults.mode = 'inline';
-    	
-
-    	
-    	$('.changeable').editable();
-    	
-    	$('.template').editable({
-    	
+		$('.template').editable({
+    	value: 1,
     	source: [
-        		    {value: 1, text: 'Single'},
-        		    {value: 2, text: 'Carousel'},
-        		    {value: 3, text: 'Custom'}
+        		    {value: 1, text: 'Single Page'},
+        		    {value: 2, text: 'Carousel Page'},
+        		    {value: 3, text: 'Custom Page'}
         		]
         });
     	
-    	$('.changeable-page').editable({
+    	$('.add-page').editable({
 		url: 'http://site.jj/page/save' //this url will not be used for creating new user, it is only for update
 		});	
-    	$('.edit-pencil').click(function(e) {
-    	
-    	var target = $(this).parent().next('.panel-body');
-    	
-        e.stopPropagation();
-        e.preventDefault();
-        target.children('.changeable').editable('toggle');
-   		});
+
    		
-   		$('#save-page').click(function() {
-    	$('.changeable-page').editable('submit', {
+   		$('#add-page').click(function() {
+    	$('.add-page').editable('submit', {
     	url: '/page/add',
     	ajaxOptions: {
     	dataType: 'json' //assuming json response
@@ -278,8 +302,86 @@ $(document).ready(function() {
     	//show messages
     	var msg = 'New Page created! Now submit individually.';
     	$('#msg').addClass('alert-success').removeClass('alert-error').html(msg).show();
-    	$('#save-page').hide();
+    	$('#add-page').hide();
     	$(this).off('save.newuser');
+    	var page = $(this).editable('getValue');
+    	alertMsg = 'this is the name:'+page.name+' this is the title:'+page.title+' and this is the tmplate number:'+page.template;
+    	alert(alertMsg);
+    	/* 
+    	 *$('.blablabla').append()
+    	 *var newTabHTML =   'new tab button done
+    	 *					new empty tab container{
+    	 *					new config button I.E. edit and delete
+    	 *					}
+    	 *					new config container';
+    	 * 
+    	 * *** remove active class then append new tab button
+    	 * 
+    	*/
+    	$('li.active').removeClass('active');
+    	
+    	$('#navigation').append('<li class="active"><a href="#'+page.name+'Tab" data-toggle="pill"><span>'+page.title+'</span></a></li>');
+    	$('.tab-pane.active').removeClass('active');
+    	$('.tab-content').append(
+'<div class="tab-pane active" id="'+page.name+'Tab">'+
+'<div class="main-content-container">'+
+'<div class="main-content">'+
+'caca'+ data.contentId +
+      '<p>'+
+		'<a data-toggle="modal" class="btn btn-warning" href="#config-'+page.name+'"><span class="glyphicon glyphicon-cog"></span> Config page</a> '+
+		'<a class="btn btn-danger" href="#"><span class="glyphicon glyphicon-trash"></span> Delete</a>'+
+	  '</p>'+
+	'<div class="single-content row-fluid" id="'+ page.name +'Content">'+
+
+		'<div class="col-md-6">'+
+                      		'<div class="panel panel-info new">'+
+                       			'<div class="panel-heading" style="position : relative; overflow:hidden;">Title'+
+									'<a href="#" class="edit-pencil"><span class="glyphicon glyphicon-pencil" style="position: absolute; right: 20px; top: -20px;"></span></a>'+
+	               				'</div>'+
+                      			'<div class="panel-body">'+
+           							'<div class="changeable editable" data-toggle="manual" data-name="title" data-type="text" data-pk="'+data.contentId+'" data-url="/page/editable">Edit this Title</div>'+
+                                '</div>'+
+                        	'</div>'+
+                        	'<div class="panel panel-info new">'+
+                        		'<div class="panel-heading" style="position : relative; overflow:hidden;">Text'+
+         							'<a href="#" class="edit-pencil"><span class="glyphicon glyphicon-pencil" style="position: absolute; right: 20px; top: -20px;"></span></a>'+
+								'</div>'+
+                        		'<div class="panel-body">'+
+                                	'<div class="changeable editable" data-toggle="manual" data-name="text" data-type="textarea" data-pk="'+data.contentId+'" data-url="/page/editable">Edit this Text</div>'+ 
+                                '</div>'+
+   							'</div>'+
+   		'</div>'+
+	
+     	'<div class="col-md-6">'+
+                       '<div class="panel panel-info new">'+
+							'<div class="panel-heading" style="position : relative; overflow:hidden;">Image'+
+ 		                   		'<span style="position: absolute; right: 20px; top: -20px;" class="glyphicon glyphicon-pencil"></span>'+
+							'</div>'+
+                            '<div class="panel-body">'+
+                                '<img class="col-md-12" src="../img/">'+
+               				'</div>'+
+         		       '</div>'+
+         		       
+               
+
+     	'</div>'+                
+	'</div>'+
+'</div>'+                           
+'</div>'+
+'</div>');
+
+	$(".panel-info.new").hover(function(){
+	$(".glyphicon-pencil", this).stop().animate({top:"30%"},{queue:false,duration:100});
+	}, function() {
+	$(".glyphicon-pencil", this).stop().animate({top:"-20px"},{queue:false,duration:200});
+	});
+	$('.edit-pencil').click(function(e) {
+    var target = $(this).parent().next('.panel-body');
+    	e.stopPropagation();
+        e.preventDefault();
+        target.children('.changeable').editable('toggle');
+   	});
+    	
     	} else if(data && data.errors){
     	//server-side validation error, response like {"errors": {"username": "username already exist"} }
     	config.error.call(this, data.errors);
@@ -296,6 +398,36 @@ $(document).ready(function() {
     	}
     	});
     });
+	$('#addPage').on('hidden.bs.modal', function () {
+	 // clear x-editable values
+		$('.add-page').editable('setValue', null) //clear values
+			.editable('option', 'pk', null) //clear pk
+			.removeClass('editable-unsaved'); //remove bold css
+		$('#addPage').find('.template').removeClass('editable-empty').empty().append('Single Page');
+		$('#add-page').show();
+		$('#msg').hide(); 
+	})
+	
+	$('.edit-pencil').click(function(e) {
+    var target = $(this).parent().next('.panel-body');
+    	e.stopPropagation();
+        e.preventDefault();
+        target.children('.changeable').editable('toggle');
+   	});
+   	
+   		$(".panel-info").hover(function(){
+		$(".glyphicon-pencil", this).stop().animate({top:"30%"},{queue:false,duration:100});
+	}, function() {
+		$(".glyphicon-pencil", this).stop().animate({top:"-20px"},{queue:false,duration:200});
+	});
+		
+		$.fn.editable.defaults.mode = 'inline';
+    	
+
+    	
+    	//$('.changeable').editable();
+    	
+    	
 
 		$("ul.nav").sortable();
 

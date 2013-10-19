@@ -63,23 +63,18 @@ class PageContentTable extends AbstractTableGateway
         return $row;
     }
 	
-	public function saveContent(Page $page)
+	public function saveContent($content)
     {
-        $data = array(
-            'title' 	=> $page->title,
-            'label'		=> $page->label,
-            'text'  	=> $page->text,
-            'img'	  	=> $page->img,
-            'carousel'	=> $page->carousel,
-            'name'  	=> $page->name,
-        );
+		$id = (int)$content->id;
+		$data = array($content->name => $content->value);
 
-        $id = (int)$page->id;
         if ($id == 0) {
-            $this->tableGateway->insert($data);
+            $this->insert($data);
+			$id = $this->lastInsertValue;
+			return $id;
         } else {
             if ($this->getContent($id)) {
-                $this->tableGateway->update($data, array('id' => $id));
+                $this->update($data, array('id' => $id));
             } else {
                 throw new \Exception('Form id does not exist');
             }
@@ -126,6 +121,8 @@ class PageContentTable extends AbstractTableGateway
 	{
 		
          $this->insert(array('name' => $name));
+		 $id = $this->lastInsertValue;
+		return $id;
 		
 	}
 }

@@ -12,10 +12,9 @@ class Page implements InputFilterAwareInterface
     public $id;
 	public $order_id;
     public $title;
-    public $text;
-	public $img;
-	public $carousel;
 	public $name;
+	public $template;
+	
 	
 	protected $inputFilter;
 
@@ -24,10 +23,8 @@ class Page implements InputFilterAwareInterface
         $this->id			= (!empty($data['id']))				 ? $data['id']		 : null;
 		$this->order_id		= (!empty($data['order_id']))		 ? $data['order_id'] : null;
         $this->title		= (!empty($data['title']))			 ? $data['title']	 : null;
-        $this->text			= (!empty($data['text']))			 ? $data['text']	 : null;
-		$this->img     		= (!empty($data['img']))			 ? $data['img']		 : null;
-		$this->carousel		= (!empty($data['carousel']))		 ? $data['carousel'] : null;
 		$this->name			= (!empty($data['name']))			 ? $data['name']	 : null;
+		$this->template		= (!empty($data['template']))		 ? $data['template'] : null;
     }
 	
 	public function getArrayCopy()
@@ -73,63 +70,6 @@ class Page implements InputFilterAwareInterface
                 ),
             )));
 
-			            $inputFilter->add($factory->createInput(array(
-                'name'     => 'text',
-                'required' => true,
-                'filters'  => array(
-                    array('name' => 'StripTags'),
-                    array('name' => 'StringTrim'),
-                ),
-                'validators' => array(
-                    array(
-                        'name'    => 'StringLength',
-                        'options' => array(
-                            'encoding' => 'UTF-8',
-                            'min'      => 1,
-                            'max'      => 1000000,
-                        ),
-                    ),
-                ),
-            )));
-			
-			            $inputFilter->add($factory->createInput(array(
-                'name'     => 'img',
-                'required' => true,
-                'filters'  => array(
-                    array('name' => 'StripTags'),
-                    array('name' => 'StringTrim'),
-                ),
-                'validators' => array(
-                    array(
-                        'name'    => 'StringLength',
-                        'options' => array(
-                            'encoding' => 'UTF-8',
-                            'min'      => 1,
-                            'max'      => 100,
-                        ),
-                    ),
-                ),
-            )));
-
-            $inputFilter->add($factory->createInput(array(
-                'name'     => 'carousel',
-                'required' => true,
-                'filters'  => array(
-                    array('name' => 'StripTags'),
-                    array('name' => 'StringTrim'),
-                ),
-                'validators' => array(
-                    array(
-                        'name'    => 'StringLength',
-                        'options' => array(
-                            'encoding' => 'UTF-8',
-                            'min'      => 0,
-                            'max'      => 1,
-                        ),
-                    ),
-                ),
-            )));
-			
 			$inputFilter->add($factory->createInput(array(
                 'name'     => 'name',
                 'required' => true,
@@ -149,6 +89,26 @@ class Page implements InputFilterAwareInterface
                 ),
             )));
 			
+
+            $inputFilter->add($factory->createInput(array(
+                'name'     => 'template',
+                'required' => true,
+                'filters'  => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                ),
+                'validators' => array(
+                    array(
+                        'name'    => 'StringLength',
+                        'options' => array(
+                            'encoding' => 'UTF-8',
+                            'min'      => 0,
+                            'max'      => 1,
+                        ),
+                    ),
+                ),
+            )));
+
 
 
 

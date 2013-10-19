@@ -78,9 +78,9 @@ class PageController extends AbstractActionController
 					
     		//$production = new Production();
 			//$result = $production->getPagesArray();
-		 
+		 $editPages = $this->getPageTable()->fetchAll();
         
-		$viewModel = new ViewModel(array('pages' => $pagesContents, 'tabs' => $currentPages));
+		$viewModel = new ViewModel(array('pages' => $pagesContents, 'tabs' => $currentPages, 'editPages' => $editPages));
 		
 
         $viewModel->setTerminal(true);
@@ -348,7 +348,7 @@ class PageController extends AbstractActionController
             $content->id = $request->getPost('pk');
 			$content->name = $request->getPost('name');
 			$content->value = $request->getPost('value');
-			$this->getPageContentTable()->updateContent($content);
+			$this->getPageContentTable()->saveContent($content);
 			
         }
 		$viewModel = new ViewModel(array('response' => $content));
@@ -387,7 +387,7 @@ class PageController extends AbstractActionController
 			$page->id = 0;
 			
 			
-			$this->getPageContentTable()->addContentRow($page->name);
+			$contentId = $this->getPageContentTable()->addContentRow($page->name);
 			//if($page->name == 0){
 				//$response->errors->name = "where is it?";
 			//}else{
@@ -396,6 +396,7 @@ class PageController extends AbstractActionController
 						
                // $response = $page;
             $response->id = $save;//$request->getPost();
+            $response->contentId = $contentId;
 			//}
         }
         $viewModel = new ViewModel(array('response' => $response));
