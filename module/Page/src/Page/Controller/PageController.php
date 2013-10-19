@@ -371,36 +371,47 @@ class PageController extends AbstractActionController
 
         $request = $this->getRequest();
         if ($request->isPost()) {
-            
-            //$page = $request->getPost();
-
-            /*$page->title = 'sans $page->id';
-			$page->name = 'testing';	
-            $page->id = '';*/
-            
-            
-             
   
 			$page->name = $request->getPost('name');
 			$page->title = $request->getPost('title');
             $page->template = $request->getPost('template');
 			$page->id = 0;
-			
-			
+
+			//Add content row with the page name and retrieve the ID	
 			$contentId = $this->getPageContentTable()->addContentRow($page->name);
-			//if($page->name == 0){
-				//$response->errors->name = "where is it?";
-			//}else{
-					    
-            $save = $this->getPageTable()->savePage($page);
+
+			//save page and retrieve the ID			    
+            $save = $this->getPageTable()->addPage($page);
 						
-               // $response = $page;
-            $response->id = $save;//$request->getPost();
-            $response->contentId = $contentId;
-			//}
+            $response->id = $save;	//page ID
+            $response->contentId = $contentId; //content ID
+			
         }
         $viewModel = new ViewModel(array('response' => $response));
     	$viewModel->setTerminal(true);
         return $viewModel;
     }
+	
+	public function saveAction()
+    {
+
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+  
+			$page->name = $request->getPost('name');
+			$page->value = $request->getPost('value');
+			$page->id = $request->getPost('pk');
+
+			//save page			    
+            $this->getPageTable()->savePage($page);
+						
+            $response= $page;	//page object for debug
+           
+			
+        }
+        $viewModel = new ViewModel(array('response' => $response));
+    	$viewModel->setTerminal(true);
+        return $viewModel;
+    }
+	
 }

@@ -274,6 +274,7 @@ $(document).ready(function() {
     $('#control-panel a:first').tab('show');
 
 		$('.template').editable({
+		url: '/page/save',
     	value: 1,
     	source: [
         		    {value: 1, text: 'Single Page'},
@@ -283,9 +284,14 @@ $(document).ready(function() {
         });
     	
     	$('.add-page').editable({
-		url: 'http://site.jj/page/save' //this url will not be used for creating new user, it is only for update
+		url: 'http://site.jj/page/save' //this url will not be used for cxreating new user, it is only for update
 		});	
-
+		$('.changeable-page').editable({
+		url:'http://site.jj/page/save'
+		});
+		$('.template').editable({
+		url:'http://site.jj/page/save'
+		});
    		
    		$('#add-page').click(function() {
     	$('.add-page').editable('submit', {
@@ -381,6 +387,8 @@ $(document).ready(function() {
         e.preventDefault();
         target.children('.changeable').editable('toggle');
    	});
+   	
+   	
     	
     	} else if(data && data.errors){
     	//server-side validation error, response like {"errors": {"username": "username already exist"} }
@@ -403,7 +411,7 @@ $(document).ready(function() {
 		$('.add-page').editable('setValue', null) //clear values
 			.editable('option', 'pk', null) //clear pk
 			.removeClass('editable-unsaved'); //remove bold css
-		$('#addPage').find('.template').removeClass('editable-empty').empty().append('Single Page');
+		$('#addPage').find('.template').removeClass('editable-empty').empty().editable('setValue', 1);
 		$('#add-page').show();
 		$('#msg').hide(); 
 	})

@@ -30,29 +30,33 @@ class PageTable
         }
         return $row;
     }
+
     public function savePage($page)
+    {
+        $data = array($page->name => $page->value);
+
+        $id = (int)$page->id;
+		
+            if ($this->getPage($id)) {
+                $this->tableGateway->update($data, array('id' => $id));
+            } else {
+                throw new \Exception('Form id does not exist');
+        	}
+    }
+	
+	    public function addPage($page)
     {
         $data = array(
             'title' 	=> $page->title,
             'name'  	=> $page->name,
             'template'	=> $page->template,
         );
-		
-
-		
-		
 
         $id = (int)$page->id;
         if ($id == 0) {
             $this->tableGateway->insert($data);
 			$id = $this->tableGateway->lastInsertValue;
 			return $id;
-        } else {
-            if ($this->getPage($id)) {
-                $this->tableGateway->update($data, array('id' => $id));
-            } else {
-                throw new \Exception('Form id does not exist');
-            }
         }
     }
 
