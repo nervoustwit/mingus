@@ -3,6 +3,13 @@
 
 namespace Page\Controller;
 
+use Zend\Filter;
+use Zend\InputFilter\InputFilter;
+use Zend\InputFilter\Input;
+use Zend\InputFilter\FileInput;
+
+use Zend\Filter\File\RenameUpload;
+
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Page\Model\Page;
@@ -11,6 +18,7 @@ use Page\Model\TabNav;
 use Page\Form\PageForm;
 use Page\Form\EditTitleForm;
 use Page\Form\EditTextForm;
+use Zend\Validator;
 
 
 class PageController extends AbstractActionController
@@ -276,14 +284,27 @@ class PageController extends AbstractActionController
 	
 		 if ($request->isPost()) {
         // Make certain to merge the files info!
-       $post = array_merge_recursive(
-      $request->getPost()->toArray(),
-      $request->getFiles()->toArray()
-       );
+        
+        $file = $request->getFiles();
+        
+        $post = array_merge_recursive(
+      	$request->getPost()->toArray(),
+      	$file->toArray());
   
-  	//$post = 'merci!';
+  $filter = new RenameUpload(array('target' => './data/tmpuploads/page-image',
+  								   'use_upload_extension'  => true,
+   								   'randomize'  => true,));
+  $data = $filter->filter($file['file']);
+  	
+
+
+
+
+
+
+		
 		  }
-		$viewModel = new ViewModel(array('response' => $post));
+		$viewModel = new ViewModel(array('response' => $data));
     	$viewModel->setTerminal(true);
         return $viewModel;
 		
