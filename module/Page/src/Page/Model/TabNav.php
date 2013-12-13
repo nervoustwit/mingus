@@ -8,6 +8,7 @@ class TabNav
 {
     public $name;
     public $title;
+	public $id;
 
 
     /**
@@ -15,6 +16,7 @@ class TabNav
 */
     public function exchangeArray($data)
     {
+    	$this->id = (isset($data['id'])) ? $data['id'] : null;
         $this->name = (isset($data['name'])) ? $data['name'] : null;
         $this->title = (isset($data['title'])) ? $data['title'] : null;
     }

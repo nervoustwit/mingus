@@ -71,7 +71,9 @@
                                                 <?php foreach ($page['contents'] as $content) : ?>
                                                 <?php $defaultItemClass = ($count == 0) ? " active" : ""; ?>
                                                     <div class="item row-fluid<?php echo $defaultItemClass; ?>">
-                                                     <?php $count ++; ?>
+                                                     
+                                                     
+                                                     <?php if($count==0){echo '<h1>'.$this->escapeHtml($page['contents'][0]['title']).'</h1>';}?>
                                                         <div class="span6">
                                                             
                                                                 <h4><?php echo $this->escapeHtml($content['label']) ?></h4>
@@ -84,7 +86,7 @@
                                                             </div>
                                                         </div>                                           
                                                     </div>
-
+<?php $count ++; ?>
                                                 <?php endforeach; ?>
                                             </div>
                                             <a class="left carousel-control" href="#<?php echo $this->escapeHtml($page['name']); ?>Carousel" data-slide="prev">&lsaquo;</a>

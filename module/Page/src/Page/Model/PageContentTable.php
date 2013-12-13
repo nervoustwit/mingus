@@ -62,7 +62,7 @@ class PageContentTable extends AbstractTableGateway
         }
         return $row;
     }
-	
+		
 	public function saveContent($content)
     {
 		$id = (int)$content->id;
@@ -80,6 +80,16 @@ class PageContentTable extends AbstractTableGateway
             }
         }
     }
+
+	public function deleteContent($id)
+	{
+		$this->delete(array('id' => $id));
+	}
+	
+	public function updateCarouselTitle($carouselTitle)
+	{
+		$this->update(array('title' => $carouselTitle->title), array('name' => $carouselTitle->page));
+	}
 
 	public function saveTitle($page)
 	{
@@ -117,12 +127,29 @@ class PageContentTable extends AbstractTableGateway
             }
 	}
 	
-	public function addContentRow($name)
+	public function addCarouselRow($entity)
 	{
+		if(!empty($entity->label)){
+			$label = $entity->label;
+		}else{
+			$label = "Blank Label";
+		}
 		
-         $this->insert(array('name' => $name));
+         $this->insert(array('name' => $entity->name, 'label' => $label, 'order_id' => 100));
 		 $id = $this->lastInsertValue;
 		return $id;
+		
+	}
+	public function addContentRow($name)
+	{
+		$this->insert(array('name' => $name, 'order_id' => 100));
+		 $id = $this->lastInsertValue;
+		return $id;
+	}
+	public function embedMedia($content)
+	{
+		
+		
 		
 	}
 }

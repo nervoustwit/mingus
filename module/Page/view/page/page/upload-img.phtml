@@ -15,35 +15,100 @@
 
 <link rel="stylesheet" type="text/css" href="http://site.jj/css/bootstrap-fileupload.css"/>
 
-</head>
+
+<style type="text/css">
+.uploader
+{
+	margin-top: 6px;
+	margin-bottom:6px;
+}
+.preview-youtube-player-container
+{
+	margin-left:auto;
+	margin-right:auto;
+}
+.no-youtube-video-default
+{
+	margin-left:auto;
+	margin-right:auto;
+}
+</style>
+
+</head> 
 <body>
 <div class="container">
 
 <div class="fileupload fileupload-new" data-provides="fileupload">
-  <div class="fileupload-new thumbnail" style="width: 200px; height: 150px;">
-	<img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=no+image" />
+  <div class="fileupload-new thumbnail" style="width: 400px; height: 350px;">
+	<img src="http://www.placehold.it/400x350/EFEFEF/AAAAAA&text=no+image" />
   </div>
-  <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;">
+  <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 400px; max-height: 350px; line-height: 20px;">
   </div>
-  <div>
+  
 
+  <div>
+  	
+  	<a href="#" class="btn btn-success btn-sm save-image-upload fileupload-exists">
+		<i class="glyphicon glyphicon-ok"></i>
+	</a>
+
+    <a href="#" class="btn btn-default btn-sm fileupload-exists" data-dismiss="fileupload">
+    	<i class="glyphicon glyphicon-remove"></i>
+    </a>
+  	
 <form enctype="multipart/form-data" method="post">
-   <span class="btn btn-primary btn-file">
+   <span class="uploader btn btn-sm btn-primary btn-file">
     <span class="fileupload-new">Select image</span>
     <span class="fileupload-exists">Change</span>
 <input id="imageupload" name="files" type="file" />
    </span>
 </form>
-    <a href="#" class="btn btn-primary fileupload-exists" data-dismiss="fileupload">Remove</a>
 
-	<a href="#" class="btn btn-primary save fileupload-exists">Save</a>
   </div>
+ 
+  <a href="#" class="btn btn-primary btn-sm embed-media" data-toggle="modal" data-pk="136" data-target="#embedMedia">Embed New Media <i class="glyphicon glyphicon-film"></i></a>
+ 
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="embedMedia" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      
+      <div class="modal-body">
+        <input id="embed-input" class="form-control" placeholder="Embed Url" required="" autofocus="" type="text">
+       <br />
+       <fieldset disabled>
+        <select id="disabledSelect" class="form-control">
+        	<option>Youtube</option>
+      	</select>
+       </fieldset>
+       <br />
+       <div class="preview-youtube-player-container">
+       	<p>
+       	<img class="thumbnail no-youtube-video-default" src="http://www.placehold.it/300x200/EFEFEF/AAAAAA&text=no+Youtube+video" />
+       	</p>
+  	   </div>
+  	   <br />
+        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">
+        	<i class="glyphicon glyphicon-remove"></i>
+        </button>
+        <button type="button" id="update-embed" class="btn btn-success btn-sm">
+        	<i class="glyphicon glyphicon-ok"></i>
+        </button>
+      </div>
+      
+        
+     
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 <div class="msg"></div>
 
-</div>
+<div id='youtube-player-container' data-url="Yj6nqPeGaoE"></div> 	
 
+</div>
 
 <script src="http://code.jquery.com/jquery-2.0.3.js"></script>
 <script src="http://site.jj/js/bootstrap.min.js"></script>
@@ -55,10 +120,11 @@
 <script src="http://blueimp.github.io/jQuery-File-Upload/js/jquery.iframe-transport.js"></script>
 <script src="http://blueimp.github.io/jQuery-File-Upload/js/jquery.fileupload.js"></script>
 <script src="http://site.jj/js/bootstrap-fileupload.js"></script>
+<script src="http://www.tikku.com/scripts/ui/tubeplayer/jQuery.tubeplayer.js"></script>
 <script>
 $(document).ready(function() {
 
-$('.save').click(function(){
+$('.save-image-upload').click(function(){
 
 	
     var file_data = $("#imageupload").prop("files")[0];   // Getting the properties of file from file field
@@ -79,6 +145,62 @@ $('.save').click(function(){
 
 
 });
+
+$('.embed-media').click(function (e){
+
+	
+	var pk = $(this).data('pk');
+	
+	$('#embedMedia').on('show.bs.modal', function () {
+		$('#update-embed').click(function(){
+			var embed_update = $('#embed-input').val();
+			
+			var data = {};
+			data['url'] = embed_update;
+			data['pk'] = pk;
+			$.ajax({
+				url: "http://site.jj/page/embed-media",
+                dataType: 'json',
+                data: data,                         // Setting the data attribute of ajax with file_data
+                type: 'post',
+                complete: function(data, config){
+                	
+
+               		
+              
+                },
+			});
+		});
+	});
+});
+
+$(".youtube-player-container").load(function(e) {
+// Handler for .load() called.
+
+var url = $(this).data('url');
+
+if(){
+$(this).tubeplayer({
+	width: 600, // the width of the player
+	height: 450, // the height of the player
+	allowFullScreen: "true", // true by default, allow user to go full screen
+	initialVideo: "Yj6nqPeGaoE", // the video that is loaded into the player
+	preferredQuality: "default",// preferred quality: default, small, medium, large, hd720
+	onPlay: function(id){}, // after the play method is called
+	onPause: function(){}, // after the pause method is called
+	onStop: function(){}, // after the player is stopped
+	onSeek: function(time){}, // after the video has been seeked to a defined point
+	onMute: function(){}, // after the player is muted
+	onUnMute: function(){} // after the player is unmuted
+});
+}else if()
+{
+	
+}
+
+});
+
+
 
 });
 

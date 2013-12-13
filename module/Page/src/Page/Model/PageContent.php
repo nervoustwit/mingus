@@ -13,7 +13,7 @@ class PageContent //implements InputFilterAwareInterface
 	public $id;
     public $name;
     public $text;
-	public $img;
+	public $media;
 	public $label;
 	public $title;
 
@@ -26,7 +26,7 @@ class PageContent //implements InputFilterAwareInterface
         $this->id = (isset($data['id'])) ? $data['id'] : null;
         $this->name = (isset($data['name'])) ? $data['name'] : null;
         $this->text = (isset($data['text'])) ? $data['text'] : null;
-		$this->img = (isset($data['img'])) ? $data['img'] : null;
+		$this->media = (isset($data['media'])) ? $data['media'] : null;
 		$this->label = (isset($data['label'])) ? $data['label'] : null;
 		$this->title = (isset($data['title'])) ? $data['title'] : null;
 		

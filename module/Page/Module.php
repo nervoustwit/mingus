@@ -7,6 +7,7 @@ use Page\Model\TabNav;
 use Page\Model\TabNavTable;
 use Page\Model\PageContent;
 use Page\Model\PageContentTable;
+use Page\Model\PageMediaTable;
 use Application\Model\Production;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
@@ -57,6 +58,11 @@ class Module
                 'Page\Model\PageContentTable' => function($sm) {
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
                     $table = new PageContentTable($dbAdapter);
+                    return $table;
+                },
+                'Page\Model\PageMediaTable' => function($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $table = new PageMediaTable($dbAdapter);
                     return $table;
                 },
 			)

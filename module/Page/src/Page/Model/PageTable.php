@@ -3,6 +3,7 @@ namespace Page\Model;
 
 use Zend\Db\TableGateway\TableGateway;
 use Zend\Db\ResultSet\Resultset;
+use Zend\Db\Sql\Select;
 
 class PageTable
 {
@@ -15,7 +16,9 @@ class PageTable
 
     public function fetchAll()
     {
-        $resultSet = $this->tableGateway->select();
+       // $resultSet = $this->tableGateway->select();
+        
+        $resultSet = $this->tableGateway->select(function (Select $select) {$select->order('order_id ASC');});
 		
         return $resultSet;
     }
@@ -78,5 +81,11 @@ class PageTable
 	*/
 	}
 	
-	
+	public function sortPage($sort)
+	{
+
+			$this->tableGateway->update(array('order_id' => $sort->position), array('id' => $sort->id));
+
+	}
+
 }

@@ -4,7 +4,8 @@
 
 $title = 'My pages';
 $this->headTitle($title);
-//print_r($pages);
+print_r($debug);
+print_r($pages);
 ?>
 
 
@@ -14,9 +15,11 @@ $this->headTitle($title);
 <link href="/img/favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon">
                 <!-- Scripts -->
 <script type="text/javascript" src="/js/jquery.min.js"></script>
+
 <!--<script type="text/javascript" src="http://johnny.github.io/jquery-sortable/js/jquery-sortable.js"></script>-->
 <script type="text/javascript" src="http://site.jj/bootstrap/bootstrap-3.0.0/dist/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="/bootstrap/js/bootstrap-carousel.js"></script>
+
+<script type="text/javascript" src="http://site.jj/bootstrap/bootstrap-3.0.0/js/collapse.js"></script>
 <script type="text/javascript" src="http://site.jj/bootstrap/bootstrap-3.0.0/js/modal.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <!--[if lt IE 9]><script type="text/javascript" src="/js/html5.js"></script><![endif]-->
@@ -30,7 +33,7 @@ $this->headTitle($title);
             $('.carousel').carousel('pause');
         </script>
         
-<style>
+<style type="text/css">
 .input-xlg {  
   height: 60px;
   width: 100%;
@@ -38,6 +41,29 @@ $this->headTitle($title);
   font-size: 30px;
   line-height: 1.33;
   border-radius: 6px;
+}
+.panel-carousel {
+  border-color: #bce8f1;
+}
+
+.panel-carousel > .panel-heading {
+  color: #3a87ad;
+  background-color: #d9edf7;
+  border-color: #428bca;
+  border-bottom-color: #428bca;
+}
+
+.panel-carousel > .panel-heading + .panel-collapse .panel-body {
+  border-top-color: #428bca;
+}
+
+.panel-carousel > .panel-footer + .panel-collapse .panel-body {
+  border-bottom-color: #428bca;
+}
+
+.deletable-button {
+	float:right;
+	
 }
 
 </style>
@@ -64,9 +90,10 @@ $this->headTitle($title);
         <?php $count = 0; ?>        
         <?php foreach ($tabs as $tab) : ?>
             <?php if ($count == 0) : ?>
-                <li class="active"><a href="#<?php echo $this->escapeHtml($tab->name); ?>Tab" data-toggle="pill"><span><?php echo $this->escapeHtml($tab->title); ?></span></a></li>
+                <li class="active" data-pk="page_<?php echo $tab->id; ?>"><a href="#<?php echo $this->escapeHtml($tab->name); ?>Tab" data-toggle="pill"><span><?php echo $this->escapeHtml($tab->title); ?></span>        
+               					   </a></li>
             <?php else : ?>
-                <li><a href="#<?php echo $this->escapeHtml($tab->name); ?>Tab" data-toggle="pill"><span><?php echo $this->escapeHtml($tab->title); ?></span></a></li>
+                <li data-pk="page_<?php echo $tab->id; ?>"><a href="#<?php echo $this->escapeHtml($tab->name); ?>Tab" data-toggle="pill"><span><?php echo $this->escapeHtml($tab->title); ?></span></a></li>
             <?php endif; ?>
             <?php $count++; ?>
         <?php endforeach; ?>
@@ -89,20 +116,20 @@ $this->headTitle($title);
                         <div class="main-content">
                         	<p>
                         	<a data-toggle="modal" class="btn btn-warning" href="#config-<?php echo $page['name'];?>"><span class="glyphicon glyphicon-cog"></span> Config page</a>
-							<a class="btn btn-danger" href="#"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+							<a class="btn btn-danger delete-page" href="#" data-pk="<?php echo $page['id'];?>"><span class="glyphicon glyphicon-trash"></span> Delete</a>
 							</p>
-                            <?php if ($page['contentCount'] == 1) : ?>
+                            <?php if ($page['template'] == 1) : //$page['template'] = 1 Ie single page ?>
                                 <div class="single-content row-fluid" id="<?php echo $this->escapeHtml($page['name']); ?>Content">
                                     <div class="row">
                                     <div class="col-md-6">
                                     	<div class="panel panel-info">
                                     		<div class="panel-heading" style="position : relative; overflow:hidden;">
-                                    			Title    			
+                                    			Title
 		    									<a href="#" class="edit-pencil"><span class="glyphicon glyphicon-pencil" style="position : absolute; right : 20; top :-20px;"></span></a>
                                     		</div>
                                     		<div class="panel-body">
                                     			<div class="changeable" data-toggle="manual" data-name="title" data-type="text" data-pk="<?php echo $this->escapeHtml($page['contents'][0]['id']);?>" data-url="/page/editable">
-                                    			<?php echo $this->escapeHtml($page['contents'][0]['title']); ?>
+                                    	<div></div>		<?php echo $this->escapeHtml($page['contents'][0]['title']); ?>
                                     			</div>
                                         	</div>
                                         </div>
@@ -122,65 +149,110 @@ $this->headTitle($title);
                                         <div class="col-md-6">
                                             <div class="panel panel-info">
                                             	<div class="panel-heading" style="position : relative; overflow:hidden;">
-                                            		Image
+                                            		Media
                                             		<span style="position : absolute ; right: 20; top:-20px" class="glyphicon glyphicon-pencil">
 													</span>
 												</div>
                                             	<div class="panel-body">
-                                                <img class="col-md-12" src="../img/<?php echo $this->escapeHtml($page['contents'][0]['img']); ?>">
+                                            		<div class="thumbnail">
+                                                <img class="col-md-12" src="../img/<?php echo $this->escapeHtml($page['contents'][0]['img']['url']); ?>">
+													</div>
 												</div>
                                             </div>
                                         </div>
                                     
                                     </div>
                                 </div>
-                            <?php else : ?>
-                                <div class="carousel slide row-fluid" id="<?php echo $this->escapeHtml($page['name']); ?>Carousel">
-                                    <div class='span12'>
-                                    
-                                            <div class="span6 carousel-control-wrapper">
-                                                <ol class="carousel-indicators">
-                                                    <?php $count = 1; ?>
-                                                    <?php while ($count <= $page['contentCount']) : ?>
-                                                    	<?php if($count == 1) : ?>
-                                                    		<li data-target="#<?php echo $this->escapeHtml($page['name']); ?>Carousel" data-slide-to="<?php echo $this->escapeHtml($count - 1); ?>" class="active"><?php echo $this->escapeHtml($count); ?></li>
-                                                    	<?php else : ?>	
-                                                        	<li data-target="#<?php echo $this->escapeHtml($page['name']); ?>Carousel" data-slide-to="<?php echo $this->escapeHtml($count - 1 ); ?>"><?php echo $this->escapeHtml($count); ?></li>
-                                                        <?php endif;?>
-                                                        <?php $count++; ?>
-                                                    <?php endwhile; ?>
-                                                </ol>
-                                            </div>
-                                            <div class="span6">
-
-                                            </div>
-                                        </div>
-                                       
-                                        <div class="carousel-inner row-fluid">
+                            <?php elseif($page['template'] == 2) : ?>
+                            <?php $carouselTitle = $page['contents'][0]['title'];?>	
+                            
+                            <div class="row">
+                            	<div class="col-md-6">
+                            		<button class="btn btn-succes btn-sm add-carousel-btn" data-page="<?php echo $page['name'];?>"><span class="glyphicon glyphicon-plus"></span> Add a carousel</button>
+ 								</div>
+								<div class="col-md-6">
+									<h2><a class="carousel-title editable editable-click" data-type="text" data-page="<?php echo $page['name'];?>" data-url="/page/update-carousel-title">
+										<?php if(!$carouselTitle){
+																  $carouselTitle = 'No Title yet';
+																  echo $carouselTitle;
+																 }else{
+																  echo $carouselTitle;
+																 }?>
+										</a></h2>                   
+								</div>
+                            </div>
+                 *******               <div class="edit-carousel panel-group" id="<?php echo $this->escapeHtml($page['name']); ?>Carousel">
+                                       <?php/**** if($page['template'] == 2)************/ :?>
+       
                                                 <?php $count = 0; ?>
                                                 <?php foreach ($page['contents'] as $content) : ?>
+                                                	
                                                 <?php $defaultItemClass = ($count == 0) ? " active" : ""; ?>
-                                                    <div class="item row-fluid<?php echo $defaultItemClass; ?>">
-                                                     <?php $count ++; ?>
-                                                        <div class="span6">
-                                                            
-                                                                <h4><?php echo $this->escapeHtml($content['label']) ?></h4>
-                                                                <div><?php echo $this->escapeHtml($content['text']) ?></div>
-
+                      <div class="deletable panel panel-default" data-pk="<?php echo $content['id'];?>">
+							<div class="panel-heading">
+                                <h4 class="panel-title">
+								<a class="accordion-toggle" data-toggle="collapse" data-parent="#<?php echo $page['name'];?>Carousel" href="#carousel-edit-<?php echo $content['id']; ?>">
+									<?php echo $carouselTitle. ' : '. $content['label'] ; ?>
+								</a>
+								<a href="#" class="deletable-button" data-pk="<?php echo $content['id'];?>"><i class="glyphicon glyphicon-trash"></i></a>
+							   </h4>
+								
+    						</div>
+						    <div id="carousel-edit-<?php echo $content['id']; ?>" class="panel-collapse collapse">
+      							<div class="panel-body">
+							<div class="col-md-6">
+                                                            <div class="panel panel-info">
+                                    				<div class="panel-heading" style="position : relative; overflow:hidden;">
+                                    				Label    			
+		    						<a href="#" class="edit-pencil"><span class="glyphicon glyphicon-pencil" style="position : absolute; right : 20; top :-20px;"></span></a>
+                                    				</div>
+                                    				<div class="panel-body">
+                                    				<div class="changeable" data-toggle="manual" data-name="label" data-type="text" data-pk="<?php echo $content['id'];?>" data-url="/page/editable">
+                                    				<?php echo $content['label']; ?>
+                                    				</div>
+                                        			</div>
+                                        		   </div>
+							   <div class="panel panel-info">
+                                    				<div class="panel-heading" style="position : relative; overflow:hidden;">
+                                    				Text    			
+		    						<a href="#" class="edit-pencil"><span class="glyphicon glyphicon-pencil" style="position : absolute; right : 20; top :-20px;"></span></a>
+                                    				</div>
+                                    				<div class="panel-body">
+                                    				<div class="changeable" data-toggle="manual" data-name="text" data-type="textarea" data-pk="<?php echo $content['id'];?>" data-url="/page/editable">
+                                    			<?php echo $content['text']; ?>
+                                    				</div>
+                                        			</div>
+                                        		    </div>
                                                         </div>
-                                                        <div class="span6">
-                                                            <div class="thumbnail">	
-  Title                                                               <img src="<?php $this->url(); ?>/img/<?php echo $this->escapeHtml($content['img']) ?>" alt="">
-                                                            Title</div>
-                                                        </div>                                           
-                                                    </div>
-
+                                                        <div class="col-md-6">
+								<div class="panel panel-info">
+                                    					<div class="panel-heading" style="position : relative; overflow:hidden;">
+                                    					Image    			
+		    							<a href="#" class="edit-pencil"><span class="glyphicon glyphicon-pencil" style="position : absolute; right : 20; top :-20px;"></span></a>
+                                    					</div>
+                                    					<div class="panel-body">
+                                                            			<div class="thumbnail col-md-12">
+                                                            				
+                                                            				<?php/* echo $this->partial('media-helper.phtml', array(
+    																							'kind' => ,
+    																							'subject' => 'view partials')); */?>
+                                                            			<img class="col-md-12" src="<?php $this->url(); ?>/img/<?php echo $content['media']['url']; ?>" alt="">
+								   		</div>
+									</div>	
+								</div>
+						    	</div>
+                                                        
+                                                        
+        					     	</div>
+						</div>
+					</div>
+						<?php $count ++; ?>
                                                 <?php endforeach; ?>
-                                            </div>
-                                            <a class="left carousel-control" href="#<?php echo $this->escapeHtml($page['name']); ?>Carousel" data-slide="prev">&lsaquo;</a>
-                                            <a class="right carousel-control" href="#<?php echo $this->escapeHtml($page['name']); ?>Carousel" data-slide="next">&rsaquo;</a>
-                                        
-                                    </div>
+</div>
+								<?php elseif($page['template'] == 3) : ?>
+									
+									<h2>This is a custom Page</h2>
+                                                
                                 <?php endif; ?>
                         </div>
                    	 </div>
@@ -190,9 +262,10 @@ $this->headTitle($title);
         </div>
 </div>
 </div>
+<div id="modalContainer">
 <?php foreach ($editPages as $editPage) : ?>
 	
-	<div class="modal fade" id="config-<?php echo $editPage->name;?>" tabindex="-1" role="dialog"  aria-hidden="true">
+	<div class="modal fade edit-page" id="config-<?php echo $editPage->name;?>" tabindex="-1" role="dialog"  aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -209,7 +282,7 @@ $this->headTitle($title);
             </tr>
             <tr>         
                 <td>Page Name (in one word)</td>
-                <td><a href="#" class="changeable-page editable editable-click" data-pk="<?php echo $editPage->id;?>" data-type="text" data-name="name"><?php echo $editPage->name;?></a></td>
+                <td><span style="color:grey"><?php echo $editPage->name;?></span></td>
             </tr>
 			<tr>
 				<td>Choose page Template</td>
@@ -221,7 +294,7 @@ $this->headTitle($title);
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" id="save-page">Save Page</button>
+          
         </div>
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -265,14 +338,54 @@ $this->headTitle($title);
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
+  <div class="modal fade" id="addCarouselModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Give a label new carousel content</h4>
+        </div>
+        <div class="modal-body">
+        
+        Label : <a href="#" id="addCarouselLabel" class="editable editable-click" data-type="text" data-name="label">Blank Label</a>
 	
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="add-carousel">Add Carousel</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+  <div class="modal fade" id="carouselTitle" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Give a Title for this Page</h4>
+        </div>
+        <div class="modal-body">
+        
+        Title : <a href="#" id="add-carousel-title" class="editable editable-click" data-type="text" data-name="title">Blank Title</a>
 	
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="save-add-carousel-title">Save Title</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->	
+</div>	
+
 
 
 <script type="text/javascript">
 $(document).ready(function() {
     $('#control-panel a:first').tab('show');
-
+		
+		$('#add-carousel-title').editable();
+		
 		$('.template').editable({
 		url: '/page/save',
     	value: 1,
@@ -282,7 +395,7 @@ $(document).ready(function() {
         		    {value: 3, text: 'Custom Page'}
         		]
         });
-    	
+
     	$('.add-page').editable({
 		url: 'http://site.jj/page/save' //this url will not be used for cxreating new user, it is only for update
 		});	
@@ -324,6 +437,11 @@ $(document).ready(function() {
     	 * *** remove active class then append new tab button
     	 * 
     	*/
+    	
+    	if(page.template == 1){
+    	
+    	
+    	
     	$('li.active').removeClass('active');
     	
     	$('#navigation').append('<li class="active"><a href="#'+page.name+'Tab" data-toggle="pill"><span>'+page.title+'</span></a></li>');
@@ -332,10 +450,10 @@ $(document).ready(function() {
 '<div class="tab-pane active" id="'+page.name+'Tab">'+
 '<div class="main-content-container">'+
 '<div class="main-content">'+
-'caca'+ data.contentId +
+'contentId:'+ data.contentId +
       '<p>'+
 		'<a data-toggle="modal" class="btn btn-warning" href="#config-'+page.name+'"><span class="glyphicon glyphicon-cog"></span> Config page</a> '+
-		'<a class="btn btn-danger" href="#"><span class="glyphicon glyphicon-trash"></span> Delete</a>'+
+		'<a class="btn btn-danger delete-page" href="#" data-pk="'+data.id+'"><span class="glyphicon glyphicon-trash"></span> Delete</a>'+
 	  '</p>'+
 	'<div class="single-content row-fluid" id="'+ page.name +'Content">'+
 
@@ -375,7 +493,70 @@ $(document).ready(function() {
 '</div>'+                           
 '</div>'+
 '</div>');
-
+	
+	$('#modalContainer').append(
+	'<div class="modal fade edit-page" id="config-'+page.name+'" tabindex="-1" role="dialog"  aria-hidden="true">'+
+    '<div class="modal-dialog">'+
+      '<div class="modal-content">'+
+        '<div class="modal-header">'+
+          '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>'+
+          '<h4 class="modal-title">Config page</h4>'+
+        '</div>'+
+        '<div class="modal-body">'+
+         
+'<table  class="table table-bordered table-striped">'+
+        '<tbody>'+ 
+            '<tr>'+         
+                '<td width="40%">Page Title (Title in the Tabs)</td>'+
+                '<td><a href="#" class="changeable-page editable editable-click" data-pk="'+data.id+'" data-type="text" data-name="title">'+page.title+'</a></td>'+
+            '</tr>'+
+            '<tr>'+         
+                '<td>Page Name (in one word)</td>'+
+                '<td><span style="color:grey">'+page.name+'</span></td>'+
+            '</tr>'+
+			'<tr>'+
+				'<td>Choose page Template</td>'+
+				'<td><a href="#" class="template changeable-page editable editable-click" data-pk="'+data.id+'" data-type="select" data-name="template" data-value="'+page.template+'"></a></td>'+
+			'</tr>'+
+	'</tbody>'+
+'</table>'+
+	
+        '</div>'+
+        '<div class="modal-footer">'+
+          '<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>'+
+          
+        '</div>'+
+      '</div>'+
+    '</div>'+
+  '</div>');
+	
+	$('.template').editable({
+		
+		source: [
+        		    {value: 1, text: 'Single Page'},
+        		    {value: 2, text: 'Carousel Page'},
+        		    {value: 3, text: 'Custom Page'}
+        		]
+	})
+	
+	$('.delete-page').click(function(e) {
+			var pk = $(this).data('pk');
+			var request = {};
+			request['pk'] = pk;
+			$.ajax({
+                url: "http://site.jj/page/delete-page",
+                dataType: 'json',
+                data: request,                         // Setting the data attribute of ajax with file_data
+                type: 'post',
+                complete: function(){window.location.reload();},
+                
+       		});
+       		
+			
+	});
+	
+	
+	
 	$(".panel-info.new").hover(function(){
 	$(".glyphicon-pencil", this).stop().animate({top:"30%"},{queue:false,duration:100});
 	}, function() {
@@ -387,25 +568,55 @@ $(document).ready(function() {
         e.preventDefault();
         target.children('.changeable').editable('toggle');
    	});
+   }else if(page.template == 2){
    	
+   	
+   	$('#addPage').modal('hide');
+   	$('#addPage').on('hidden.bs.modal', function(){
+		$('#carouselTitle').modal('show');
+		$('#save-add-carousel-title').click(function(){
+		$('#add-carousel-title').editable('submit', {
+    		url: '/page/update-carousel-title',
+    		ajaxOptions: {
+    		dataType: 'json', //assuming json response
+  
+    		},
+    		data: {name: page.name},    		
+    		success: function(data, config) {
+    			alert('succes!!')
+    		}
+    	});
+  });
+    $('#carouselTitle').on('hidden.bs.modal', function(){
+		window.location.reload();
+	});
+			
+	});
+    
+	
+   }else if(page.template == 3){
+   		window.location.reload();
+   }
    	
     	
     	} else if(data && data.errors){
     	//server-side validation error, response like {"errors": {"username": "username already exist"} }
     	config.error.call(this, data.errors);
     	}
-    	},
+    },
     	error: function(errors) {
     	var msg = '';
     	if(errors && errors.responseText) { //ajax error, errors = xhr object
     	msg = errors.responseText;
     	} else { //validation error (client-side or server-side)
-    	$.each(errors, function(k, v) { msg += k+": "+v+"<br>"; });
+    	$.each(errors, function(k, v) { msg += k+": "+v+"<br>"; })
+		;
     	}
     	$('#msg').removeClass('alert-success').addClass('alert-error').html(msg).show();
     	}
-    	});
-    });
+    	}); //editable submit
+    }); // on #add-page click
+    
 	$('#addPage').on('hidden.bs.modal', function () {
 	 // clear x-editable values
 		$('.add-page').editable('setValue', null) //clear values
@@ -414,7 +625,11 @@ $(document).ready(function() {
 		$('#addPage').find('.template').removeClass('editable-empty').empty().editable('setValue', 1);
 		$('#add-page').show();
 		$('#msg').hide(); 
-	})
+	});
+	
+	$('.edit-page').on('hidden.bs.modal', function () {
+		window.location.reload();
+	});
 	
 	$('.edit-pencil').click(function(e) {
     var target = $(this).parent().next('.panel-body');
@@ -437,7 +652,200 @@ $(document).ready(function() {
     	
     	
 
-		$("ul.nav").sortable();
+		$("ul.nav").sortable({
+			update: function(event, ui) {
+    		
+    		//var result = $(event.target).sortable("toArray", {attribute: "data-pk"});
+    		var result = $(event.target).sortable( "serialize", {attribute: "data-pk"});
+    		//var numbers = result.replace(/page_/g, '');
+    		
+     		alert(result);
+     		$.ajax({
+                url: "http://site.jj/page/sortable-page",
+                dataType: 'json',
+                data: result,                         // Setting the data attribute of ajax with file_data
+                type: 'post',
+       		});
+
+		}});
+		$('.delete-page').click(function(e) {
+			var pk = $(this).data('pk');
+			var request = {};
+			request['pk'] = pk;
+			$.ajax({
+                url: "http://site.jj/page/delete-page",
+                dataType: 'json',
+                data: request,                         // Setting the data attribute of ajax with file_data
+                type: 'post',
+                complete: function(){
+                	window.location.reload();
+                	},
+                
+       		});
+       		
+			
+		});
+		
+		$('.reload').click(function(){   
+			 window.location.reload();  //should be a dynamic remove action on jquery part
+		});
+	
+	$('#updateCarouselTitle').editable({
+		url: '/page/update-carousel-title'
+	});
+	
+	$('#addCarouselLabel').editable();
+	
+	
+	$('.add-carousel-btn').click(function(e){
+		var pageName = $(this).data('page');
+		//alert(pageName);
+		
+		//$('#addCarouselTitle').attr('data-pagename', pageName);
+
+		$('#addCarouselModal').modal('show');
+
+		$('#add-carousel').click(function(e) {
+		  	
+		  	var carousel = $('#addCarouselLabel').editable('getValue');
+			
+		/*	var request = {};
+			request['title'] = carousel;
+			request['name']	=pageName;
+			
+			
+			$.ajax({
+                url: "http://site.jj/page/add-carousel",
+                dataType: 'json',
+                data: request,                         // Setting the data attribute of ajax with file_data
+                type: 'post',
+                complete: function(){
+		  */	
+    		$('#addCarouselLabel').editable('submit', {
+    		url: '/page/add-carousel',
+    		ajaxOptions: {
+    		dataType: 'json', //assuming json response
+    		
+    		},
+    		data: {name: pageName},    		
+    		success: function(data, config) {
+    		if(data && data.id) { //record created, response like {"id": 2, }
+    		
+    		alert(data.id);
+    		
+    	//set pk
+    		$(this).editable('option', 'pk', data.id);
+    	//remove unsaved class
+    		$(this).removeClass('editable-unsaved');
+    	//show messages
+    	//var msg = 'New Page created! Now submit individually.';
+    	//$('#msg').addClass('alert-success').removeClass('alert-error').html(msg).show();
+    		//$('#add-carousel').hide();
+    	
+	    	//var carousel = $(this).editable('getValue');
+			//var pageName = $(this).data('name');
+		
+			var panelGroup = pageName+'Carousel'; 
+		
+			$('#' + panelGroup).append('  <div class="panel panel-default" data-pk="'+data.id+'">'+
+							'<div class="panel-heading">'+
+                              	   '<h4 class="panel-title">'+
+									'<a class="accordion-toggle" data-toggle="collapse" data-parent="#'+pageName+'Carousel" href="#carousel-edit-'+data.id+'">'+
+										carousel.label+
+									'</a>'+
+							   '</h4>'+
+    							'</div>'+
+						    '<div id="carousel-edit-'+data.id+'" class="panel-collapse collapse">'+
+      							'<div class="panel-body">'+
+							'<div class="col-md-6">'+
+                                                            '<div class="panel panel-info">'+
+                                    				'<div class="panel-heading" style="position : relative; overflow:hidden;">'+
+                                    				'Label'+    			
+		    						'<a href="#" class="edit-pencil"><span class="glyphicon glyphicon-pencil" style="position : absolute; right : 20; top :-20px;"></span></a>'+
+                                    				'</div>'+
+                                    				'<div class="panel-body">'+
+                                    				'<div class="changeable" data-toggle="manual" data-name="label" data-type="text" data-pk="'+data.id+'" data-url="/page/editable">'+
+                                    				'</div>'+
+                                        			'</div>'+
+                                        		   '</div>'+
+							   '<div class="panel panel-info">'+
+                                    				'<div class="panel-heading" style="position : relative; overflow:hidden;">'+
+                                    				'Text'+    			
+		    						'<a href="#" class="edit-pencil"><span class="glyphicon glyphicon-pencil" style="position : absolute; right : 20; top :-20px;"></span></a>'+
+                                    				'</div>'+
+                                    				'<div class="panel-body">'+
+                                    				'<div class="changeable" data-toggle="manual" data-name="text" data-type="textarea" data-pk="'+data.id+'" data-url="/page/editable">'+
+                                    				'</div>'+
+                                        			'</div>'+
+                                        		    '</div>'+
+                                                        '</div>'+
+                                                        '<div class="col-md-6">'+
+								'<div class="panel panel-info">'+
+                                    					'<div class="panel-heading" style="position : relative; overflow:hidden;">'+
+                                    					'Image'+    			
+		    							'<a href="#" class="edit-pencil"><span class="glyphicon glyphicon-pencil" style="position : absolute; right : 20; top :-20px;"></span></a>'+
+                                    					'</div>'+
+                                    					'<div class="panel-body">'+
+                                                            			'<div class="thumbnail">'+	
+                                                            			'<img src="http://www.placehold.it/400x350/EFEFEF/AAAAAA&text=no+image" alt="">'+
+								   		'</div>'+
+									'</div>'+	
+								'</div>'+
+						    	'</div>'+
+                                                        
+                                                        
+        					     	'</div>'+
+						'</div>'+
+					'</div>');
+			}//end of if(data && ...)
+		}// end of succes
+		
+		}); //end of editable submit
+		 
+		/*
+		$.ajax({
+                url: "http://site.jj/page/add-content",
+                dataType: 'json',
+                data: request,                         // Setting the data attribute of ajax with file_data
+                type: 'post',
+                complete: function(){
+					*/	
+				
+		
+				
+	
+                
+       		}); // on click
+       		
+    $('#addCarouselModal').on('hidden.bs.modal', function () {
+	 // clear x-editable values
+		$('#addCarouselLabel').editable('setValue', 'Blank Label') //clear values
+			.editable('option', 'pk', null); //clear pk
+			
+		});
+
+	});
+	
+	$('.carousel-title').editable();
+	
+	
+
+	$('.deletable-button').click(function(e){
+	var pk = $(this).parent().parent().parent().data('pk');
+	
+		
+			var request = {};
+			request['pk'] = pk;
+			$.ajax({
+                url: "http://site.jj/page/delete-content",
+                dataType: 'json',
+                data: request,                         // Setting the data attribute of ajax with file_data
+                type: 'post',
+                complete: function(){window.location.reload();},
+                
+       		});
+       			
+	});
 
 })
 </script>
