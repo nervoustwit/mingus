@@ -149,7 +149,13 @@ class PageContentTable extends AbstractTableGateway
 	public function embedMedia($content)
 	{
 		
-		
+		$id = (int)$content->id;
+		$data = array('media' => $content->mediaId);
+		if ($this->getContent($id)) {
+                $this->update($data, array('id' => $id));
+            } else {
+                throw new \Exception('Form id does not exist');
+            }
 		
 	}
 }

@@ -6,6 +6,8 @@ return array(
         'Album',
         'Page',
         'ZF2FileUploadExamples',
+	'ZfcBase',
+	'ZfcUser'
     ),
 
     // These are various options for the listeners attached to the ModuleManager

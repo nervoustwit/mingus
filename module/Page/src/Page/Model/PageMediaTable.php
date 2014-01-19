@@ -24,12 +24,16 @@ class PageMediaTable extends AbstractTableGateway
         $resultSet = $this->select();
         return $resultSet;
     }
-	public function embedMedia($media)
+	public function insertMedia($media)
 	{
 	 
 	 $content_id = $media->pk;
 	 $kind = 	   $media->kind;
 	 $url =		   $media->url;
+	 
+	 $this->insert(array('content_id' => $content_id, 'kind' => $kind, 'url' => $url));
+		$id = $this->lastInsertValue;
+		return $id;
 	 
 	 
 	}

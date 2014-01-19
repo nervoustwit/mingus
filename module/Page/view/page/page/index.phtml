@@ -1,11 +1,10 @@
 <html>
 <head>
 <?php
-
 $title = 'My pages';
 $this->headTitle($title);
-print_r($debug);
-print_r($pages);
+//print_r($debug);
+//print_r($pages);
 ?>
 
 
@@ -13,6 +12,8 @@ print_r($pages);
 
 <link href="http://site.jj/bootstrap/bootstrap-3.0.0/dist/css/bootstrap-theme.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="/img/favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon">
+
+<link rel="stylesheet" type="text/css" href="http://site.jj/css/bootstrap-fileupload.css"/>
                 <!-- Scripts -->
 <script type="text/javascript" src="/js/jquery.min.js"></script>
 
@@ -25,6 +26,11 @@ print_r($pages);
 <!--[if lt IE 9]><script type="text/javascript" src="/js/html5.js"></script><![endif]-->
 <link href="http://site.jj/bootstrap-editable/css/bootstrap3-editable.css" rel="stylesheet">
 <script type="text/javascript" src="http://site.jj/bootstrap-editable/js/bootstrap3-editable.js"></script>
+
+<script src="http://blueimp.github.io/jQuery-File-Upload/js/vendor/jquery.ui.widget.js"></script>
+<script src="http://blueimp.github.io/jQuery-File-Upload/js/jquery.iframe-transport.js"></script>
+<script src="http://blueimp.github.io/jQuery-File-Upload/js/jquery.fileupload.js"></script>
+<script src="http://site.jj/js/bootstrap-fileupload.js"></script>
 
     	
 
@@ -155,7 +161,7 @@ print_r($pages);
 												</div>
                                             	<div class="panel-body">
                                             		<div class="thumbnail">
-                                                <img class="col-md-12" src="../img/<?php echo $this->escapeHtml($page['contents'][0]['img']['url']); ?>">
+                                                <img class="col-md-12" src="<?php echo $this->escapeHtml($page['contents'][0]['img']['url']); ?>">
 													</div>
 												</div>
                                             </div>
@@ -231,12 +237,46 @@ print_r($pages);
 		    							<a href="#" class="edit-pencil"><span class="glyphicon glyphicon-pencil" style="position : absolute; right : 20; top :-20px;"></span></a>
                                     					</div>
                                     					<div class="panel-body">
-                                                            			<div class="thumbnail col-md-12">
+                                                            			<div class="col-md-12"> 				
+                                                            				<div class="fileupload fileupload-new" data-provides="fileupload">
+                                                            					
+                                                            					
+                                       					<div class="row media-edit-buttons">  	
+														<form enctype="multipart/form-data" method="post">
+														<span class="uploader btn btn-sm btn-primary btn-file">
+													    <span class="fileupload-new">Select image <i class="glyphicon glyphicon-picture"></i></span>
+													    <span class="fileupload-exists">Change</span>
+														<input class="imageupload" name="files" type="file" />
+													    </span>
+														</form>
+														<a href="#" class="btn btn-primary btn-sm embed-media" data-toggle="modal" data-pk="<?php echo $content['id']; ?>" data-target="#embedMedia">Embed New Media <i class="glyphicon glyphicon-film"></i></a>
+  														</div>
+                                                            					
+                                                            					
+                                                            					
+																			  <div class="fileupload-new thumbnail" style="width: 400px; height: 350px;">
+																			  	<?php if($content['media']['url'] == 'empty') : ?>
+																				<img src="http://www.placehold.it/400x350/EFEFEF/AAAAAA&text=no+image" />
+																				<?php else : ?>
+																				<img src="<?php echo $content['media']['url']; ?>" alt="">
+																				<?php endif;?>
+																			  </div>
+																			  <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 400px; max-height: 350px; line-height: 20px;">
+																			  </div>
+  
+  	
+  																		   <a href="#" data-pk="<?php echo $content['id'];?>" class="btn btn-primary btn-sm save-image-upload fileupload-exists">
+																			<i class="glyphicon glyphicon-ok"></i>
+																		   </a>
+
+ 																		
+ 																		   <a href="#" class="btn btn-default btn-sm fileupload-exists" data-dismiss="fileupload">
+    																		<i class="glyphicon glyphicon-remove"></i>
+																		   </a>
+																		   </div>
                                                             				
-                                                            				<?php/* echo $this->partial('media-helper.phtml', array(
-    																							'kind' => ,
-    																							'subject' => 'view partials')); */?>
-                                                            			<img class="col-md-12" src="<?php $this->url(); ?>/img/<?php echo $content['media']['url']; ?>" alt="">
+                                                            				
+                                                            			
 								   		</div>
 									</div>	
 								</div>
@@ -375,7 +415,42 @@ print_r($pages);
         </div>
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
-  </div><!-- /.modal -->	
+  </div><!-- /.modal -->
+  <!-- Modal -->
+<div class="modal fade" id="embedMedia" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      
+      <div class="modal-body">
+        <input id="embed-input" class="form-control" placeholder="Embed Url" required="" autofocus="" type="text">
+	<button type="button" id="check-url" class="btn btn-success btn-sm">check</button>
+       <br />
+       <fieldset disabled>
+        <select id="disabledSelect" class="form-control">
+        	<option>Youtube</option>
+      	</select>
+       </fieldset>
+       <br />
+       <div class="preview-youtube-player-container">
+       	<p class="preview-youtube-player-container-no-video">
+       	<img class="thumbnail no-youtube-video-default" src="http://www.placehold.it/300x200/EFEFEF/AAAAAA&text=no+Youtube+video" />
+       	</p>
+  	   </div>
+  	   
+  	   <br />
+        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">
+        	<i class="glyphicon glyphicon-remove"></i>
+        </button>
+        <button type="button" id="update-embed" class="btn btn-success btn-sm">
+        	<i class="glyphicon glyphicon-ok"></i>
+        </button>
+      </div>
+      
+        
+     
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->	
 </div>	
 
 
@@ -846,6 +921,119 @@ $(document).ready(function() {
        		});
        			
 	});
+	
+	
+	
+	//Media embed
+	
+	function ytVidId(url) {
+  var p = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
+  return (url.match(p)) ? RegExp.$1 : false;
+}
+
+$('.save-image-upload').click(function(e){
+	var pk = $(this).data('pk');
+	
+    var file_data = $(this).parent().find(".imageupload").prop("files")[0];//$(".imageupload").prop("files")[0];   // Getting the properties of file from file field
+    var form_data = new FormData();                  // Creating object of FormData class
+    form_data.append("file", file_data);              // Appending parameter named file with properties of file_field to form_data
+    form_data.append("pk", pk);                 // Adding extra parameters to form_data
+    $.ajax({
+                url: "http://site.jj/page/stage-example",
+                dataType: 'json',
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: form_data,                         // Setting the data attribute of ajax with file_data
+                type: 'post'
+       });
+
+	$(".imageupload").empty();
+
+
+
+});
+
+$('.embed-media').click(function (e){
+
+	
+	var pk = $(this).data('pk');
+	
+	$('#embedMedia').on('show.bs.modal', function () {
+
+	$('#check-url').click(function(){
+	
+	var video = 0;
+	
+	var url = $('#embed-input').val();
+		
+	var video = ytVidId(url);
+	
+	
+
+	$('.preview-youtube-player-container-no-video').remove();
+	
+	$('.preview-youtube-player-container').tubeplayer('destroy');
+	
+	$('.preview-youtube-player-container').tubeplayer({
+	allowFullScreen: "true", // true by default, allow user to go full screen
+	initialVideo: video,
+	});
+	
+	});
+
+		$('#update-embed').click(function(){
+			var embed_update = $('#embed-input').val();
+			var video = ytVidId(embed_update);
+			var data = {};
+			data['url'] = video;
+			data['pk'] = pk;
+			data['kind'] = 'youtube';
+			$.ajax({
+				url: "http://site.jj/page/embed-media",
+                dataType: 'json',
+                data: data,                         // Setting the data attribute of ajax with file_data
+                type: 'post',
+                complete: function(data, config){
+                	
+
+               		
+              
+                },
+			});
+		});
+	});
+});
+
+$(".youtube-player-container").load(function(e) {
+// Handler for .load() called.
+
+var url = $(this).data('url');
+
+/*if(){
+$(this).tubeplayer({
+	width: 600, // the width of the player
+	height: 450, // the height of the player
+	allowFullScreen: "true", // true by default, allow user to go full screen
+	initialVideo: "Yj6nqPeGaoE", // the video that is loaded into the player
+	preferredQuality: "default",// preferred quality: default, small, medium, large, hd720
+	onPlay: function(id){}, // after the play method is called
+	onPause: function(){}, // after the pause method is called
+	onStop: function(){}, // after the player is stopped
+	onSeek: function(time){}, // after the video has been seeked to a defined point
+	onMute: function(){}, // after the player is muted
+	onUnMute: function(){} // after the player is unmuted
+});
+}else if()
+{
+	
+}
+*/
+});
+
+	
+	
+	
 
 })
 </script>

@@ -15,6 +15,7 @@ use Zend\View\Model\ViewModel;
 use Page\Model\Page;
 use Page\Model\PageContent;
 use Page\Model\TabNav;
+use Page\Model\PageMedia;
 use Page\Form\PageForm;
 use Page\Form\EditTitleForm;
 use Page\Form\EditTextForm;
@@ -26,6 +27,7 @@ class PageController extends AbstractActionController
 	protected $pageTable;
 	protected $tabNavTable;
 	protected $pageContentTable;
+	protected $pageMediaTable;
 	
 	public function getPageTable()
     {
@@ -53,27 +55,55 @@ class PageController extends AbstractActionController
         return $this->pageContentTable;
     }
 	
+	public function getPageMediaTable()
+	{
+		 if (!$this->pageMediaTable) {
+            $sm = $this->getServiceLocator();
+            $this->pageMediaTable = $sm->get('Page\Model\PageMediaTable');
+    }
+        return $this->pageMediaTable;
+	}
+	
 	
     public function indexAction()
     {
 		$pages = $this->getPageTable()->fetchAll();	
-		$pagesNames = array();
+		$pagesData[] = array();
 
 		foreach($pages as $page){
-			$pageNames[] = $page->name;
-		}
+			
+		$contents = $this->getPageContentTable()->getPageContents($page->name);
 
-		foreach ($pageNames as $pageName){
-		$contents = $this->getPageContentTable()->getPageContents($pageName);
-
-		$pageContents['name'] = $pageName;
+		$pageContents['id'] = $page->id;
+		$pageContents['name'] = $page->name;
+		$pageContents['template'] = $page->template;
 		$pageContents['contentCount'] = $contents->count();
 		$pageContents['contents'] = array();
 
 			foreach($contents as $content){
-			$pageContents['contents'][] = array('id' => $content->id, 'title' => $content->title, 'label' => $content->label, 'text' => $content->text, 'img' => $content->img);
+				
+			$mediaId = $content->media;
+			
+			$media = $this->getPageMediaTable()->getContentMedia($mediaId);
+			if(!$media){
+				$url = 'empty';
+				$kind = 'empty';
+			}elseif(!$media->url){
+				$url = 'empty';
+				$kind = 'empty';	
+			}else{	
+			$kind = $media->kind;
+			$url = $media->url;	
+			}	
+			$pageContents['contents'][] = array(
+											'id' => $content->id,
+											'title' => $content->title,
+											'label' => $content->label,
+											'text' => $content->text,
+											'media' => array('kind' => $kind, 'url' => $url)
+											);
+			
 			}
-		
 
 		$pagesContents[] = $pageContents;				
 		}
@@ -88,7 +118,12 @@ class PageController extends AbstractActionController
 			//$result = $production->getPagesArray();
 		 $editPages = $this->getPageTable()->fetchAll();
         
-		$viewModel = new ViewModel(array('pages' => $pagesContents, 'tabs' => $currentPages, 'editPages' => $editPages));
+		$data = $this->getPageMediaTable()->getContentMedia('4');
+		
+		//$mediaArray = $data->buffer();
+		
+
+		$viewModel = new ViewModel(array('pages' => $pagesContents, 'tabs' => $currentPages, 'editPages' => $editPages, 'debug' => $data));
 		
 
         $viewModel->setTerminal(true);
@@ -151,6 +186,7 @@ class PageController extends AbstractActionController
 		
 		
     }
+
 
 	public function editTitleAction()
     {
@@ -250,61 +286,47 @@ class PageController extends AbstractActionController
         return $viewModel;
     }
     	
-	public function deleteAction()
+	public function deletePageAction()
     {
-        $id = (int) $this->params()->fromRoute('id', 0);
+    	$request = $this->getRequest();
+		
+        
+		
+
+        
+        if ($request->isPost()) {
+        	$id = (int) $request->getPost('pk');
         if (!$id) {
             return $this->redirect()->toRoute('page');
         }
-	
-
-        $request = $this->getRequest();
-        if ($request->isPost()) {
-            $del = $request->getPost('del', 'No');
-
-            if ($del == 'Yes') {
-                $id = (int) $request->getPost('id');
+                        
+               
                 $this->getPageTable()->deletePage($id);
-            }
 
-            // Redirect to list of albums
-            return $this->redirect()->toRoute('page');
         }
 
-        return array(
-            'id'    => $id,
-            'page' => $this->getPageTable()->getPage($id)
-        );
+	$result = 'success!!!!';
+
+        $viewModel = new ViewModel(array('result' => $result));
+    	$viewModel->setTerminal(true);
+        return $viewModel;
 		
     }
 	
-	public function stageExampleAction()
+	public function deleteContentAction()
 	{
 		$request = $this->getRequest();
-	
-		 if ($request->isPost()) {
-        // Make certain to merge the files info!
-        
-        $file = $request->getFiles();
-        
-        $post = array_merge_recursive(
-      	$request->getPost()->toArray(),
-      	$file->toArray());
-  
-  $filter = new RenameUpload(array('target' => './data/tmpuploads/page-image',
-  								   'use_upload_extension'  => true,
-   								   'randomize'  => true,));
-  $data = $filter->filter($file['file']);
-  	
+        if ($request->isPost()) {
+        	$id = (int) $request->getPost('pk');
+        if (!$id) {
+            return $this->redirect()->toRoute('page');
+        }
+		  $this->getPageContentTable()->deleteContent($id);
+        }
 
+	$result = 'success!!!!';
 
-
-
-
-
-		
-		  }
-		$viewModel = new ViewModel(array('response' => $data));
+        $viewModel = new ViewModel(array('result' => $result));
     	$viewModel->setTerminal(true);
         return $viewModel;
 		
@@ -350,9 +372,9 @@ class PageController extends AbstractActionController
 		$carousels['contents'] = array();
 
 			foreach($contents as $content){
-			$carousels['contents'][] = array('title' => $content->title, 'label' => $content->label, 'text' => $content->text, 'img' => $content->img);
+			$carousels['contents'][] = array('title' => $content->title, 'label' => $content->label, 'text' => $content->text, 'media' => $content->media);
 			}
-		$result[] = $carousels;				
+		$result[] = $carousels;
 		}
 		
 		
@@ -387,6 +409,22 @@ class PageController extends AbstractActionController
 		
 	}
 	
+	public function updateCarouselTitleAction()
+	{
+		
+		$request = $this->getRequest();
+
+        if ($request->isPost()) {
+            $carouselTitle->page = $request->getPost('name');
+			$carouselTitle->title = $request->getPost('title');
+			$this->getPageContentTable()->updateCarouselTitle($carouselTitle);
+			
+        }
+		$viewModel = new ViewModel(array('response' => $carouselTitle));
+    	$viewModel->setTerminal(true);
+        return $viewModel;
+	}
+	
 	public function addAction()
     {
 
@@ -413,6 +451,32 @@ class PageController extends AbstractActionController
         return $viewModel;
     }
 	
+	public function addCarouselAction()
+    {
+
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+  
+			$carousel->name = $request->getPost('name');
+			$carousel->label = $request->getPost('label');
+            
+
+			//Add content row with the page name and retrieve the ID
+				
+			$content->id = $this->getPageContentTable()->addCarouselRow($carousel);
+
+			//save page and retrieve the ID			    
+            //$save = $this->getPageTable()->addPage($page);
+						
+            //$response->id = $save;	//page ID
+            //$response->contentId = $contentId; //content ID
+			
+        }
+        $viewModel = new ViewModel(array('response' => $content));
+    	$viewModel->setTerminal(true);
+        return $viewModel;
+    }
+	
 	public function saveAction()
     {
 
@@ -434,5 +498,105 @@ class PageController extends AbstractActionController
     	$viewModel->setTerminal(true);
         return $viewModel;
     }
+	
+	public function sortablePageAction()
+	{
+		$request = $this->getRequest();
+		if ($request->isPost()) {
+			$order = $request->getPost();
+					
+		$i = 0;
+		foreach($order['page'] as $pk){
+			
+			$save->id = $pk;
+			$save->position = $i;
+			
+			$this->getPageTable()->sortPage($save);
+		
+		$i++;			
+		}	 
+			
+		}
+		$viewModel = new ViewModel(array('response' => $order['page']));
+    	$viewModel->setTerminal(true);
+        return $viewModel;
+	}
+	
+	public function embedMediaAction()
+	{
+		$request = $this->getRequest();
+
+        if ($request->isPost()) {
+            $media->pk = $request->getPost('pk');
+			$media->url = $request->getPost('url');
+			$media->kind = $request->getPost('kind');
+			
+			
+			
+			$content->id = $media->pk;
+			$content->mediaId = $this->getPageMediaTable()->insertMedia($media);
+	
+			$this->getPageContentTable()->embedMedia($content);
+        }
+		
+		$ye = "ye!!";
+		$viewModel = new ViewModel(array('response' => $ye));
+    	$viewModel->setTerminal(true);
+        return $viewModel;
+		
+	}
+	
+	public function getMediaAction()
+	{
+		$request = $this->getRequest();
+
+        if ($request->isPost()) {
+            $media->pk = $request->getPost('pk');
+		}
+		
+	}
+	
+	public function stageExampleAction()
+	{
+		$request = $this->getRequest();
+	
+		 if ($request->isPost()) {
+        // Make certain to merge the files info!
+        	if($request->getPost('pk')){
+        $file = $request->getFiles();
+        
+        $post = array_merge_recursive(
+      	$request->getPost()->toArray(),
+      	$file->toArray());
+  
+  		$filter = new RenameUpload(array('target' => './public/img',
+  								   'use_upload_extension'  => true,
+   								   'randomize'  => true,));
+  $data = $filter->filter($file['file']);
+  
+  $pk = $request->getPost('pk');
+  
+  $tmp_name = $data['tmp_name'];
+    
+  $data['pk'] = $pk;
+  
+  $data['img_url'] = str_replace('./public', 'http://site.jj', $tmp_name);
+  
+  $media->pk = $pk;
+  $media->kind = 'img';
+  $media->url = str_replace('./public', 'http://site.jj', $tmp_name);
+  	
+	$content->id = $pk;
+	$content->mediaId = $this->getPageMediaTable()->insertMedia($media);
+	
+	$this->getPageContentTable()->embedMedia($content);
+			}
+		
+		}
+		$viewModel = new ViewModel(array('response' => $data));
+    	$viewModel->setTerminal(true);
+        return $viewModel;
+		
+	}
 	
 }
