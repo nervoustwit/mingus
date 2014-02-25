@@ -44,7 +44,7 @@
   </div>
   <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 400px; max-height: 350px; line-height: 20px;">
   </div>
-  
+  <div class="media-youtube-exists"></div>
 
 <div>
   	
@@ -87,11 +87,11 @@
       	</select>
        </fieldset>
        <br />
-       <div class="preview-youtube-player-container">
+       <div id="preview-youtube-player-container"></div>
        	<p class="preview-youtube-player-container-no-video">
        	<img class="thumbnail no-youtube-video-default" src="http://www.placehold.it/300x200/EFEFEF/AAAAAA&text=no+Youtube+video" />
        	</p>
-  	   </div>
+  	   
   	   
   	   <br />
         <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">
@@ -124,7 +124,7 @@
 <script src="http://blueimp.github.io/jQuery-File-Upload/js/jquery.iframe-transport.js"></script>
 <script src="http://blueimp.github.io/jQuery-File-Upload/js/jquery.fileupload.js"></script>
 <script src="http://site.jj/js/bootstrap-fileupload.js"></script>
-<script src="http://www.tikku.com/scripts/ui/tubeplayer/jQuery.tubeplayer.js"></script>
+<script src="/js/jQuery.tubeplayer.js"></script>
 <script>
 $(document).ready(function() {
 
@@ -138,6 +138,14 @@ function ytVidId(url) {
   var p = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
   return (url.match(p)) ? RegExp.$1 : false;
 }
+
+$("body").on('change.bs.fileinput', function () {
+	
+$(".media-youtube-exists").hide();
+$('.fileupload-preview.fileupload-exists.thumbnail').show();
+	
+	
+});
 
 $('.save-image-upload').click(function(){
 
@@ -178,14 +186,18 @@ $('.embed-media').click(function (e){
 	
 	
 
-	$('.preview-youtube-player-container-no-video').remove();
+	$('.preview-youtube-player-container-no-video').hide();
 	
-	$('.preview-youtube-player-container').tubeplayer('destroy');
+	$('#preview-youtube-player-container').tubeplayer('destroy');
 	
-	$('.preview-youtube-player-container').tubeplayer({
+	$('#preview-youtube-player-container').tubeplayer({
 	allowFullScreen: "true", // true by default, allow user to go full screen
 	initialVideo: video,
 	});
+
+	
+	
+	//$('#preview-youtube-player-container').tubeplayer({"cue": video});
 	
 	});
 
@@ -203,8 +215,14 @@ $('.embed-media').click(function (e){
                 type: 'post',
                 complete: function(data, config){
                 	
+                	$('.fileupload-new.thumbnail').hide();
+                	$('.fileupload-preview.fileupload-exists.thumbnail').hide();
+                	
+                	
+                	$('.media-youtube-exists').tubeplayer('destroy');
 
-               		
+               		$('.media-youtube-exists').tubeplayer({allowFullScreen: "true",initialVideo: video});
+               		//$('.media-youtube-exists').tubeplayer({play:video});
               
                 },
 			});
@@ -212,10 +230,10 @@ $('.embed-media').click(function (e){
 	});
 });
 
-$(".youtube-player-container").load(function(e) {
+//$(".youtube-player-container").load(function(e) {
 // Handler for .load() called.
 
-var url = $(this).data('url');
+//var url = $(this).data('url');
 
 /*if(){
 $(this).tubeplayer({
@@ -236,12 +254,25 @@ $(this).tubeplayer({
 	
 }
 */
-});
+//});
 
 
 
 });
 
+</script>
+
+<form>
+  <input id="target" type="text" value="Field 1">
+  <input type="text" value="Field 2">
+</form>
+<div id="other">
+  Trigger the handler
+</div>
+The event handler can be bound to the first input field:
+<script>$( "#target" ).blur(function() {
+  alert( "Handler for .blur() called." );
+});
 </script>
 
 </body>

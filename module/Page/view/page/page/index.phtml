@@ -4,33 +4,33 @@
 $title = 'My pages';
 $this->headTitle($title);
 //print_r($debug);
-//print_r($pages);
+print_r($pages);
 ?>
 
 
-<link href="http://site.jj/bootstrap/bootstrap-3.0.0/dist/css/bootstrap.css" media="screen" rel="stylesheet" type="text/css">
+<link href="/bootstrap/bootstrap-3.0.0/dist/css/bootstrap.css" media="screen" rel="stylesheet" type="text/css">
 
-<link href="http://site.jj/bootstrap/bootstrap-3.0.0/dist/css/bootstrap-theme.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="/bootstrap/bootstrap-3.0.0/dist/css/bootstrap-theme.min.css" media="screen" rel="stylesheet" type="text/css">
 <link href="/img/favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon">
 
-<link rel="stylesheet" type="text/css" href="http://site.jj/css/bootstrap-fileupload.css"/>
+<link rel="stylesheet" type="text/css" href="/css/bootstrap-fileupload.css"/>
                 <!-- Scripts -->
-<script type="text/javascript" src="/js/jquery.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.js"></script>
 
 <!--<script type="text/javascript" src="http://johnny.github.io/jquery-sortable/js/jquery-sortable.js"></script>-->
-<script type="text/javascript" src="http://site.jj/bootstrap/bootstrap-3.0.0/dist/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/bootstrap/bootstrap-3.0.0/dist/js/bootstrap.min.js"></script>
 
-<script type="text/javascript" src="http://site.jj/bootstrap/bootstrap-3.0.0/js/collapse.js"></script>
-<script type="text/javascript" src="http://site.jj/bootstrap/bootstrap-3.0.0/js/modal.js"></script>
+<script type="text/javascript" src="/bootstrap/bootstrap-3.0.0/js/collapse.js"></script>
+<script type="text/javascript" src="/bootstrap/bootstrap-3.0.0/js/modal.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <!--[if lt IE 9]><script type="text/javascript" src="/js/html5.js"></script><![endif]-->
-<link href="http://site.jj/bootstrap-editable/css/bootstrap3-editable.css" rel="stylesheet">
-<script type="text/javascript" src="http://site.jj/bootstrap-editable/js/bootstrap3-editable.js"></script>
+<link href="/bootstrap-editable/css/bootstrap3-editable.css" rel="stylesheet">
+<script type="text/javascript" src="/bootstrap-editable/js/bootstrap3-editable.js"></script>
 
 <script src="http://blueimp.github.io/jQuery-File-Upload/js/vendor/jquery.ui.widget.js"></script>
 <script src="http://blueimp.github.io/jQuery-File-Upload/js/jquery.iframe-transport.js"></script>
 <script src="http://blueimp.github.io/jQuery-File-Upload/js/jquery.fileupload.js"></script>
-<script src="http://site.jj/js/bootstrap-fileupload.js"></script>
+<script src="/js/bootstrap-fileupload.js"></script>
 
     	
 
@@ -234,7 +234,7 @@ $this->headTitle($title);
 								<div class="panel panel-info">
                                     					<div class="panel-heading" style="position : relative; overflow:hidden;">
                                     					Image    			
-		    							<a href="#" class="edit-pencil"><span class="glyphicon glyphicon-pencil" style="position : absolute; right : 20; top :-20px;"></span></a>
+		    							<a href="#" class="edit-pencil" data-type="img"><span class="glyphicon glyphicon-pencil" style="position : absolute; right : 20; top :-20px;"></span></a>
                                     					</div>
                                     					<div class="panel-body">
                                                             			<div class="col-md-12"> 				
@@ -249,7 +249,7 @@ $this->headTitle($title);
 														<input class="imageupload" name="files" type="file" />
 													    </span>
 														</form>
-														<a href="#" class="btn btn-primary btn-sm embed-media" data-toggle="modal" data-pk="<?php echo $content['id']; ?>" data-target="#embedMedia">Embed New Media <i class="glyphicon glyphicon-film"></i></a>
+														<button class="btn btn-primary btn-sm embed-media" data-toggle="modal" data-pk="<?php echo $content['id']; ?>" data-target="#embedMedia">Embed New Media <i class="glyphicon glyphicon-film"></i></button>
   														</div>
                                                             					
                                                             					
@@ -265,12 +265,12 @@ $this->headTitle($title);
 																			  </div>
   
   	
-  																		   <a href="#" data-pk="<?php echo $content['id'];?>" class="btn btn-primary btn-sm save-image-upload fileupload-exists">
+  																		   <button data-pk="<?php echo $content['id'];?>" class="btn btn-primary btn-sm save-image-upload fileupload-exists">
 																			<i class="glyphicon glyphicon-ok"></i>
-																		   </a>
+																		   </button>
 
  																		
- 																		   <a href="#" class="btn btn-default btn-sm fileupload-exists" data-dismiss="fileupload">
+ 																		   <a href="" class="btn btn-default btn-sm fileupload-exists"  data-dismiss="fileupload">
     																		<i class="glyphicon glyphicon-remove"></i>
 																		   </a>
 																		   </div>
@@ -387,7 +387,7 @@ $this->headTitle($title);
         </div>
         <div class="modal-body">
         
-        Label : <a href="#" id="addCarouselLabel" class="editable editable-click" data-type="text" data-name="label">Blank Label</a>
+        Label : <a href="" id="addCarouselLabel" class="editable editable-click" data-type="text" data-name="label">Blank Label</a>
 	
         </div>
         <div class="modal-footer">
@@ -472,13 +472,13 @@ $(document).ready(function() {
         });
 
     	$('.add-page').editable({
-		url: 'http://site.jj/page/save' //this url will not be used for cxreating new user, it is only for update
+		url: '/page/save' //this url will not be used for cxreating new user, it is only for update
 		});	
 		$('.changeable-page').editable({
-		url:'http://site.jj/page/save'
+		url:'/page/save'
 		});
 		$('.template').editable({
-		url:'http://site.jj/page/save'
+		url:'/page/save'
 		});
    		
    		$('#add-page').click(function() {
@@ -619,7 +619,7 @@ $(document).ready(function() {
 			var request = {};
 			request['pk'] = pk;
 			$.ajax({
-                url: "http://site.jj/page/delete-page",
+                url: "/page/delete-page",
                 dataType: 'json',
                 data: request,                         // Setting the data attribute of ajax with file_data
                 type: 'post',
@@ -706,12 +706,35 @@ $(document).ready(function() {
 		window.location.reload();
 	});
 	
+	$(".media-edit-buttons").hide();
+	
 	$('.edit-pencil').click(function(e) {
-    var target = $(this).parent().next('.panel-body');
+    var panel = $(this).parent().next('.panel-body');
+    var mediaEdit = panel.find('.media-edit-buttons');
     	e.stopPropagation();
         e.preventDefault();
-        target.children('.changeable').editable('toggle');
+        
+        if($(this).data('type')== 'img'){
+        	
+        	mediaEdit.show();
+		
+
+        }else{
+        	panel.children('.changeable').editable('toggle');
+        }
+        
+        
+        
+        
    	});
+   	
+   	$("body").click(function() {      		
+        	$('.media-edit-buttons').hide();      		      
+    });
+   	
+   //	$(".media-edit-buttons").focusout(function(e) {
+  	//	$(this).hide();
+	//});
    	
    		$(".panel-info").hover(function(){
 		$(".glyphicon-pencil", this).stop().animate({top:"30%"},{queue:false,duration:100});
@@ -736,7 +759,7 @@ $(document).ready(function() {
     		
      		alert(result);
      		$.ajax({
-                url: "http://site.jj/page/sortable-page",
+                url: "/page/sortable-page",
                 dataType: 'json',
                 data: result,                         // Setting the data attribute of ajax with file_data
                 type: 'post',
@@ -748,7 +771,7 @@ $(document).ready(function() {
 			var request = {};
 			request['pk'] = pk;
 			$.ajax({
-                url: "http://site.jj/page/delete-page",
+                url: "/page/delete-page",
                 dataType: 'json',
                 data: request,                         // Setting the data attribute of ajax with file_data
                 type: 'post',
@@ -790,7 +813,7 @@ $(document).ready(function() {
 			
 			
 			$.ajax({
-                url: "http://site.jj/page/add-carousel",
+                url: "/page/add-carousel",
                 dataType: 'json',
                 data: request,                         // Setting the data attribute of ajax with file_data
                 type: 'post',
@@ -879,7 +902,7 @@ $(document).ready(function() {
 		 
 		/*
 		$.ajax({
-                url: "http://site.jj/page/add-content",
+                url: "/page/add-content",
                 dataType: 'json',
                 data: request,                         // Setting the data attribute of ajax with file_data
                 type: 'post',
@@ -912,7 +935,7 @@ $(document).ready(function() {
 			var request = {};
 			request['pk'] = pk;
 			$.ajax({
-                url: "http://site.jj/page/delete-content",
+                url: "/page/delete-content",
                 dataType: 'json',
                 data: request,                         // Setting the data attribute of ajax with file_data
                 type: 'post',
@@ -939,7 +962,7 @@ $('.save-image-upload').click(function(e){
     form_data.append("file", file_data);              // Appending parameter named file with properties of file_field to form_data
     form_data.append("pk", pk);                 // Adding extra parameters to form_data
     $.ajax({
-                url: "http://site.jj/page/stage-example",
+                url: "/page/stage-example",
                 dataType: 'json',
                 cache: false,
                 contentType: false,
@@ -990,7 +1013,7 @@ $('.embed-media').click(function (e){
 			data['pk'] = pk;
 			data['kind'] = 'youtube';
 			$.ajax({
-				url: "http://site.jj/page/embed-media",
+				url: "/page/embed-media",
                 dataType: 'json',
                 data: data,                         // Setting the data attribute of ajax with file_data
                 type: 'post',
