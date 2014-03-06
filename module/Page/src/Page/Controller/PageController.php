@@ -67,6 +67,9 @@ class PageController extends AbstractActionController
 	
     public function indexAction()
     {
+
+		
+
 		$pages = $this->getPageTable()->fetchAll();	
 		$pagesData[] = array();
 
@@ -126,7 +129,7 @@ class PageController extends AbstractActionController
 		$viewModel = new ViewModel(array('pages' => $pagesContents, 'tabs' => $currentPages, 'editPages' => $editPages, 'debug' => $data));
 		
 
-        $viewModel->setTerminal(true);
+        $this->layout('layout/control-panel');
         return $viewModel;
     }
 		
@@ -578,13 +581,13 @@ class PageController extends AbstractActionController
   
   $tmp_name = $data['tmp_name'];
     
-  $data['pk'] = $pk;
+  //$data['pk'] = $pk;
   
-  $data['img_url'] = str_replace('./public', 'http://site.jj', $tmp_name);
+  //$data['img_url'] = str_replace('./public', 'http://site.jj', $tmp_name);
   
   $media->pk = $pk;
   $media->kind = 'img';
-  $media->url = str_replace('./public', 'http://site.jj', $tmp_name);
+  $media->url = str_replace('./public', '', $tmp_name);
   	
 	$content->id = $pk;
 	$content->mediaId = $this->getPageMediaTable()->insertMedia($media);
@@ -593,7 +596,10 @@ class PageController extends AbstractActionController
 			}
 		
 		}
-		$viewModel = new ViewModel(array('response' => $data));
+
+	$response = array('img' => $media->url);
+
+	$viewModel = new ViewModel(array('response' => json_encode($response)));
     	$viewModel->setTerminal(true);
         return $viewModel;
 		

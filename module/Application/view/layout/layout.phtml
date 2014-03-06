@@ -36,7 +36,14 @@
                         <a class="brand span8" href="<?php echo $this->url('home') ?>">&nbsp;</a>
                         <div class="header-info span4">
                             <div class="header-contact-info"><a href="mailto:info@medicuscorda.com">info@medicuscorda.com</a>1-865-MC1-2345</div>
-                                <a href="/blog/" class="blog-link">UPDATES</a>
+                                
+				<?php if($this->zfcUserIdentity()): ?>
+				<a class="btn btn-danger pull-right" href="<?php echo $this->url('zfcuser/logout') ?>"><?php echo $this->translate('Sign Out'); ?></a>
+
+				<?php else : ?>
+
+<a href="/blog/" class="blog-link">UPDATES</a>
+				<?php endif?>
                             </div>
                         </div>
                     </div>

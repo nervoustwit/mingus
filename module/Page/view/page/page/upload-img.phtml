@@ -14,7 +14,7 @@
 <link rel="stylesheet" type="text/css" href="http://site.jj/bootstrap-editable/css/bootstrap-editable.css"/>
 
 <link rel="stylesheet" type="text/css" href="http://site.jj/css/bootstrap-fileupload.css"/>
-
+<link type="text/css" rel="stylesheet" href="/css/youtube-player.css" />
 
 <style type="text/css">
 .uploader
@@ -56,7 +56,7 @@
     	<i class="glyphicon glyphicon-remove"></i>
     </a>
   <div class="row">  	
-<form enctype="multipart/form-data" method="post">
+<form class="image-form" enctype="multipart/form-data" method="post">
    <span class="uploader btn btn-sm btn-primary btn-file">
     <span class="fileupload-new">Select image <i class="glyphicon glyphicon-picture"></i></span>
     <span class="fileupload-exists">Change</span>
@@ -87,14 +87,14 @@
       	</select>
        </fieldset>
        <br />
-       <div id="preview-youtube-player-container"></div>
+       <div class="preview-youtube-player-container"></div>
        	<p class="preview-youtube-player-container-no-video">
        	<img class="thumbnail no-youtube-video-default" src="http://www.placehold.it/300x200/EFEFEF/AAAAAA&text=no+Youtube+video" />
        	</p>
   	   
   	   
   	   <br />
-        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">
+        <button type="button" class="dismiss btn btn-sm btn-default" data-dismiss="modal">
         	<i class="glyphicon glyphicon-remove"></i>
         </button>
         <button type="button" id="update-embed" class="btn btn-success btn-sm">
@@ -125,8 +125,18 @@
 <script src="http://blueimp.github.io/jQuery-File-Upload/js/jquery.fileupload.js"></script>
 <script src="http://site.jj/js/bootstrap-fileupload.js"></script>
 <script src="/js/jQuery.tubeplayer.js"></script>
+
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
+	<script type="text/javascript" src="/js/jquery.youtube.player.js"></script>
+	<script type="text/javascript" src="/js/swfobject.js"></script>
+
+
+
 <script>
 $(document).ready(function() {
+
+				//var videoID = $('input[name=load-video-field]').val();
+
 
 /**
  * JavaScript function to match (and return) the video Id 
@@ -139,13 +149,17 @@ function ytVidId(url) {
   return (url.match(p)) ? RegExp.$1 : false;
 }
 
-$("body").on('change.bs.fileinput', function () {
+$("#imageupload").on('change.bs.fileinput', function () {
 	
 $(".media-youtube-exists").hide();
 $('.fileupload-preview.fileupload-exists.thumbnail').show();
 	
 	
 });
+
+
+
+//$('.media-youtube-exists').hide();
 
 $('.save-image-upload').click(function(){
 
@@ -161,13 +175,29 @@ $('.save-image-upload').click(function(){
                 contentType: false,
                 processData: false,
                 data: form_data,                         // Setting the data attribute of ajax with file_data
-                type: 'post'
+                type: 'post',
+		complete: function(data){
+
+		
+		//var imgName = imgName.replace("./public", "");
+
+
+//		imgName = imgName.val().replace('./public');
+
+
+		//var newImage = '<img src="'+data['img']+'" / >';
+		//alert(newImage);
+		//$('.fileupload-new.thumbnail').html(newImage);
+
+		}
        });
 
 
 
 
 });
+
+
 
 $('.embed-media').click(function (e){
 
@@ -188,16 +218,8 @@ $('.embed-media').click(function (e){
 
 	$('.preview-youtube-player-container-no-video').hide();
 	
-	$('#preview-youtube-player-container').tubeplayer('destroy');
-	
-	$('#preview-youtube-player-container').tubeplayer({
-	allowFullScreen: "true", // true by default, allow user to go full screen
-	initialVideo: video,
-	});
-
-	
-	
-	//$('#preview-youtube-player-container').tubeplayer({"cue": video});
+$('.preview-youtube-player-container').tubeplayer('destroy');
+$('.preview-youtube-player-container').tubeplayer({allowFullScreen: "true",initialVideo: video});
 	
 	});
 
@@ -208,71 +230,45 @@ $('.embed-media').click(function (e){
 			data['url'] = video;
 			data['pk'] = pk;
 			data['kind'] = 'youtube';
-			$.ajax({
-				url: "http://site.jj/page/embed-media",
+		$.ajax({
+		url: "http://site.jj/page/embed-media",
                 dataType: 'json',
                 data: data,                         // Setting the data attribute of ajax with file_data
                 type: 'post',
-                complete: function(data, config){
+                complete: function(){
                 	
+			//$(".fileinput").fileinput('reset');
+
                 	$('.fileupload-new.thumbnail').hide();
                 	$('.fileupload-preview.fileupload-exists.thumbnail').hide();
-                	
-                	
-                	$('.media-youtube-exists').tubeplayer('destroy');
+			$('.media-youtube-exists').show();
 
-               		$('.media-youtube-exists').tubeplayer({allowFullScreen: "true",initialVideo: video});
+
+			
+                	$('.media-youtube-exists').tubeplayer('destroy');                	
+			$('.media-youtube-exists').tubeplayer({allowFullScreen: "true",initialVideo: video});
+
+
+			//var updatePlayer = '<img width="560" height="315" src="http://img.youtube.com/vi/'+video+'/0.jpg"/ >'; 	
+
+			//$('.media-youtube-exists').html(updatePlayer).show();
+               		//$('.media-youtube-exists').tubeplayer({allowFullScreen: "true",initialVideo: video});
                		//$('.media-youtube-exists').tubeplayer({play:video});
               
                 },
+			//});
+
 			});
 		});
 	});
 });
 
-//$(".youtube-player-container").load(function(e) {
-// Handler for .load() called.
 
-//var url = $(this).data('url');
-
-/*if(){
-$(this).tubeplayer({
-	width: 600, // the width of the player
-	height: 450, // the height of the player
-	allowFullScreen: "true", // true by default, allow user to go full screen
-	initialVideo: "Yj6nqPeGaoE", // the video that is loaded into the player
-	preferredQuality: "default",// preferred quality: default, small, medium, large, hd720
-	onPlay: function(id){}, // after the play method is called
-	onPause: function(){}, // after the pause method is called
-	onStop: function(){}, // after the player is stopped
-	onSeek: function(time){}, // after the video has been seeked to a defined point
-	onMute: function(){}, // after the player is muted
-	onUnMute: function(){} // after the player is unmuted
-});
-}else if()
-{
-	
-}
-*/
-//});
 
 
 
 });
 
-</script>
-
-<form>
-  <input id="target" type="text" value="Field 1">
-  <input type="text" value="Field 2">
-</form>
-<div id="other">
-  Trigger the handler
-</div>
-The event handler can be bound to the first input field:
-<script>$( "#target" ).blur(function() {
-  alert( "Handler for .blur() called." );
-});
 </script>
 
 </body>

@@ -7,7 +7,10 @@ return array(
         'Page',
         'ZF2FileUploadExamples',
 	'ZfcBase',
-	'ZfcUser'
+	'ZfcUser',
+	'BjyAuthorize',
+	'ZendDeveloperTools',
+	'EdpModuleLayouts'
     ),
 
     // These are various options for the listeners attached to the ModuleManager
