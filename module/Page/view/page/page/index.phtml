@@ -1,43 +1,6 @@
-<html>
-<head>
-<?php
-$title = 'My pages';
-$this->headTitle($title);
-//print_r($debug);
-print_r($pages);
-?>
 
 
-<link href="/bootstrap/bootstrap-3.0.0/dist/css/bootstrap.css" media="screen" rel="stylesheet" type="text/css">
-
-<link href="/bootstrap/bootstrap-3.0.0/dist/css/bootstrap-theme.min.css" media="screen" rel="stylesheet" type="text/css">
-<link href="/img/favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon">
-
-<link rel="stylesheet" type="text/css" href="/css/bootstrap-fileupload.css"/>
-                <!-- Scripts -->
-<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.js"></script>
-
-<!--<script type="text/javascript" src="http://johnny.github.io/jquery-sortable/js/jquery-sortable.js"></script>-->
-<script type="text/javascript" src="/bootstrap/bootstrap-3.0.0/dist/js/bootstrap.min.js"></script>
-
-<script type="text/javascript" src="/bootstrap/bootstrap-3.0.0/js/collapse.js"></script>
-<script type="text/javascript" src="/bootstrap/bootstrap-3.0.0/js/modal.js"></script>
-<script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-<!--[if lt IE 9]><script type="text/javascript" src="/js/html5.js"></script><![endif]-->
-<link href="/bootstrap-editable/css/bootstrap3-editable.css" rel="stylesheet">
-<script type="text/javascript" src="/bootstrap-editable/js/bootstrap3-editable.js"></script>
-
-<script src="http://blueimp.github.io/jQuery-File-Upload/js/vendor/jquery.ui.widget.js"></script>
-<script src="http://blueimp.github.io/jQuery-File-Upload/js/jquery.iframe-transport.js"></script>
-<script src="http://blueimp.github.io/jQuery-File-Upload/js/jquery.fileupload.js"></script>
-<script src="/js/bootstrap-fileupload.js"></script>
-
-    	
-
-        <script type="text/javascript">
-            $('.carousel').carousel();
-            $('.carousel').carousel('pause');
-        </script>
+  	
         
 <style type="text/css">
 .input-xlg {  
@@ -71,25 +34,35 @@ print_r($pages);
 	float:right;
 	
 }
+#test{
+  background-color: #565656;
+  color: transparent;
+  text-shadow: 0px 2px 3px rgba(255,255,255,0.5);
+  -webkit-background-clip: text;
+     -moz-background-clip: text;
+          background-clip: text;
+}
+
+body.modal-open, .modal-open .navbar-fixed-top, .modal-open .navbar-fixed-bottom {
+    margin-right: 0;
+}
+
+.modal {
+    overflow-y: auto;
+}
 
 </style>
 
-</head>
-<body>
-	
-	<input class="form-control" id="focusedInput" type="text" value="This is focused...">
+<link rel="stylesheet" type="text/css" href="/css/bootstrap-fileupload.css"/>
+
+
+
+
+<br />
+
 
 	
 <div class="col-lg-12">
-<h1><?php echo $this->escapeHtml($title); ?></h1>
-<p>
-	
-	<a data-toggle="modal" href="#addPage" class="btn btn-primary btn-lg" style="position : fix; left : 20px; top :10px;"><span class="glyphicon glyphicon-plus"></span> Add new page</a>
-
-
-    
-</p>
-
 <div class="tabbable">
 <div class='span12'>
     <ul id="navigation" class="nav nav-pills">
@@ -103,7 +76,7 @@ print_r($pages);
             <?php endif; ?>
             <?php $count++; ?>
         <?php endforeach; ?>
-
+<li><a data-toggle="modal" href="#addPage" class="navbar-link"><span class="glyphicon glyphicon-plus"></span> Add new page</a></li>
     </ul>
 </div>
 <br />
@@ -120,10 +93,32 @@ print_r($pages);
                     <?php $pageCount++; ?>
                     <div class="main-content-container">
                         <div class="main-content">
-                        	<p>
-                        	<a data-toggle="modal" class="btn btn-warning" href="#config-<?php echo $page['name'];?>"><span class="glyphicon glyphicon-cog"></span> Config page</a>
-							<a class="btn btn-danger delete-page" href="#" data-pk="<?php echo $page['id'];?>"><span class="glyphicon glyphicon-trash"></span> Delete</a>
-							</p>
+                        	<nav class="navbar navbar-default" role="navigation">
+				  <div class="container-fluid">
+				    <!-- Brand and toggle get grouped for better mobile display -->
+				    <div class="navbar-header">
+				      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				      </button>
+				      <a class="navbar-brand" href="#"><?php echo $page['contents'][0]['title'];?></a>
+				    </div>
+
+				    <!-- Collect the nav links, forms, and other content for toggling -->
+				    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				      <ul class="nav navbar-nav">
+					<li><a data-toggle="modal" href="#config-<?php echo $page['name'];?>"><span class="glyphicon glyphicon-cog"></span> Config page</a></li>
+					<li><a class="delete-page" href="#" data-pk="<?php echo $page['id'];?>"><span class="glyphicon glyphicon-trash"></span> Delete</a></li>
+					<li class="<? if($page['template'] != 2) echo 'disabled'; ?>"><a class="add-carousel-btn" href="#" data-page="<?php echo $page['name'];?>"><span class="glyphicon glyphicon-plus"></span> Add a Panel</a></li>
+
+				      </ul>
+
+				    </div><!-- /.navbar-collapse -->
+				  </div><!-- /.container-fluid -->
+				</nav>
+							
                             <?php if ($page['template'] == 1) : //$page['template'] = 1 Ie single page ?>
                                 <div class="single-content row-fluid" id="<?php echo $this->escapeHtml($page['name']); ?>Content">
                                     <div class="row">
@@ -174,10 +169,9 @@ print_r($pages);
                             
                             <div class="row">
                             	<div class="col-md-6">
-                            		<button class="btn btn-succes btn-sm add-carousel-btn" data-page="<?php echo $page['name'];?>"><span class="glyphicon glyphicon-plus"></span> Add a carousel</button>
  								</div>
 								<div class="col-md-6">
-									<h2><a class="carousel-title editable editable-click" data-type="text" data-page="<?php echo $page['name'];?>" data-url="/page/update-carousel-title">
+									<h2><a class="carousel-title editable editable-click"  data-pk="" data-name="<?php echo $page['name'];?>" data-url="/page/update-carousel-title">
 										<?php if(!$carouselTitle){
 																  $carouselTitle = 'No Title yet';
 																  echo $carouselTitle;
@@ -187,7 +181,7 @@ print_r($pages);
 										</a></h2>                   
 								</div>
                             </div>
-                 *******               <div class="edit-carousel panel-group" id="<?php echo $this->escapeHtml($page['name']); ?>Carousel">
+                               <div class="edit-carousel panel-group" id="<?php echo $this->escapeHtml($page['name']); ?>Carousel">
                                        <?php/**** if($page['template'] == 2)************/ :?>
        
                                                 <?php $count = 0; ?>
@@ -210,7 +204,7 @@ print_r($pages);
                                                             <div class="panel panel-info">
                                     				<div class="panel-heading" style="position : relative; overflow:hidden;">
                                     				Label    			
-		    						<a href="#" class="edit-pencil"><span class="glyphicon glyphicon-pencil" style="position : absolute; right : 20; top :-20px;"></span></a>
+		    						<a href="#" class="edit-pencil"><span class="glyphicon glyphicon-pencil" style="position : absolute; right : 20px; top :-20px;"></span></a>
                                     				</div>
                                     				<div class="panel-body">
                                     				<div class="changeable" data-toggle="manual" data-name="label" data-type="text" data-pk="<?php echo $content['id'];?>" data-url="/page/editable">
@@ -221,12 +215,10 @@ print_r($pages);
 							   <div class="panel panel-info">
                                     				<div class="panel-heading" style="position : relative; overflow:hidden;">
                                     				Text    			
-		    						<a href="#" class="edit-pencil"><span class="glyphicon glyphicon-pencil" style="position : absolute; right : 20; top :-20px;"></span></a>
+		    						<a href="#" class="edit-pencil"><span class="glyphicon glyphicon-pencil" style="position : absolute; right : 20px; top :-20px;"></span></a>
                                     				</div>
                                     				<div class="panel-body">
-                                    				<div class="changeable" data-toggle="manual" data-name="text" data-type="textarea" data-pk="<?php echo $content['id'];?>" data-url="/page/editable">
-                                    			<?php echo $content['text']; ?>
-                                    				</div>
+                                    				<div class="content-text" data-name="text"  data-pk="<?php echo $content['id'];?>" data-url="/page/editable"><?php echo $content['text']; ?></div>
                                         			</div>
                                         		    </div>
                                                         </div>
@@ -234,7 +226,7 @@ print_r($pages);
 								<div class="panel panel-info">
                                     					<div class="panel-heading" style="position : relative; overflow:hidden;">
                                     					Image    			
-		    							<a href="#" class="edit-pencil" data-type="img"><span class="glyphicon glyphicon-pencil" style="position : absolute; right : 20; top :-20px;"></span></a>
+		    							<a href="#" class="edit-pencil" data-type="img"><span class="glyphicon glyphicon-pencil" style="position : absolute; right : 20px; top :-20px;"></span></a>
                                     					</div>
                                     					<div class="panel-body">
                                                             			<div class="col-md-12"> 				
@@ -244,8 +236,8 @@ print_r($pages);
                                        					<div class="row media-edit-buttons">  	
 														<form enctype="multipart/form-data" method="post">
 														<span class="uploader btn btn-sm btn-primary btn-file">
-													    <span class="fileupload-new">Select image <i class="glyphicon glyphicon-picture"></i></span>
-													    <span class="fileupload-exists">Change</span>
+													    <span class="fileupload-new select-image">Select image <i class="glyphicon glyphicon-picture"></i></span>
+													    <span class="fileupload-exists change-image">Change</span>
 														<input class="imageupload" name="files" type="file" />
 													    </span>
 														</form>
@@ -254,23 +246,28 @@ print_r($pages);
                                                             					
                                                             					
                                                             					
-																			  <div class="fileupload-new thumbnail" style="width: 400px; height: 350px;">
+																			  <div class="fileupload-new thumbnail" style="width: 400px; height: 350px; ">
+
+
+
 																			  	<?php if($content['media']['url'] == 'empty') : ?>
 																				<img src="http://www.placehold.it/400x350/EFEFEF/AAAAAA&text=no+image" />
-																				<?php else : ?>
+																				<?php elseif($content['media']['kind'] == 'img') : ?>
 																				<img src="<?php echo $content['media']['url']; ?>" alt="">
 																				<?php endif;?>
 																			  </div>
-																			  <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 400px; max-height: 350px; line-height: 20px;">
+																			  <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 400px; max-height: 350px;">
 																			  </div>
   
-  	
+<div class="media-youtube-exists" <?php if($content['media']['kind'] == 'youtube'){
+					echo 'data-youtube="'.$content['media']['url'].'"' ;
+					} ?>></div> 	
   																		   <button data-pk="<?php echo $content['id'];?>" class="btn btn-primary btn-sm save-image-upload fileupload-exists">
 																			<i class="glyphicon glyphicon-ok"></i>
 																		   </button>
 
  																		
- 																		   <a href="" class="btn btn-default btn-sm fileupload-exists"  data-dismiss="fileupload">
+ 																		   <a href="" class="btn btn-default btn-sm fileupload-exists reset-btn"  data-dismiss="fileupload">
     																		<i class="glyphicon glyphicon-remove"></i>
 																		   </a>
 																		   </div>
@@ -383,7 +380,7 @@ print_r($pages);
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h4 class="modal-title">Give a label new carousel content</h4>
+          <h4 class="modal-title">Give a label to the new carousel pane</h4>
         </div>
         <div class="modal-body">
         
@@ -392,7 +389,7 @@ print_r($pages);
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" id="add-carousel">Add Carousel</button>
+          <button type="button" class="btn btn-primary" id="add-carousel">Add Pane</button>
         </div>
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -455,614 +452,13 @@ print_r($pages);
 
 
 
-<script type="text/javascript">
-$(document).ready(function() {
-    $('#control-panel a:first').tab('show');
-		
-		$('#add-carousel-title').editable();
-		
-		$('.template').editable({
-		url: '/page/save',
-    	value: 1,
-    	source: [
-        		    {value: 1, text: 'Single Page'},
-        		    {value: 2, text: 'Carousel Page'},
-        		    {value: 3, text: 'Custom Page'}
-        		]
-        });
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
 
-    	$('.add-page').editable({
-		url: '/page/save' //this url will not be used for cxreating new user, it is only for update
-		});	
-		$('.changeable-page').editable({
-		url:'/page/save'
-		});
-		$('.template').editable({
-		url:'/page/save'
-		});
-   		
-   		$('#add-page').click(function() {
-    	$('.add-page').editable('submit', {
-    	url: '/page/add',
-    	ajaxOptions: {
-    	dataType: 'json' //assuming json response
-    	},
-    	success: function(data, config) {
-    	if(data && data.id) { //record created, response like {"id": 2}
-    	//set pk
-    	$(this).editable('option', 'pk', data.id);
-    	//remove unsaved class
-    	$(this).removeClass('editable-unsaved');
-    	//show messages
-    	var msg = 'New Page created! Now submit individually.';
-    	$('#msg').addClass('alert-success').removeClass('alert-error').html(msg).show();
-    	$('#add-page').hide();
-    	$(this).off('save.newuser');
-    	var page = $(this).editable('getValue');
-    	alertMsg = 'this is the name:'+page.name+' this is the title:'+page.title+' and this is the tmplate number:'+page.template;
-    	alert(alertMsg);
-    	/* 
-    	 *$('.blablabla').append()
-    	 *var newTabHTML =   'new tab button done
-    	 *					new empty tab container{
-    	 *					new config button I.E. edit and delete
-    	 *					}
-    	 *					new config container';
-    	 * 
-    	 * *** remove active class then append new tab button
-    	 * 
-    	*/
-    	
-    	if(page.template == 1){
-    	
-    	
-    	
-    	$('li.active').removeClass('active');
-    	
-    	$('#navigation').append('<li class="active"><a href="#'+page.name+'Tab" data-toggle="pill"><span>'+page.title+'</span></a></li>');
-    	$('.tab-pane.active').removeClass('active');
-    	$('.tab-content').append(
-'<div class="tab-pane active" id="'+page.name+'Tab">'+
-'<div class="main-content-container">'+
-'<div class="main-content">'+
-'contentId:'+ data.contentId +
-      '<p>'+
-		'<a data-toggle="modal" class="btn btn-warning" href="#config-'+page.name+'"><span class="glyphicon glyphicon-cog"></span> Config page</a> '+
-		'<a class="btn btn-danger delete-page" href="#" data-pk="'+data.id+'"><span class="glyphicon glyphicon-trash"></span> Delete</a>'+
-	  '</p>'+
-	'<div class="single-content row-fluid" id="'+ page.name +'Content">'+
 
-		'<div class="col-md-6">'+
-                      		'<div class="panel panel-info new">'+
-                       			'<div class="panel-heading" style="position : relative; overflow:hidden;">Title'+
-									'<a href="#" class="edit-pencil"><span class="glyphicon glyphicon-pencil" style="position: absolute; right: 20px; top: -20px;"></span></a>'+
-	               				'</div>'+
-                      			'<div class="panel-body">'+
-           							'<div class="changeable editable" data-toggle="manual" data-name="title" data-type="text" data-pk="'+data.contentId+'" data-url="/page/editable">Edit this Title</div>'+
-                                '</div>'+
-                        	'</div>'+
-                        	'<div class="panel panel-info new">'+
-                        		'<div class="panel-heading" style="position : relative; overflow:hidden;">Text'+
-         							'<a href="#" class="edit-pencil"><span class="glyphicon glyphicon-pencil" style="position: absolute; right: 20px; top: -20px;"></span></a>'+
-								'</div>'+
-                        		'<div class="panel-body">'+
-                                	'<div class="changeable editable" data-toggle="manual" data-name="text" data-type="textarea" data-pk="'+data.contentId+'" data-url="/page/editable">Edit this Text</div>'+ 
-                                '</div>'+
-   							'</div>'+
-   		'</div>'+
-	
-     	'<div class="col-md-6">'+
-                       '<div class="panel panel-info new">'+
-							'<div class="panel-heading" style="position : relative; overflow:hidden;">Image'+
- 		                   		'<span style="position: absolute; right: 20px; top: -20px;" class="glyphicon glyphicon-pencil"></span>'+
-							'</div>'+
-                            '<div class="panel-body">'+
-                                '<img class="col-md-12" src="../img/">'+
-               				'</div>'+
-         		       '</div>'+
-         		       
-               
-
-     	'</div>'+                
-	'</div>'+
-'</div>'+                           
-'</div>'+
-'</div>');
-	
-	$('#modalContainer').append(
-	'<div class="modal fade edit-page" id="config-'+page.name+'" tabindex="-1" role="dialog"  aria-hidden="true">'+
-    '<div class="modal-dialog">'+
-      '<div class="modal-content">'+
-        '<div class="modal-header">'+
-          '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>'+
-          '<h4 class="modal-title">Config page</h4>'+
-        '</div>'+
-        '<div class="modal-body">'+
-         
-'<table  class="table table-bordered table-striped">'+
-        '<tbody>'+ 
-            '<tr>'+         
-                '<td width="40%">Page Title (Title in the Tabs)</td>'+
-                '<td><a href="#" class="changeable-page editable editable-click" data-pk="'+data.id+'" data-type="text" data-name="title">'+page.title+'</a></td>'+
-            '</tr>'+
-            '<tr>'+         
-                '<td>Page Name (in one word)</td>'+
-                '<td><span style="color:grey">'+page.name+'</span></td>'+
-            '</tr>'+
-			'<tr>'+
-				'<td>Choose page Template</td>'+
-				'<td><a href="#" class="template changeable-page editable editable-click" data-pk="'+data.id+'" data-type="select" data-name="template" data-value="'+page.template+'"></a></td>'+
-			'</tr>'+
-	'</tbody>'+
-'</table>'+
-	
-        '</div>'+
-        '<div class="modal-footer">'+
-          '<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>'+
-          
-        '</div>'+
-      '</div>'+
-    '</div>'+
-  '</div>');
-	
-	$('.template').editable({
-		
-		source: [
-        		    {value: 1, text: 'Single Page'},
-        		    {value: 2, text: 'Carousel Page'},
-        		    {value: 3, text: 'Custom Page'}
-        		]
-	})
-	
-	$('.delete-page').click(function(e) {
-			var pk = $(this).data('pk');
-			var request = {};
-			request['pk'] = pk;
-			$.ajax({
-                url: "/page/delete-page",
-                dataType: 'json',
-                data: request,                         // Setting the data attribute of ajax with file_data
-                type: 'post',
-                complete: function(){window.location.reload();},
-                
-       		});
-       		
-			
-	});
-	
-	
-	
-	$(".panel-info.new").hover(function(){
-	$(".glyphicon-pencil", this).stop().animate({top:"30%"},{queue:false,duration:100});
-	}, function() {
-	$(".glyphicon-pencil", this).stop().animate({top:"-20px"},{queue:false,duration:200});
-	});
-	$('.edit-pencil').click(function(e) {
-    var target = $(this).parent().next('.panel-body');
-    	e.stopPropagation();
-        e.preventDefault();
-        target.children('.changeable').editable('toggle');
-   	});
-   }else if(page.template == 2){
-   	
-   	
-   	$('#addPage').modal('hide');
-   	$('#addPage').on('hidden.bs.modal', function(){
-		$('#carouselTitle').modal('show');
-		$('#save-add-carousel-title').click(function(){
-		$('#add-carousel-title').editable('submit', {
-    		url: '/page/update-carousel-title',
-    		ajaxOptions: {
-    		dataType: 'json', //assuming json response
-  
-    		},
-    		data: {name: page.name},    		
-    		success: function(data, config) {
-    			alert('succes!!')
-    		}
-    	});
-  });
-    $('#carouselTitle').on('hidden.bs.modal', function(){
-		window.location.reload();
-	});
-			
-	});
-    
-	
-   }else if(page.template == 3){
-   		window.location.reload();
-   }
-   	
-    	
-    	} else if(data && data.errors){
-    	//server-side validation error, response like {"errors": {"username": "username already exist"} }
-    	config.error.call(this, data.errors);
-    	}
-    },
-    	error: function(errors) {
-    	var msg = '';
-    	if(errors && errors.responseText) { //ajax error, errors = xhr object
-    	msg = errors.responseText;
-    	} else { //validation error (client-side or server-side)
-    	$.each(errors, function(k, v) { msg += k+": "+v+"<br>"; })
-		;
-    	}
-    	$('#msg').removeClass('alert-success').addClass('alert-error').html(msg).show();
-    	}
-    	}); //editable submit
-    }); // on #add-page click
-    
-	$('#addPage').on('hidden.bs.modal', function () {
-	 // clear x-editable values
-		$('.add-page').editable('setValue', null) //clear values
-			.editable('option', 'pk', null) //clear pk
-			.removeClass('editable-unsaved'); //remove bold css
-		$('#addPage').find('.template').removeClass('editable-empty').empty().editable('setValue', 1);
-		$('#add-page').show();
-		$('#msg').hide(); 
-	});
-	
-	$('.edit-page').on('hidden.bs.modal', function () {
-		window.location.reload();
-	});
-	
-	$(".media-edit-buttons").hide();
-	
-	$('.edit-pencil').click(function(e) {
-    var panel = $(this).parent().next('.panel-body');
-    var mediaEdit = panel.find('.media-edit-buttons');
-    	e.stopPropagation();
-        e.preventDefault();
-        
-        if($(this).data('type')== 'img'){
-        	
-        	mediaEdit.show();
-		
-
-        }else{
-        	panel.children('.changeable').editable('toggle');
-        }
-        
-        
-        
-        
-   	});
-   	
-   	$("body").click(function() {      		
-        	$('.media-edit-buttons').hide();      		      
-    });
-   	
-   //	$(".media-edit-buttons").focusout(function(e) {
-  	//	$(this).hide();
-	//});
-   	
-   		$(".panel-info").hover(function(){
-		$(".glyphicon-pencil", this).stop().animate({top:"30%"},{queue:false,duration:100});
-	}, function() {
-		$(".glyphicon-pencil", this).stop().animate({top:"-20px"},{queue:false,duration:200});
-	});
-		
-		$.fn.editable.defaults.mode = 'inline';
-    	
-
-    	
-    	//$('.changeable').editable();
-    	
-    	
-
-		$("ul.nav").sortable({
-			update: function(event, ui) {
-    		
-    		//var result = $(event.target).sortable("toArray", {attribute: "data-pk"});
-    		var result = $(event.target).sortable( "serialize", {attribute: "data-pk"});
-    		//var numbers = result.replace(/page_/g, '');
-    		
-     		alert(result);
-     		$.ajax({
-                url: "/page/sortable-page",
-                dataType: 'json',
-                data: result,                         // Setting the data attribute of ajax with file_data
-                type: 'post',
-       		});
-
-		}});
-		$('.delete-page').click(function(e) {
-			var pk = $(this).data('pk');
-			var request = {};
-			request['pk'] = pk;
-			$.ajax({
-                url: "/page/delete-page",
-                dataType: 'json',
-                data: request,                         // Setting the data attribute of ajax with file_data
-                type: 'post',
-                complete: function(){
-                	window.location.reload();
-                	},
-                
-       		});
-       		
-			
-		});
-		
-		$('.reload').click(function(){   
-			 window.location.reload();  //should be a dynamic remove action on jquery part
-		});
-	
-	$('#updateCarouselTitle').editable({
-		url: '/page/update-carousel-title'
-	});
-	
-	$('#addCarouselLabel').editable();
-	
-	
-	$('.add-carousel-btn').click(function(e){
-		var pageName = $(this).data('page');
-		//alert(pageName);
-		
-		//$('#addCarouselTitle').attr('data-pagename', pageName);
-
-		$('#addCarouselModal').modal('show');
-
-		$('#add-carousel').click(function(e) {
-		  	
-		  	var carousel = $('#addCarouselLabel').editable('getValue');
-			
-		/*	var request = {};
-			request['title'] = carousel;
-			request['name']	=pageName;
-			
-			
-			$.ajax({
-                url: "/page/add-carousel",
-                dataType: 'json',
-                data: request,                         // Setting the data attribute of ajax with file_data
-                type: 'post',
-                complete: function(){
-		  */	
-    		$('#addCarouselLabel').editable('submit', {
-    		url: '/page/add-carousel',
-    		ajaxOptions: {
-    		dataType: 'json', //assuming json response
-    		
-    		},
-    		data: {name: pageName},    		
-    		success: function(data, config) {
-    		if(data && data.id) { //record created, response like {"id": 2, }
-    		
-    		alert(data.id);
-    		
-    	//set pk
-    		$(this).editable('option', 'pk', data.id);
-    	//remove unsaved class
-    		$(this).removeClass('editable-unsaved');
-    	//show messages
-    	//var msg = 'New Page created! Now submit individually.';
-    	//$('#msg').addClass('alert-success').removeClass('alert-error').html(msg).show();
-    		//$('#add-carousel').hide();
-    	
-	    	//var carousel = $(this).editable('getValue');
-			//var pageName = $(this).data('name');
-		
-			var panelGroup = pageName+'Carousel'; 
-		
-			$('#' + panelGroup).append('  <div class="panel panel-default" data-pk="'+data.id+'">'+
-							'<div class="panel-heading">'+
-                              	   '<h4 class="panel-title">'+
-									'<a class="accordion-toggle" data-toggle="collapse" data-parent="#'+pageName+'Carousel" href="#carousel-edit-'+data.id+'">'+
-										carousel.label+
-									'</a>'+
-							   '</h4>'+
-    							'</div>'+
-						    '<div id="carousel-edit-'+data.id+'" class="panel-collapse collapse">'+
-      							'<div class="panel-body">'+
-							'<div class="col-md-6">'+
-                                                            '<div class="panel panel-info">'+
-                                    				'<div class="panel-heading" style="position : relative; overflow:hidden;">'+
-                                    				'Label'+    			
-		    						'<a href="#" class="edit-pencil"><span class="glyphicon glyphicon-pencil" style="position : absolute; right : 20; top :-20px;"></span></a>'+
-                                    				'</div>'+
-                                    				'<div class="panel-body">'+
-                                    				'<div class="changeable" data-toggle="manual" data-name="label" data-type="text" data-pk="'+data.id+'" data-url="/page/editable">'+
-                                    				'</div>'+
-                                        			'</div>'+
-                                        		   '</div>'+
-							   '<div class="panel panel-info">'+
-                                    				'<div class="panel-heading" style="position : relative; overflow:hidden;">'+
-                                    				'Text'+    			
-		    						'<a href="#" class="edit-pencil"><span class="glyphicon glyphicon-pencil" style="position : absolute; right : 20; top :-20px;"></span></a>'+
-                                    				'</div>'+
-                                    				'<div class="panel-body">'+
-                                    				'<div class="changeable" data-toggle="manual" data-name="text" data-type="textarea" data-pk="'+data.id+'" data-url="/page/editable">'+
-                                    				'</div>'+
-                                        			'</div>'+
-                                        		    '</div>'+
-                                                        '</div>'+
-                                                        '<div class="col-md-6">'+
-								'<div class="panel panel-info">'+
-                                    					'<div class="panel-heading" style="position : relative; overflow:hidden;">'+
-                                    					'Image'+    			
-		    							'<a href="#" class="edit-pencil"><span class="glyphicon glyphicon-pencil" style="position : absolute; right : 20; top :-20px;"></span></a>'+
-                                    					'</div>'+
-                                    					'<div class="panel-body">'+
-                                                            			'<div class="thumbnail">'+	
-                                                            			'<img src="http://www.placehold.it/400x350/EFEFEF/AAAAAA&text=no+image" alt="">'+
-								   		'</div>'+
-									'</div>'+	
-								'</div>'+
-						    	'</div>'+
-                                                        
-                                                        
-        					     	'</div>'+
-						'</div>'+
-					'</div>');
-			}//end of if(data && ...)
-		}// end of succes
-		
-		}); //end of editable submit
-		 
-		/*
-		$.ajax({
-                url: "/page/add-content",
-                dataType: 'json',
-                data: request,                         // Setting the data attribute of ajax with file_data
-                type: 'post',
-                complete: function(){
-					*/	
-				
-		
-				
-	
-                
-       		}); // on click
-       		
-    $('#addCarouselModal').on('hidden.bs.modal', function () {
-	 // clear x-editable values
-		$('#addCarouselLabel').editable('setValue', 'Blank Label') //clear values
-			.editable('option', 'pk', null); //clear pk
-			
-		});
-
-	});
-	
-	$('.carousel-title').editable();
-	
-	
-
-	$('.deletable-button').click(function(e){
-	var pk = $(this).parent().parent().parent().data('pk');
-	
-		
-			var request = {};
-			request['pk'] = pk;
-			$.ajax({
-                url: "/page/delete-content",
-                dataType: 'json',
-                data: request,                         // Setting the data attribute of ajax with file_data
-                type: 'post',
-                complete: function(){window.location.reload();},
-                
-       		});
-       			
-	});
-	
-	
-	
-	//Media embed
-	
-	function ytVidId(url) {
-  var p = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
-  return (url.match(p)) ? RegExp.$1 : false;
-}
-
-$('.save-image-upload').click(function(e){
-	var pk = $(this).data('pk');
-	
-    var file_data = $(this).parent().find(".imageupload").prop("files")[0];//$(".imageupload").prop("files")[0];   // Getting the properties of file from file field
-    var form_data = new FormData();                  // Creating object of FormData class
-    form_data.append("file", file_data);              // Appending parameter named file with properties of file_field to form_data
-    form_data.append("pk", pk);                 // Adding extra parameters to form_data
-    $.ajax({
-                url: "/page/stage-example",
-                dataType: 'json',
-                cache: false,
-                contentType: false,
-                processData: false,
-                data: form_data,                         // Setting the data attribute of ajax with file_data
-                type: 'post'
-       });
-
-	$(".imageupload").empty();
+                <!-- Scripts -->
 
 
 
-});
-
-$('.embed-media').click(function (e){
-
-	
-	var pk = $(this).data('pk');
-	
-	$('#embedMedia').on('show.bs.modal', function () {
-
-	$('#check-url').click(function(){
-	
-	var video = 0;
-	
-	var url = $('#embed-input').val();
-		
-	var video = ytVidId(url);
-	
-	
-
-	$('.preview-youtube-player-container-no-video').remove();
-	
-	$('.preview-youtube-player-container').tubeplayer('destroy');
-	
-	$('.preview-youtube-player-container').tubeplayer({
-	allowFullScreen: "true", // true by default, allow user to go full screen
-	initialVideo: video,
-	});
-	
-	});
-
-		$('#update-embed').click(function(){
-			var embed_update = $('#embed-input').val();
-			var video = ytVidId(embed_update);
-			var data = {};
-			data['url'] = video;
-			data['pk'] = pk;
-			data['kind'] = 'youtube';
-			$.ajax({
-				url: "/page/embed-media",
-                dataType: 'json',
-                data: data,                         // Setting the data attribute of ajax with file_data
-                type: 'post',
-                complete: function(data, config){
-                	
-
-               		
-              
-                },
-			});
-		});
-	});
-});
-
-$(".youtube-player-container").load(function(e) {
-// Handler for .load() called.
-
-var url = $(this).data('url');
-
-/*if(){
-$(this).tubeplayer({
-	width: 600, // the width of the player
-	height: 450, // the height of the player
-	allowFullScreen: "true", // true by default, allow user to go full screen
-	initialVideo: "Yj6nqPeGaoE", // the video that is loaded into the player
-	preferredQuality: "default",// preferred quality: default, small, medium, large, hd720
-	onPlay: function(id){}, // after the play method is called
-	onPause: function(){}, // after the pause method is called
-	onStop: function(){}, // after the player is stopped
-	onSeek: function(time){}, // after the video has been seeked to a defined point
-	onMute: function(){}, // after the player is muted
-	onUnMute: function(){} // after the player is unmuted
-});
-}else if()
-{
-	
-}
-*/
-});
-
-	
-	
-	
-
-})
-</script>
-
-
-</body>
-
-</html>
 

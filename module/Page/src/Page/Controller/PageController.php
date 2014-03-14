@@ -418,12 +418,14 @@ class PageController extends AbstractActionController
 		$request = $this->getRequest();
 
         if ($request->isPost()) {
-            $carouselTitle->page = $request->getPost('name');
-			$carouselTitle->title = $request->getPost('title');
-			$this->getPageContentTable()->updateCarouselTitle($carouselTitle);
+	        $carouselTitle->page = $request->getPost('name');
+		$carouselTitle->title = $request->getPost('title');
+		
+	$this->getPageContentTable()->updateCarouselTitle($carouselTitle);
 			
         }
-		$viewModel = new ViewModel(array('response' => $carouselTitle));
+
+	$viewModel = new ViewModel(array('response' => $carouselTitle));
     	$viewModel->setTerminal(true);
         return $viewModel;
 	}
@@ -599,7 +601,7 @@ class PageController extends AbstractActionController
 
 	$response = array('img' => $media->url);
 
-	$viewModel = new ViewModel(array('response' => json_encode($response)));
+	$viewModel = new ViewModel(array('response' => $response));
     	$viewModel->setTerminal(true);
         return $viewModel;
 		

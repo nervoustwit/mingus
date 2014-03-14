@@ -39,27 +39,26 @@
 <div class="container">
 
 <div class="fileupload fileupload-new" data-provides="fileupload">
-  <div class="fileupload-new thumbnail" style="width: 400px; height: 350px;">
+  <div class="fileupload-new thumbnail" style="max-width: 400px; max-height: 350px;">
 	<img src="http://www.placehold.it/400x350/EFEFEF/AAAAAA&text=no+image" />
   </div>
-  <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 400px; max-height: 350px; line-height: 20px;">
+  <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 400px; max-height: 350px; display: none;">
   </div>
   <div class="media-youtube-exists"></div>
-
 <div>
   	
   	<a href="#" class="btn btn-primary btn-sm save-image-upload fileupload-exists">
 		<i class="glyphicon glyphicon-ok"></i>
 	</a>
 
-    <a href="#" class="btn btn-default btn-sm fileupload-exists" data-dismiss="fileupload">
+    <a href="#" class="btn btn-default btn-sm fileupload-exists reset-btn" data-dismiss="fileupload">
     	<i class="glyphicon glyphicon-remove"></i>
     </a>
   <div class="row">  	
 <form class="image-form" enctype="multipart/form-data" method="post">
    <span class="uploader btn btn-sm btn-primary btn-file">
-    <span class="fileupload-new">Select image <i class="glyphicon glyphicon-picture"></i></span>
-    <span class="fileupload-exists">Change</span>
+    <span class="fileupload-new select-image">Select image <i class="glyphicon glyphicon-picture"></i></span>
+    <span class="fileupload-exists change-image">Change</span>
 <input id="imageupload" name="files" type="file" />
    </span>
 </form>
@@ -149,17 +148,62 @@ function ytVidId(url) {
   return (url.match(p)) ? RegExp.$1 : false;
 }
 
-$("#imageupload").on('change.bs.fileinput', function () {
-	
-$(".media-youtube-exists").hide();
-$('.fileupload-preview.fileupload-exists.thumbnail').show();
-	
-	
+
+
+$(".fileupload").on('change.bs.fileinput', function () {
+
+if ($('div.media-youtube-exists iframe').length > 0) {
+    alert('youtube frame exists');
+
+$('.media-youtube-exists').tubeplayer('destroy');
+//$('div.fileupload-new.thumbnail').empty();
+$('div.fileupload-new.thumbnail').html('<img src="http://www.placehold.it/400x350/EFEFEF/AAAAAA&text=no+image"> ').hide();
+
+//$('#imageupload').hide();
+$('.change-image').show();
+
+//$('.change-image').show();
+$('.select-image').hide();
+
+$('.reset-btn').show();
+$('.save-image-upload').show();
+
+
+$('.fileupload-preview.fileupload-exists').show();
+
+}else if ($('#imageupload').val()){
+alert('has file');
+
+$('.change-image').show();
+$('.select-image').hide();
+
+$('.reset-btn').show();
+$('.save-image-upload').show();
+
+$('.fileupload-new.thumbnail').hide();
+$('.fileupload-preview.fileupload-exists').show();
+}else if($('.fileupload-new.thumbnail').val()){
+
+alert('show thumbnail');
+
+}else{
+
+alert('reset');
+$('.change-image').hide();
+$('.select-image').show();
+
+$('.reset-btn').hide();
+$('.save-image-upload').hide();
+
+//$('.change-image').hide();
+$('.fileupload-new.thumbnail').show();
+$('.fileupload-preview.fileupload-exists').hide();
+}
+
+
 });
 
 
-
-//$('.media-youtube-exists').hide();
 
 $('.save-image-upload').click(function(){
 
@@ -168,27 +212,36 @@ $('.save-image-upload').click(function(){
     var form_data = new FormData();                  // Creating object of FormData class
     form_data.append("file", file_data)              // Appending parameter named file with properties of file_field to form_data
     form_data.append("pk", 5)                 // Adding extra parameters to form_data
-    $.ajax({
-                url: "http://site.jj/page/stage-example",
+    $.ajax({ 
+               url: "http://site.jj/page/stage-example",
                 dataType: 'json',
                 cache: false,
                 contentType: false,
                 processData: false,
                 data: form_data,                         // Setting the data attribute of ajax with file_data
                 type: 'post',
-		complete: function(data){
+		success: function(data, config){
 
+
+
+	if(data && data.img) 
 		
-		//var imgName = imgName.replace("./public", "");
+		{
+		var newImage = '<img src="'+data.img+'" / >';
+		
+		$('.fileupload-new.thumbnail').html(newImage);
+		$('.reset-btn').hide();
+		$('.save-image-upload').hide();
+		$('.fileupload-preview.fileupload-exists.thumbnail').hide();
 
+		$('.fileupload-new.thumbnail').show();
+		$('.media-youtube-exists').empty();
+		$('.fileupload-preview.fileupload-exists.thumbnail').empty();
 
-//		imgName = imgName.val().replace('./public');
-
-
-		//var newImage = '<img src="'+data['img']+'" / >';
-		//alert(newImage);
-		//$('.fileupload-new.thumbnail').html(newImage);
-
+		$('.change-image').hide();
+		$('.select-image').show();
+		
+		}
 		}
        });
 
@@ -196,7 +249,6 @@ $('.save-image-upload').click(function(){
 
 
 });
-
 
 
 $('.embed-media').click(function (e){
@@ -224,6 +276,8 @@ $('.preview-youtube-player-container').tubeplayer({allowFullScreen: "true",initi
 	});
 
 		$('#update-embed').click(function(){
+
+	$("#update-embed").unbind('click');
 			var embed_update = $('#embed-input').val();
 			var video = ytVidId(embed_update);
 			var data = {};
@@ -238,25 +292,26 @@ $('.preview-youtube-player-container').tubeplayer({allowFullScreen: "true",initi
                 complete: function(){
                 	
 			//$(".fileinput").fileinput('reset');
-
+			//$('#imageupload').empty();
                 	$('.fileupload-new.thumbnail').hide();
                 	$('.fileupload-preview.fileupload-exists.thumbnail').hide();
-			$('.media-youtube-exists').show();
-
+			$('.fileupload-new.thumbnail').empty();
+			$('#imageupload').empty();
 
 			
                 	$('.media-youtube-exists').tubeplayer('destroy');                	
 			$('.media-youtube-exists').tubeplayer({allowFullScreen: "true",initialVideo: video});
 
+			$('.media-youtube-exists').show();
 
-			//var updatePlayer = '<img width="560" height="315" src="http://img.youtube.com/vi/'+video+'/0.jpg"/ >'; 	
 
-			//$('.media-youtube-exists').html(updatePlayer).show();
-               		//$('.media-youtube-exists').tubeplayer({allowFullScreen: "true",initialVideo: video});
-               		//$('.media-youtube-exists').tubeplayer({play:video});
+			$('.change-image').hide();
+			$('.select-image').show();
+			
+
               
                 },
-			//});
+			
 
 			});
 		});
