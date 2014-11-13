@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 nbproject
 ._*
 .~lock.*
@@ -9,11 +9,9 @@ nbproject
 .settings
 composer.lock
 vendor/bin
-=======
+vendor/BjyAuthorize
 INSTALL.txt
 LICENSE.txt
 README.txt
 demos/
 extras/documentation
-
->>>>>>> 1ba6d1a666204df27989b46866b1fbf9c90c45a3
