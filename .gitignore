@@ -11,7 +11,10 @@ composer.lock
 vendor/bin
 vendor/BjyAuthorize
 <<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1d86af36c1f01e01d7264a8da494cf653a300fdc
 =======
 >>>>>>> 1d86af36c1f01e01d7264a8da494cf653a300fdc
 INSTALL.txt
@@ -20,7 +23,10 @@ README.txt
 demos/
 extras/documentation
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 1d86af36c1f01e01d7264a8da494cf653a300fdc
 =======
 >>>>>>> 1d86af36c1f01e01d7264a8da494cf653a300fdc
