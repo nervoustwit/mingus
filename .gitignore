@@ -10,11 +10,17 @@ nbproject
 composer.lock
 vendor/bin
 vendor/BjyAuthorize
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1d86af36c1f01e01d7264a8da494cf653a300fdc
 INSTALL.txt
 LICENSE.txt
 README.txt
 demos/
 extras/documentation
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 1d86af36c1f01e01d7264a8da494cf653a300fdc
