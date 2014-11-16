@@ -10,6 +10,8 @@ nbproject
 composer.lock
 vendor/bin
 vendor/BjyAuthorize
+vendor/ZfcUser
+vendor/ZfcBase
 
 INSTALL.txt
 LICENSE.txt
