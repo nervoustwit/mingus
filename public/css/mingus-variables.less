@@ -1,0 +1,68 @@
+@white: #fff;
+
+
+@font-family-sans-serif: 'Avenir LT W02 65 Medium', "Helvetica Neue", Helvetica, Arial, sans-serif;
+@baseLineHeight: 26px;
+@baseFontHeight: 16px; 
+@menuFontFamily: "Avenir LT W02 65 Medium", Helvetica, Arial, sans-serif;
+@headingsFontFamily: "Avenir LT W02 65 Medium", Helvetica, Arial, sans-serif;
+
+@mingusLightGrey: #E5EBEF;
+
+@mingusOrange: #FF4500;
+@mingusDarkOrange: darken(@mingusOrange, 7%);
+@mingusLighterOrange: lighten(@mingusOrange, 30%);
+@mingusLightOrange: darken(@mingusOrange, 85%);
+
+
+@mingusBlue: #25A7AF;
+@mingusDarkBlue: darken(@mingusBlue, 7%);
+@mingusLighterBlue: lighten(@mingusBlue, 50%);
+@mingusLightBlue: darken(@mingusBlue, 85%);
+
+@font-face{
+    font-family:"Avenir LT W02 65 Medium";
+    src:url("/fonts/Avenir65Med.eot?#iefix");
+    src:url("/fonts/Avenir65Med.eot?#iefix") format("eot"),url("/fonts/Avenir65Med.woff") format("woff"),url("/fonts/Avenir65Med.ttf") format("truetype"),url("/fonts/Avenir65Med.svg#3cece34e-2cfb-4b8f-8a9c-04ec56d1e672") format("svg");
+}
+@font-face{
+    font-family:"Avenir LT W02 95 Black";
+    src:url("/fonts/Avenir95Black.eot?#iefix");
+    src:url("/fonts/Avenir95Black.eot?#iefix") format("eot"),url("/fonts/Avenir95Black.woff") format("woff"),url("/fonts/Avenir95Black.ttf") format("truetype"),url("/fonts/Avenir95Black.svg#1cda1791-25c1-48d3-9056-3b04b763b592") format("svg");
+}
+
+@font-face{
+    font-family:"Baskerville W02 Regular 743762";
+    src:url("/fonts/BaskervilleRegular.eot?#iefix");
+    src:url("/fonts/BaskervilleRegular.eot?#iefix") format("eot"),url("/fonts/BaskervilleRegular.woff") format("woff"),url("/fonts/BaskervilleRegular.ttf") format("truetype"),url("/fonts/BaskervilleRegular.svg#32916b5a-0670-4834-b7bc-a3b0e0b48e80") format("svg");
+}
+
+.body {
+    padding-top: 0;
+    padding-bottom:0;
+    background-color: @mingusBlue;
+}
+
+.content-wrapper {
+    padding-top: 10px;
+    background-color: @mingusLightGrey; 
+}
+
+.brand {
+   background: url("../img/logo.png") no-repeat scroll 0 0 transparent;
+   min-height: 93px;
+   display: block;
+   padding: 0;
+   text-decoration: none;
+}
+
+.main-content-container {
+    margin: 0 auto;
+    border-color: @white;
+    border-width: 0;
+    border-style:solid;
+    border-radius: 4px;
+    background-color: @white;
+    color: @mingusBlue;
+    .clearfix;
+}
