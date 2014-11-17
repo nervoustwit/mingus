@@ -12,6 +12,7 @@ vendor/bin
 vendor/BjyAuthorize
 vendor/ZfcUser
 vendor/ZfcBase
+vendor/zf-commons
 
 INSTALL.txt
 LICENSE.txt
