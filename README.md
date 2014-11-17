@@ -1,12 +1,10 @@
 
-ZendSkeletonApplication
+Mingus
 =======================
 
 Introduction
 ------------
-This is a simple, skeleton application using the ZF2 MVC layer and module
-systems. This application is meant to be used as a starting place for those
-looking to get their feet wet with ZF2.
+This is a simple content management system built on ZF2 that requires a minimum knowledge of programming.
 
 
 Installation
@@ -52,4 +50,3 @@ Virtual Host
 Afterwards, set up a virtual host to point to the public/ directory of the
 project and you should be ready to go!
 
->>>>>> 1ba6d1a666204df27989b46866b1fbf9c90c45a3
