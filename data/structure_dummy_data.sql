@@ -17,33 +17,8 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `medicusc_zend`
+-- Database: `db.local`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `album`
---
-
-CREATE TABLE IF NOT EXISTS `album` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `artist` varchar(100) NOT NULL,
-  `title` varchar(100) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
-
---
--- Dumping data for table `album`
---
-
-INSERT INTO `album` (`id`, `artist`, `title`) VALUES
-(1, 'The  Military  Wive', 'In  My  Dreams'),
-(2, 'Adele', '21'),
-(3, 'Bruce  Springsteen', 'Wrecking Ball (Deluxe)'),
-(5, 'patrick kelly', 'rock them all'),
-(6, 'caca', 'caca'),
-(7, 'moi', 'caca');
 
 -- --------------------------------------------------------
 
