@@ -13,6 +13,7 @@ vendor/BjyAuthorize
 vendor/ZfcUser
 vendor/ZfcBase
 vendor/zf-commons
+vendor/twitter
 
 INSTALL.txt
 LICENSE.txt
