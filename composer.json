@@ -12,7 +12,6 @@
         "zendframework/zendframework": ">2.2.0rc1",
         "zf-commons/zfc-base": "0.*",
         "zf-commons/zfc-user": "1.2.1",
-        "bjyoungblood/bjy-authorize" : "1.4.*",
-        "twitter/bootstrap": "3.3.*@dev"
+        "bjyoungblood/bjy-authorize" : "1.4.*"
     }
 }

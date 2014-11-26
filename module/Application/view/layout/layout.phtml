@@ -10,19 +10,19 @@
         <!-- Le styles -->
        
         <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
-                        ->prependStylesheet($this->basePath() . '/css/bootstrap-responsive.min.css')
+                        ->prependStylesheet($this->basePath() . '/bower_components/bootstrap/dist/css/bootstrap.min.css')
                         ->prependStylesheet($this->basePath() . '/css/mingus.css')
                         ?>
 
                 <!-- Scripts -->
                 
         <?php echo $this->headScript()->prependFile($this->basePath() . '/js/html5.js', 'text/javascript', array('conditional' => 'lt IE 9',))
-                                        ->prependFile($this->basePath() . '/js/bootstrap-3.1.1/bootstrap.min.js')
                                         ->prependFile($this->basePath() . '/js/layout-adjustments.js')
-                                        ->prependFile($this->basePath() . '/js/jquery.min.js')
-                                        ->appendFile($this->basePath() . '/js/jQuery.tubeplayer.js')
-                                        ->appendFile($this->basePath() . '/js/functions.js')
-                                        ->appendFile($this->basePath() . '/js/keepstate.js');?>
+                                        ->prependFile($this->basePath() . '/js/jQuery.tubeplayer.js')
+                                        ->prependFile($this->basePath() . '/js/functions.js')
+                                        ->prependFile($this->basePath() . '/js/keepstate.js')
+                                        ->prependFile($this->basePath() . '/bower_components/bootstrap/dist/js/bootstrap.min.js')
+                                        ->prependFile($this->basePath() . '/bower_components/jquery/dist/jquery.min.js');?>
 
     </head>
     <body>
